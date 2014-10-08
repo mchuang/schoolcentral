@@ -3,7 +3,26 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :lockable, :timeoutable
+         :lockable, :timeoutable
+
   # Belongs to Teachers/Students/Admins (as account)
   belongs_to :account, :polymorphic => true
+
+  # Virtual attribute to login with either email or identifier
+  attr_accessor :login
+
+  # Overwrite default validation
+  def email_required?
+    false
+  end
+
+  # Overwrite to allow find_by identifier OR email in the same field
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["identifier = :value OR lower(email) = lower(:value)", { :value => login }]).first
+    else
+      where(conditions).first
+    end
+  end
 end
