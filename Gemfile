@@ -44,3 +44,6 @@ group :development, :test do
     gem 'rspec-rails'
     gem 'factory_girl_rails'
 end
+
+# Use Devise for user authentication and management
+gem 'devise'
