@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :lockable, :timeoutable
+         :lockable, :timeoutable, :stretches => 12
 
   # Belongs to Teachers/Students/Admins (as account)
   belongs_to :account, :polymorphic => true
