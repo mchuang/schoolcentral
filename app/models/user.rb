@@ -11,8 +11,12 @@ class User < ActiveRecord::Base
   # Virtual attribute to login with either email or identifier
   attr_accessor :login
 
-  # Overwrite default validation
+  # Overwrite default validations
   def email_required?
+    false
+  end
+
+  def email_changed?
     false
   end
 
