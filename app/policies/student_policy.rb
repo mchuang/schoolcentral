@@ -15,8 +15,12 @@ class StudentPolicy < ApplicationPolicy
     			scope.all
     		#if type is 'teacher' scope of student.where(:classrooms => @user.account.classrooms)
     		when 'Teacher'
-         # scope = Student.includes(:classrooms)
-    		  scope.all
+          #scope = scope.includes(:classrooms)
+          t = Teacher.where({id: user.account_id})
+          c = t.classrooms
+          s = c.students
+    		  scope.where(s)
+          #p scope.all
     		when 'Student'
     			scope.where({id: user.account_id})
     	end

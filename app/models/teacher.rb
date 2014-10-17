@@ -8,7 +8,6 @@ class Teacher < ActiveRecord::Base
 	def students()
 		s=[]
 		self.classrooms.each do |c|
-			print( c.students )
 			s<<c.students
 		end
 		s.flatten!
