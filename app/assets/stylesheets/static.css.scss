@@ -1,3 +1,21 @@
 // Place all the styles related to the static controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.background {
+	background-size: cover;
+	background-position-y: 72%;
+	height: 750px;
+}
+
+.spaced {
+	margin-bottom: 20%;
+}
+
+.jumbotron {
+	color: black;
+}
+
+.navbar-right {
+	margin-right: 0px;
+}
