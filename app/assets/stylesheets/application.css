@@ -13,11 +13,31 @@
  *= require bootstrap.min
  *= require_tree .
  *= require_self
+
+ * @author voe
+
  */
+
+
+hr {
+	margin: 0px;
+	border-top: 1px solid #FF6600;
+	border-bottom: 1px solid #FF6600;
+}
+
+.background {
+	background-color: #FFCC80;
+	padding-top: 52px;
+}
+
+.navbar-default .navbar-nav > li > a {
+	font-size: 12pt;
+	color: #EEE;
+}
 
 /* override the default color and padding from bootstrap */
 .navbar-default {
-    background-color: #FF8800;
+    background-color: #FF6600;
     border-color: #FFB280;
     padding-left: 30px;
     padding-right: 30px;
