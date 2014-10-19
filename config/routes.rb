@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   get 'static/home'
 
+  get 'dashboard/index'
+
   devise_for :users, 
     :path => '',
     :path_names => {
