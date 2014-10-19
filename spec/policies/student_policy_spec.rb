@@ -29,8 +29,6 @@ describe StudentPolicy do
   c0 = Classroom.create(:teachers => [t0], :students => [s0])
   c1 = Classroom.create(:teachers=>[t1], :students => [s1])    
       
-
-
 #First test
   describe "Admin Scope on Student" do
     it {expect(StudentPolicy::Scope.new(a0.user,Student).resolve).to eq(Student.all)}

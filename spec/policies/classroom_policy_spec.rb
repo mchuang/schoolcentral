@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'rails_helper'
 
 describe ClassroomPolicy do
   Admin.delete_all
@@ -34,11 +35,11 @@ describe ClassroomPolicy do
     it {expect(ClassroomPolicy::Scope.new(a0.user,Classroom).resolve).to eq(Classroom.all)}
   end
 #Second test
-  # describe "Teacher Scope on Classroom" do
-  #   it {expect(ClassroomPolicy::Scope.new(t0.user,Classroom).resolve).to eq(Classroom.where({:id c0.id}))}
-  # end
-# Third test
-  # describe "Student Scope on Classroom" do 
-  #   it {expect(ClassroomPolicy::Scope.new(s0.user,Classroom).resolve).to eq(Classroom.where({:id c0.id}))}
-  # end
+  describe "Teacher Scope on Classroom" do
+    it {expect(ClassroomPolicy::Scope.new(t0.user,Classroom).resolve).to eq(Classroom.where({id: t0.user.account.classrooms.map(&:id)}))}
+  end
+#Third test
+  describe "Student Scope on Classroom" do 
+    it {expect(ClassroomPolicy::Scope.new(s0.user,Classroom).resolve).to eq(Classroom.where({id: s0.user.account.classrooms.map(&:id)}))}
+  end
 end  
