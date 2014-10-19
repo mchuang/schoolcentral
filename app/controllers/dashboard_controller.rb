@@ -1,3 +1,5 @@
+# voe
+
 class DashboardController < ApplicationController
 
 	def index
