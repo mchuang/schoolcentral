@@ -10,4 +10,6 @@ class Student < ActiveRecord::Base
  	def teachers
 		classrooms.map {|cls| cls.teachers}.flatten.uniq
 	end
+
+	
 end
