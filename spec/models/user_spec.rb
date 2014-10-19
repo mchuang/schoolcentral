@@ -47,4 +47,26 @@ RSpec.describe User, :type => :model do
     user = FactoryGirl.create(:user)
     expect(user.encrypted_password).to start_with("$2a$#{User.stretches}$")
   end
+
+  it "can create a user with an admin account associated" do
+    account = User.create_account('Admin', {:password=>'password',:password_confirmation=>'password',:identifier=>'admintest'})
+    expect(account.user.account_type).to eq('Admin')
+    expect(account.user.identifier).to eq('admintest')
+    expect(account).to eq(account.user.account)
+  end
+  
+  it "can create a user with a teacher account associated" do
+    account = User.create_account('Teacher', {:password=>'password',:password_confirmation=>'password',:identifier=>'teachertest'})
+    expect(account.user.account_type).to eq('Teacher')
+    expect(account.user.identifier).to eq('teachertest')
+    expect(account).to eq(account.user.account)
+  end
+
+  it "can create a user with a student account associated" do
+    account = User.create_account('Student', {:password=>'password',:password_confirmation=>'password',:identifier=>'studenttest'})
+    expect(account.user.account_type).to eq('Student')
+    expect(account.user.identifier).to eq('studenttest')
+    expect(account).to eq(account.user.account)
+  end
+
 end
