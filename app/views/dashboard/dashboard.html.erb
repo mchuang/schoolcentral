@@ -1,0 +1,25 @@
+
+<!-- @author voe -->
+
+<div class="container-fluid background">
+  	
+    <div class="col-sm-2 menu_left">
+	    <div class="profile_display">
+	    	<h2>Welcome USER</h2>
+	    </div>
+
+	    <div class="classlist">
+	    	<hr>
+	    	<div class="row classlist_item active">
+	    		<h3>dashboard</h3>
+	    	</div>
+	    	<% @classrooms.each do |t, a| %>
+	    		<div class="row classlist_item">
+					<h3><%= t.name %></h3>
+				</div>
+				<hr>
+	    	<%end%>
+		</div>
+
+	</div>
+</div>

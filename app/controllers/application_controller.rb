@@ -4,9 +4,15 @@ class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+
   after_action :verify_policy_scoped, :only => :index
   after_action :verify_authorized, :except => :index
-  protected
+
+  def after_sign_in_path_for(resource)
+    dashboard_index_path
+  end
+
+
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|
