@@ -1,0 +1,34 @@
+
+<span class="pull-right">
+  <button class="btn btn-sm" onclick="toggleModal('newPasswordModal')">
+    Resend confirmation instructions
+  </button>
+</span>
+<div class="modal" id="newPasswordModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title center">Resend confirmation instructions</h2>
+      </div>
+      <div class="modal-body">
+        <h4 class="center">"Resend confirmation instructions"</h4>
+        <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div>
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true %>
+          </div>
+
+          <div>
+            <%= f.submit "Resend confirmation instructions" %>
+          </div>
+          
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="toggleModal('newPasswordModal')">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
