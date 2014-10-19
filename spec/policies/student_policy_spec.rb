@@ -38,8 +38,9 @@ describe StudentPolicy do
       c1 = Classroom.create(:teachers => [t0], :students => [s0])   
       c0.teachers = []
       
-     
-      it {expect(StudentPolicy::Scope.new(t0.user,Student).resolve).to eq(c1.students)}
+      it {expect(StudentPolicy::Scope.new(t0.user,Student).resolve).to(
+        eq(c1.students)
+      )}
     end
 # Third test
      describe "Student Scope on Student" do
