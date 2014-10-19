@@ -29,4 +29,24 @@ class User < ActiveRecord::Base
       where(conditions).first
     end
   end
+
+  # Create User and associated account object
+  def self.create_account(account_type, params)
+    user = User.create(params)
+    case account_type.downcase
+      when 'admin'
+        account = Admin.create()
+      when 'teacher'
+        account = Teacher.create()
+      when 'student'
+        account = Student.create()
+      else
+        raise ArgumentError, "#{account_type} is not a valid user type"
+    end
+    account.user = user
+    user.account = account
+    account.save
+    user.save
+    account
+  end
 end
