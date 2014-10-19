@@ -10,7 +10,19 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require bootstrap.min
  *= require_tree .
  *= require_self
- *= require bootstrap.min
  */
+
+/* override the default color and padding from bootstrap */
+.navbar-default {
+    background-color: #FF8800;
+    border-color: #FFB280;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.modal {
+	margin-top: 4%;
+}
