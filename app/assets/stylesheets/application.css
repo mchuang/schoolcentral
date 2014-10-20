@@ -28,6 +28,7 @@ hr {
 .background {
 	background-color: #FFCC80;
 	padding-top: 52px;
+	height: 100vh;
 }
 
 .navbar-default .navbar-nav > li > a {
