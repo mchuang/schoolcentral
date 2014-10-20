@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     dashboard_index_path
   end
 
-  protected
+
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|

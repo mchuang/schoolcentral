@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  belongs_to :school
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -28,5 +30,25 @@ class User < ActiveRecord::Base
     else
       where(conditions).first
     end
+  end
+
+  # Create User and associated account object
+  def self.create_account(account_type, params)
+    case account_type.downcase
+      when 'admin'
+        account = Admin.create()
+      when 'teacher'
+        account = Teacher.create()
+      when 'student'
+        account = Student.create()
+      else
+        raise ArgumentError, "#{account_type} is not a valid user type"
+    end
+    user = User.create(params)
+    account.user = user
+    user.account = account
+    account.save
+    user.save
+    account
   end
 end

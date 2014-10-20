@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014223131) do
+ActiveRecord::Schema.define(version: 20141019233914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20141014223131) do
     t.integer  "student_capacity"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "school_id"
   end
 
   create_table "classrooms_students", id: false, force: true do |t|
@@ -49,6 +50,12 @@ ActiveRecord::Schema.define(version: 20141014223131) do
   create_table "classrooms_teachers", id: false, force: true do |t|
     t.integer "teacher_id",   null: false
     t.integer "classroom_id", null: false
+  end
+
+  create_table "schools", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "students", force: true do |t|
@@ -92,6 +99,7 @@ ActiveRecord::Schema.define(version: 20141014223131) do
     t.datetime "updated_at"
     t.integer  "account_id"
     t.string   "account_type"
+    t.integer  "school_id"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
