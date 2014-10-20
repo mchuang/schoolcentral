@@ -3,15 +3,15 @@ class SchoolPolicy < ApplicationPolicy
     def resolve
       type = user.account_type
       case type
-        # Admins can see everything
+        # Admins can see their own school
         when 'Admin'
-          scope.all
-        # Teachers can see only their own classes
-        # when 'Teacher'
-        #   scope.where({id: user.account.classrooms.map(&:id)})
-        # # Students can see only their own classes
-        # when 'Student'
-        #   scope.where({id: user.account.classrooms.map(&:id)})
+          scope.where({id:user.school(&:id)})
+        # Teachers can see their own school
+        when 'Teacher'
+          scope.where({id:user.school(&:id)})
+        # Students can see their own school
+        when 'Student'
+          scope.where({id:user.school(&:id)})
       end
     end
   end

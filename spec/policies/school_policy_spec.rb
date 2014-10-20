@@ -7,6 +7,10 @@ describe SchoolPolicy do
   Student.delete_all
   User.delete_all
   Classroom.delete_all
+  School.delete_all
+
+  #create school
+  school1 = School.create
 
   #create admin
   ua = User.create
@@ -29,17 +33,23 @@ describe SchoolPolicy do
   c0 = Classroom.create(:teachers => [t0], :students => [s0])
   c1 = Classroom.create(:teachers=>[t1], :students => [s1])
 
+  school1.users << a0
+  school1.users << t0
+  school1.users << s0
+  school1.users << s1
+  school1.classrooms << c1
+
 
 #First test
-  describe "Admin Scope on Classroom" do
-    it {expect(ClassroomPolicy::Scope.new(a0.user,Classroom).resolve).to eq(Classroom.all)}
+  describe 'Admin Scope on School' do
+    it {expect(ClassroomPolicy::Scope.new(a0.user,School).resolve).to eq(a0.school)}
   end
 #Second test
-  describe "Teacher Scope on Classroom" do
-    it {expect(ClassroomPolicy::Scope.new(t0.user,Classroom).resolve).to eq(Classroom.where({id: t0.user.account.classrooms.map(&:id)}))}
+  describe 'Teacher Scope on School' do
+    it {expect(ClassroomPolicy::Scope.new(t0.user,Classroom).resolve).to eq(t0.school)}
   end
 #Third test
-  describe "Student Scope on Classroom" do
-    it {expect(ClassroomPolicy::Scope.new(s0.user,Classroom).resolve).to eq(Classroom.where({id: s0.user.account.classrooms.map(&:id)}))}
+  describe 'Student Scope on School' do
+    it {expect(ClassroomPolicy::Scope.new(s0.user,Classroom).resolve).to eq(s0.school)}
   end
 end
