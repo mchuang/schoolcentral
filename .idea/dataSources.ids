@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source source="LOCAL" name="Rails schoolcentral: development" uuid="8994fb11-ae33-433c-8d6b-818f79883c0d">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails schoolcentral: test" uuid="0f7605cc-f884-4cae-ac34-a45c7794eaae">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails schoolcentral: production" uuid="e0f0c018-b211-4793-b7f7-9cbbafedb79f">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>
