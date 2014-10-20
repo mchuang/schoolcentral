@@ -4,7 +4,13 @@
 
 .user-info {
 	width:700px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-width:1px;
+	border-bottom-width:1px;
 }
+
+
 
 .panel-group .panel+.panel {
 	margin-top: 0px;	
@@ -30,3 +36,12 @@
 .panel-element {
 	height: 20px;
 }
+
+.first-panel-row {
+	border-top-style: none;
+}
+
+.no-padding-panel {
+	margin-bottom:0px;
+}
+
