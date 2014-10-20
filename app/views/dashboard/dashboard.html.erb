@@ -13,11 +13,17 @@
 	    	<div class="row classlist_item active">
 	    		<h3>dashboard</h3>
 	    	</div>
+	    	<hr>
+
 	    	<% @classrooms.each do |t, a| %>
-	    		<div class="row classlist_item">
-					<h3><%= t.name %></h3>
-				</div>
+
+				<%= link_to t do %>
+					<div class="row classlist_item">
+						<h3><%= t.name %></h3>
+					</div>
+				<% end %>
 				<hr>
+
 	    	<%end%>
 		</div>
 
