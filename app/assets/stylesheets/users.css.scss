@@ -1,3 +1,32 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.user-info {
+	width:700px;
+}
+
+.panel-group .panel+.panel {
+	margin-top: 0px;	
+}
+
+.user-info .panel-heading{
+	border-top-style: solid;
+	border-top-color: lightgrey;
+	border-top-width: 1px;
+}
+
+.user-info a{
+	float:right;
+}
+
+.col-sm-3 {
+	padding-left:0px;
+}
+.col-sm-8 {
+	padding-left:0px;
+}
+
+.panel-element {
+	height: 20px;
+}
