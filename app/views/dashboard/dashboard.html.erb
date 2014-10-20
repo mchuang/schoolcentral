@@ -5,7 +5,11 @@
   	
     <div class="col-sm-2 menu_left">
 	    <div class="profile_display">
-	    	<h2>Welcome USER</h2>
+	    	<div class="profile-panel">
+				<a href="#user/show" class="thumbnail">
+			      <img src="http://simpleicon.com/wp-content/uploads/user1-150x150.png">
+			    </a>
+		    </div>
 	    </div>
 
 	    <div class="classlist">
@@ -13,11 +17,17 @@
 	    	<div class="row classlist_item active">
 	    		<h3>dashboard</h3>
 	    	</div>
+	    	<hr>
+
 	    	<% @classrooms.each do |t, a| %>
-	    		<div class="row classlist_item">
-					<h3><%= t.name %></h3>
-				</div>
+
+				<%= link_to t do %>
+					<div class="row classlist_item">
+						<h3><%= t.name %></h3>
+					</div>
+				<% end %>
 				<hr>
+
 	    	<%end%>
 		</div>
 
