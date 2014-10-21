@@ -2,46 +2,39 @@ require 'spec_helper'
 require 'rails_helper'
 
 describe StudentPolicy do
-  Admin.delete_all
-  Teacher.delete_all
-  Student.delete_all
-  User.delete_all
-  Classroom.delete_all
 
-  #create admin
-  ua = User.create
-  ua.account_type='admin'
-  a0 = Admin.create(:user=>ua)
+  before(:each) do
+    # Factory_girl definitions found in spec/factories
+    # *name*_user factories create a User AND associated account, and
+    # return the newly created User instance
+    @admin0   = FactoryGirl.create(:admin_user,   identifier: "admin0")
+    @teacher0 = FactoryGirl.create(:teacher_user, identifier: "teacher0")
+    @teacher1 = FactoryGirl.create(:teacher_user, identifier: "teacher1")
+    @student0 = FactoryGirl.create(:student_user, identifier: "student0")
+    @student1 = FactoryGirl.create(:student_user, identifier: "student1")
+    @class0   = FactoryGirl.create(:classroom,    name: "class0")
+    @class1   = FactoryGirl.create(:classroom,    name: "class1")
 
-  #create teacher
-  ut = User.create
-  ut.account_type='teacher'
-  t0 = Teacher.create(:user=>ut)
-  t1 = Teacher.create(:user=>User.create)    
-
-  #create students
-  us = User.create
-  us.account_type='student'
-  s0 = Student.create(:user=>us)
-  s1 = Student.create(:user=>User.create)    
-
-  #create classrooms
-  c0 = Classroom.create(:teachers => [t0], :students => [s0])
-  c1 = Classroom.create(:teachers=>[t1], :students => [s1])    
-      
-#First test
-  describe "Admin Scope on Student" do
-    it {expect(StudentPolicy::Scope.new(a0.user,Student).resolve).to eq(Student.all)}
+    @class0.teachers << @teacher0.account
+    @class0.students << @student0.account
+    @class1.teachers << @teacher1.account
+    @class1.students << @student0.account
   end
-#Second test
-  describe "Teacher Scope on Student" do     
-    it {expect(StudentPolicy::Scope.new(t0.user,Student).resolve).to(eq(c0.students))}
+
+# First test
+  it "Admin scope on Student" do
+    expect(StudentPolicy::Scope.new(@admin0, Student).resolve).to eq(Student.all)
+  end
+# Second test
+  it "Teacher scope on Student" do
+    expect(StudentPolicy::Scope.new(@teacher0, Student).resolve).to eq(@class0.students)
   end
 # Third test
-  describe "Student Scope on Student" do
-    it {expect(StudentPolicy::Scope.new(s0.user,Student).resolve).to eq(Student.where({id: s0.id}))}
+  it "Student scope on Student" do
+    expect(StudentPolicy::Scope.new(@student0, Student).resolve).to eq(Student.where({id: @student0.account_id}))
   end
 end
+
   # permissions :create? do
   #   pending "add some examples to (or delete) #{__FILE__}"
   # end
