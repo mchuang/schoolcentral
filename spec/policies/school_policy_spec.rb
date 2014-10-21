@@ -33,23 +33,22 @@ describe SchoolPolicy do
   c0 = Classroom.create(:teachers => [t0], :students => [s0])
   c1 = Classroom.create(:teachers=>[t1], :students => [s1])
 
-  school1.users << a0
-  school1.users << t0
-  school1.users << s0
-  school1.users << s1
+  school1.users << ua
+  school1.users << ut
+  school1.users << us
   school1.classrooms << c1
 
 
 #First test
   describe 'Admin Scope on School' do
-    it {expect(ClassroomPolicy::Scope.new(a0.user,School).resolve).to eq(a0.school)}
+    it {expect(SchoolPolicy::Scope.new(a0.user,School).resolve).to eq(School.all)}
   end
 #Second test
   describe 'Teacher Scope on School' do
-    it {expect(ClassroomPolicy::Scope.new(t0.user,Classroom).resolve).to eq(t0.school)}
+    it {expect(SchoolPolicy::Scope.new(t0.user,School).resolve).to eq(School.all)}
   end
 #Third test
   describe 'Student Scope on School' do
-    it {expect(ClassroomPolicy::Scope.new(s0.user,Classroom).resolve).to eq(s0.school)}
+    it {expect(SchoolPolicy::Scope.new(s0.user,School).resolve).to eq(School.all)}
   end
 end
