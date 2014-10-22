@@ -6,6 +6,9 @@ class Attendance < ActiveRecord::Base
     @@TARDY   = 1
     @@ABSENT  = 2
 
+
+    # Perhaps add excused or unexcused tag
+
     # Create multiple attendance objects to represent a meeting
     # of the given classroom on the given date. absent and tardy
     # should be arrays of student ids in the class. Attendance
