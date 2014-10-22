@@ -2,7 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.background {
+.jumbotron {
+	color: black;
+}
+
+.jumbotron.background {
 	background-size: cover;
 	background-position-y: 72%;
 	height: 750px;
@@ -12,9 +16,7 @@
 	margin-bottom: 20%;
 }
 
-.jumbotron {
-	color: black;
-}
+
 
 .navbar-right {
 	margin-right: 0px;

@@ -4,38 +4,37 @@
 
 // @author voe
 
-.classlist_item {
+$primary-color: #FF7519;
+$secondary-color: #FFF;
+$text-color: #444;
+
+.classlist-item {
 	position: relative;
 	margin-top: -2px;
 	margin-bottom: -2px;
 	text-align: center;
 }
 
-.classlist_item:hover {
-	background-color: #FF6600;
+.classlist-item:hover {
+	background-color: $primary-color;
+	border-radius: 10px 0px 0px 10px;
 }
 
-.classlist_item h3 {
+.classlist-item h3 {
 	position: relative;
 	bottom: 4px;
-	color: #444;
+	color: $text-color;
 }
 
-.classlist_item.active {
-	background-color: #FF6600;
+.classlist-item.active {
+	background-color: $primary-color;
+	border-radius: 10px 0px 0px 10px;
 }
 
-.menu_left {
-	position: fixed;
+.menu-left {
+	position: relative;
 	height: 100%;
 	border-right: solid;
-	border-color: #FF6600;
-}
-
-.classlist_button {
-	position: absolute;
-	font: bold 14px Arial;
-  	color: #333333;
-  	height: 100%;
-  	width: 100%;
+	border-width: 4px;
+	border-color: $primary-color;
 }
