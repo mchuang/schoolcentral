@@ -18,30 +18,31 @@
 
  */
 
-
 hr {
 	margin: 0px;
-	border-top: 1px solid #FF6600;
-	border-bottom: 1px solid #FF6600;
+	border-top: 1px solid #FF7519;
+	border-bottom: 1px solid #FF7519;
 }
 
 .background {
-	background-color: #FFCC80;
+	position: relative;
 	padding-top: 52px;
 	height: 100vh;
+	background-color: #FFF;
 }
 
 .navbar-default .navbar-nav > li > a {
 	font-size: 12pt;
-	color: #EEE;
+	color: #FFF;
 }
 
 /* override the default color and padding from bootstrap */
 .navbar-default {
-    background-color: #FF6600;
-    border-color: #FFB280;
+    background-color: #FF7519;
+    border-color: #EEE;
     padding-left: 30px;
     padding-right: 30px;
+    margin-bottom: 0px;
 }
 
 .modal {

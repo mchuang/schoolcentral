@@ -1,5 +1,5 @@
-<div class="col-sm-2 menu_left">
-    <div class="profile_display">
+<div class="col-sm-2 menu-left">
+    <div class="profile-display">
     	<div class="profile-panel">
 			<a href="#user/show" class="thumbnail">
 		      <img src="http://simpleicon.com/wp-content/uploads/user1-150x150.png">
@@ -11,12 +11,12 @@
     	<hr>
 
     	<% if @classroom.nil? %>
-    		<div class="row classlist_item active">
+    		<div class="row classlist-item active">
     			<h3>dashboard</h3>
     		</div>
     	<% else %>
     		<%= link_to dashboard_index_path do %>
-				<div class="row classlist_item">
+				<div class="row classlist-item">
     				<h3>dashboard</h3>
     			</div>
 			<% end %>
@@ -27,12 +27,12 @@
     	<% @classrooms.each do |t, a| %>
 
     		<% if @classroom and @classroom.name == t.name %>
-    			<div class="row classlist_item active">
+    			<div class="row classlist-item active">
     				<h3><%= t.name %></h3>
     			</div>
     		<% else %>
 				<%= link_to t do %>
-					<div class="row classlist_item">
+					<div class="row classlist-item">
 						<h3><%= t.name %></h3>
 					</div>
 				<% end %>

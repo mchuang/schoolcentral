@@ -1,6 +1,44 @@
 
 <div class="container-fluid background">
 	
-  	<%= render "layouts/side_menu" %>
+	<%= render "layouts/side_menu" %>
+
+	<div class="col-sm-offset-2 class-content">
+
+		<div class="row sub-tab-menu">
+
+			<div class="col-sm-3 class-label">
+				<h1><%= @classroom.name %></h1>
+			</div>
+
+			<div id="students-tab" class="col-sm-2 sub-tab active">
+				<h4>students</h4>
+			</div>
+			<div id="assignments-tab" class="col-sm-2 sub-tab" onclick="toggleTab('assignments')">
+				<h4>assignments</h4>
+			</div>
+			<div id="attendance-tab" class="col-sm-2 sub-tab" onclick="toggleTab('attendance')">
+				<h4>attendance</h4>
+			</div>
+			<div id="grades-tab" class="col-sm-2 sub-tab" onclick="toggleTab('grades')">
+				<h4>grades</h4>
+			</div>
+		</div>
+		<div class="class_content">
+			<div id="students-content" style="display: block;">
+				<h2>Students</h2>
+			</div>
+			<div id="assignments-content" style="display: none;">
+				<h2>Assignments</h2>
+			</div>
+			<div id="attendance-content" style="display: none;">
+				<h2>Attendance</h2>
+			</div>
+			<div id="grades-content" style="display: none;">
+				<h2>Grades</h2>
+			</div>
+		</div>
+
+	</div>
 
 </div>
