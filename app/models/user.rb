@@ -1,17 +1,31 @@
 class User < ActiveRecord::Base
-  belongs_to :school
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :lockable, :timeoutable, :stretches => 12
 
+  belongs_to :school
+
   # Belongs to Teachers/Students/Admins (as account)
   belongs_to :account, :polymorphic => true
 
+  validates :identifier, presence: { unless: :email_present? }
+  validates :email,      presence: { unless: :identifier_present? }
+
+  validates :identifier, uniqueness: { allow_blank: true, allow_nil: true }
+  validates :email,      uniqueness: { allow_blank: true, allow_nil: true }
+
   # Virtual attribute to login with either email or identifier
   attr_accessor :login
+
+  def identifier_present?
+    !(identifier.nil? || identifier.blank?)
+  end
+
+  def email_present?
+    !(email.nil? || email.blank?)
+  end
 
   # Overwrite default validations
   def email_required?

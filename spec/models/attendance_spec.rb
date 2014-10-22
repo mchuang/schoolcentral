@@ -74,4 +74,13 @@ RSpec.describe Attendance, :type => :model do
         expect(atd.date.strftime("%F")).to eq(date)
     }
   end
+
+  it "attendance invalid status" do
+    expect {
+      FactoryGirl.create(:attendance, :status => -1)
+    }.to raise_error(ActiveRecord::RecordInvalid)
+    expect {
+      FactoryGirl.create(:attendance, :status => 3)
+    }.to raise_error(ActiveRecord::RecordInvalid)
+  end
 end

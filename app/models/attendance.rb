@@ -2,6 +2,8 @@ class Attendance < ActiveRecord::Base
     belongs_to :student
     belongs_to :classroom
 
+    validates_inclusion_of :status, in: 0..2
+
     @@PRESENT = 0
     @@TARDY   = 1
     @@ABSENT  = 2
