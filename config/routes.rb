@@ -4,6 +4,11 @@ Rails.application.routes.draw do
 
   get 'dashboard/index'
 
+  post 'users/update_address'
+  post 'users/update_email'
+  post 'users/update_password'
+  post 'users/update_phone'
+
   devise_for :users, 
     :path => '',
     :path_names => {
