@@ -17,7 +17,7 @@
 
 			  <div class="panel first-panel-row">
 			    <div class="panel-heading">
-			      <h4 class="panel-title panel-element">
+			      <h4 class="panel-title panel-height">
 			      	<div class="col-sm-3">
 				        Identifier
 				    </div>
@@ -30,7 +30,7 @@
 
 			  <div class="panel">
 			    <div class="panel-heading">
-			      <h4 class="panel-title panel-element">
+			      <h4 class="panel-title panel-height">
 			        <div class="col-sm-3">
 				        ID
 				    </div>
@@ -43,12 +43,12 @@
 
 			  <div class="panel">
 			    <div class="panel-heading">
-			      <h4 class="panel-title panel-element">
+			      <h4 class="panel-title panel-height">
 			        <div class="col-sm-3">
 				        Password
 				    </div>
 				    <div class="col-sm-8">
-				        Last updated on <%= @user.updated_at %>
+				        **************
 				    </div>
 		        	<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
 		        		Edit
@@ -58,13 +58,17 @@
 			    <div id="collapseThree" class="panel-collapse collapse">
 			      <div class="panel-body">
 			        <%= render "users/partials/edit_password" %>
+					<button class="btn-danger btn" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+				  		Cancel
+				  	</button>
+			       
 			      </div>
 			    </div>
 			  </div>
 
 			  <div class="panel">
 			    <div class="panel-heading">
-			      <h4 class="panel-title panel-element">
+			      <h4 class="panel-title panel-height">
 			        <div class="col-sm-3">
 				        Email
 				    </div>
@@ -78,14 +82,17 @@
 			    </div>
 			    <div id="collapseFour" class="panel-collapse collapse">
 			      <div class="panel-body">
-			        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+			        <%= render "users/partials/edit_email" %>
+			        <button class="btn-danger btn" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+				  		Cancel
+				  	</button>
 			      </div>
 			    </div>
 			  </div>
 
 			  <div class="panel">
 			    <div class="panel-heading">
-			      <h4 class="panel-title panel-element">
+			      <h4 class="panel-title panel-height">
 			        <div class="col-sm-3">
 				        Mobile Phone
 				    </div>
@@ -99,14 +106,17 @@
 			    </div>
 			    <div id="collapseFive" class="panel-collapse collapse">
 			      <div class="panel-body">
-			        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+			        <%= render "users/partials/edit_phone" %>
+			        <button class="btn-danger btn" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+				  		Cancel
+				  	</button>
 			      </div>
 			    </div>
 			  </div>
 
 			  <div class="panel">
 			    <div class="panel-heading">
-			      <h4 class="panel-title panel-element">
+			      <h4 class="panel-title panel-height">
 			        <div class="col-sm-3">
 				        Address
 				    </div>
@@ -120,18 +130,16 @@
 			    </div>
 			    <div id="collapseSix" class="panel-collapse collapse">
 			      <div class="panel-body">
-			        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+			        <%= render "users/partials/edit_address" %>
+			        <button class="btn-danger btn" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+				  		Cancel
+				  	</button>
 			      </div>
 			    </div>
 			  </div>
 
 			<!-- End of accordian -->
 			</div>
-
-		
 		</div>
-
 	</div>
-
-	
 </div>

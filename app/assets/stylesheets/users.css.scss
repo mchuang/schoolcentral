@@ -8,13 +8,14 @@
 	border-bottom-style: solid;
 	border-top-width:1px;
 	border-bottom-width:1px;
+	border-top-color: grey;
+	border-bottom-color: grey;
 }
-
-
 
 .panel-group .panel+.panel {
 	margin-top: 0px;	
 }
+
 
 .user-info .panel-heading{
 	border-top-style: solid;
@@ -28,12 +29,14 @@
 
 .col-sm-3 {
 	padding-left:0px;
+	padding-right:0px;
 }
+
 .col-sm-8 {
 	padding-left:0px;
 }
 
-.panel-element {
+.panel-height {
 	height: 20px;
 }
 
@@ -45,3 +48,59 @@
 	margin-bottom:0px;
 }
 
+.spacing {
+	display:block;
+	padding-bottom:20px;
+}
+
+#edit-password-form hr {
+	border-top-color:grey;
+	border-bottom:none;
+	width:80%;
+	margin-left:10%;
+}
+#edit-email-form hr {
+	border-top-color:grey;
+	border-bottom:none;
+	width:80%;
+	margin-left:10%;
+}
+#edit-phone-form hr {
+	border-top-color:grey;
+	border-bottom:none;
+	width:80%;
+	margin-left:10%;
+}
+#edit-address-form hr {
+	border-top-color:grey;
+	border-bottom:none;
+	width:80%;
+	margin-left:10%;
+}
+
+.edit-input-fields {
+	margin-left:25%;
+}
+
+#save-cancel-password {
+	float:left;
+	margin-left:60%;
+	margin-right:2%;
+}
+
+#save-cancel-email {
+	float:left;
+	margin-left:60%;
+	margin-right:2%;
+}
+
+#save-cancel-phone {
+	float:left;
+	margin-left:60%;
+	margin-right:2%;
+}
+#save-cancel-address {
+	float:left;
+	margin-left:60%;
+	margin-right:2%;
+}

@@ -1,26 +1,9 @@
-<span class="pull-right">
-  <button class="btn btn-sm btn-link" onclick="toggleModal('changePasswordModal')">
-    <h3>Edit Password</h3>
-  </button>
-</span>
-<div class="modal" id="changePasswordModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title center">Edit Password</h2>
-      </div>
-      <div class="modal-body">
-      
-
-
-
-
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" onclick="toggleModal('changePasswordModal')">Close</button>
-      </div>
-    </div>
+<%= form_tag "/users/update_phone", :id => "edit-phone-form" do -%>
+  <div class="edit-input-fields">
+    <span class="spacing"><div class="col-sm-3">New Phone:</div> <%= text_field_tag 'user[phone_mobile]', nil %></span>
   </div>
-</div>
+
+  <hr class="spacing">
+
+  <%= submit_tag "Save Changes", :class => 'btn-primary btn', :id => 'save-cancel-phone' %>
+<% end -%>
