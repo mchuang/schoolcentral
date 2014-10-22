@@ -43,19 +43,19 @@ describe SchoolPolicy do
 
 #First test
   describe 'Admin Scope on School' do
-    it {expect(SchoolPolicy::Scope.new(a0.user,School).resolve).to eq(School.all)}
+    it {expect(SchoolPolicy::Scope.new(a0.user,School).resolve).not_to eq(School.all)}
   end
 #Second test
   describe 'Teacher Scope on School' do
-    it {expect(SchoolPolicy::Scope.new(t0.user,School).resolve).to eq(School.all)}
+    it {expect(SchoolPolicy::Scope.new(t0.user,School).resolve).not_to eq(School.all)}
   end
 #Third test
   describe 'Student Scope on School' do
-    it {expect(SchoolPolicy::Scope.new(s0.user,School).resolve).to eq(School.all)}
+    it {expect(SchoolPolicy::Scope.new(s0.user,School).resolve).not_to eq(School.all)}
   end
-  
+
 #Fourth test
-    describe 'Student Scope on School 2' do
+    describe 'Admin Scope on School 2' do
     it {
       expect(SchoolPolicy::Scope.new(a0.user,School).resolve).to(
         match_array(School.where(id: a0.user.school_id))
