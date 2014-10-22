@@ -5,7 +5,7 @@ FactoryGirl.define do
     student_id 1
     classroom_id 1
     date "2014-10-14"
-    status 1
+    status 0
   end
 
   factory :present_attendance, parent: :attendance do

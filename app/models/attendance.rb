@@ -6,18 +6,17 @@ class Attendance < ActiveRecord::Base
     @@TARDY   = 1
     @@ABSENT  = 2
 
-
     # Perhaps add excused or unexcused tag
 
     # Create multiple attendance objects to represent a meeting
-    # of the given classroom on the given date. absent and tardy
-    # should be arrays of student ids in the class. Attendance
-    # status defaults to present for all others
-    def self.add_class(classroom, date, absent=[], tardy=[])
+    # of the given classroom on the given date. options[:absent]
+    # and options[:tardy] should be arrays of student ids in the
+    # class. Attendance status defaults to present for all others
+    def self.add_class(classroom, date, options={})
         classroom.students.each {|std|
-            if absent.include? std.id
+            if options.fetch(:absent, []).include? std.id
                 status = @@ABSENT
-            elsif tardy.include? std.id
+            elsif options.fetch(:tardy, []).include? std.id
                 status = @@TARDY
             else
                 status = @@PRESENT
@@ -29,6 +28,22 @@ class Attendance < ActiveRecord::Base
                 :status => status
             )
         }
+    end
+
+    # Returns all attendance objects for the given class with dates
+    # between start_date and end_date (both inclusive)
+    def self.get_date_range(classroom, start_d, end_d)
+        classroom.attendance.where('date BETWEEN ? AND ?', start_d, end_d)
+    end
+
+    # Return attendance for the week of date (Monday - Sunday)
+    def self.get_week(classroom, date)
+        get_date_range(classroom, date.beginning_of_week, date.end_of_week)
+    end
+
+    # Return attendance for the month of date
+    def self.get_month(classroom, date)
+        get_date_range(classroom, date.beginning_of_month, date.end_of_month)
     end
 
     def get_status
