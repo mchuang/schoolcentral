@@ -12,7 +12,9 @@
 		<!-- Alert message gives user edits confirmation -->
 		<% unless flash.nil? %>
 			<% flash.each do |name, msg| %>
-				<div class="alert alert-<%=name%>" role="alert"> <%= msg %> </div>
+				<% if msg != 'Signed in successfully.'%>
+					<div class="alert alert-<%=name%>" role="alert"> <%= msg %> </div>
+				<% end %>
 			<% end %>
 		<% end %>
 
