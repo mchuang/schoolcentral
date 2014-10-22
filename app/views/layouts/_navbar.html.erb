@@ -1,11 +1,12 @@
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div>
-    <div class="navbar-header">
-      <%= link_to image_tag("sc_logo_white.png", height: 50), root_path %>
-    </div>
-
+    
     <% if user_signed_in? %>
-      
+
+      <div class="navbar-header">
+        <%= link_to image_tag("sc_logo_white.png", height: 50), dashboard_index_path %>
+      </div>
+
       <ul class="nav navbar-nav navbar-right">
         <li>
           <%= link_to "log out", destroy_user_session_path %>
@@ -13,6 +14,9 @@
       </ul>
 
     <% else %>
+      <div class="navbar-header">
+        <%= link_to image_tag("sc_logo_white.png", height: 50), root_path %>
+      </div>
 
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
