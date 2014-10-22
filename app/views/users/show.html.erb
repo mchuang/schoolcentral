@@ -9,6 +9,14 @@
 		<div class="user-portrait">
 		</div>
 
+		<!-- Alert message gives user edits confirmation -->
+		<% unless flash.nil? %>
+			<% flash.each do |name, msg| %>
+				<div class="alert alert-<%=name%>" role="alert"> <%= msg %> </div>
+			<% end %>
+		<% end %>
+
+
 		<!-- Div containing all the user's information in the form of an accordian -->
 		<div class="user-info">
 
