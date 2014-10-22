@@ -88,4 +88,17 @@ RSpec.describe User, :type => :model do
     expect(account).to eq(account.user.account)
   end
 
+  it "can create user with random password" do
+    account, pass = User.create_account_random_pass('Student', {:identifier => 'studenttest'})
+    # Magic length defined in User.create_account_random_pass
+    expect(pass.length).to eq(10)
+    expect(account.user.valid?).to eq(true)
+    expect(account.user.valid_password?(pass)).to eq(true)
+  end
+
+  it "random password is correct length" do
+    (1..10).each {|i|
+      expect(User.random_password(i).length).to eq(i)
+    }
+  end
 end

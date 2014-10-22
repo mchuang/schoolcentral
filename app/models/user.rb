@@ -65,4 +65,22 @@ class User < ActiveRecord::Base
     user.save
     account
   end
+
+  # Create User and associated account with a random password. The
+  # generated password is returned along with the account.
+  #
+  # IF THE PASSWORD IS LOST AFTER THIS CALL IT CANNOT BE RECOVERED
+  def self.create_account_random_pass(account_type, params)
+    pass = random_password(10)
+    params[:password] = params[:password_confirmation] = pass
+    return create_account(account_type, params), pass
+  end
+
+  private
+
+  # Generates a random string of printable characters with given length
+  def self.random_password(len)
+    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?@#$%&*'
+    (0...len).map { alphabet[SecureRandom.random_number(alphabet.length)] }.join
+  end
 end
