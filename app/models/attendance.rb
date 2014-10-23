@@ -32,6 +32,18 @@ class Attendance < ActiveRecord::Base
         }
     end
 
+    def self.get_date_range_for_student(student, start_d, end_d)
+        student.attendance.where('date BETWEEN ? AND ?', start_d, end_d)
+    end
+
+    def self.get_week_for_student(student, date)
+        get_date_range_for_student(student, date.beginning_of_week, date.end_of_week)
+    end
+
+    def self.get_week_array(date)
+        (Date.current.beginning_of_week..Date.current.end_of_week).to_a
+    end
+
     # Returns all attendance objects for the given class with dates
     # between start_date and end_date (both inclusive)
     def self.get_date_range(classroom, start_d, end_d)
