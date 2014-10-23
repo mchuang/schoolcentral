@@ -1,0 +1,28 @@
+<div class="col-sm-2 menu-left">
+    <div class="profile-display">
+        <div class="profile-panel">
+            <a href="/users/show">
+              <img class="thumbnail user-image" src="http://simpleicon.com/wp-content/uploads/user1-150x150.png">
+              <h4></h4>
+            </a>
+        </div>
+    </div>
+
+    <div class="adminlist">
+        <%= link_to dashboard_admin_dashboard_path(infoType: "Classrooms") do %>
+            <div class="row classlist-item">
+                <h3>Classrooms</h3>
+            </div>
+        <% end %>
+        <%= link_to dashboard_admin_dashboard_path(infoType: "Teachers") do %>
+            <div class="row classlist-item">
+                <h3>Teachers</h3>
+            </div>
+        <% end %>
+        <%= link_to dashboard_admin_dashboard_path(infoType: "Students") do %>
+            <div class="row classlist-item">
+                <h3>Students</h3>
+            </div>
+        <% end %>
+    </div>
+</div>

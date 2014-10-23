@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'static/home'
 
   get 'dashboard/index'
+  get 'dashboard/admin_dashboard'
+  get 'dashboard/new'
 
   post 'users/update_address'
   post 'users/update_email'

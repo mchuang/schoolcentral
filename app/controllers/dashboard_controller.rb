@@ -12,16 +12,22 @@ class DashboardController < ApplicationController
 		@infoType = params[:infoType]
 		case params[:infoType]
 			when "Students"
-				@info = Students.all
+				@info = Student.all
 			when "Teachers"
-				@info = Teachers.all
+				@info = Teacher.all
 			when "Classrooms"
-				@info = Clasrooms.all
+				@info = Classroom.all
 		end
 		render 'admin_dashboard'
+	end
 
 	def admin_dashboard_classroom
-		@students = Students.all
-		@teachers = Teachers.all
+		@students = Student.all
+		@teachers = Teacher.all
+	end
+
+	def new
+		render 'admin_dashboard_new'
+	end
 
 end
