@@ -1,6 +1,65 @@
-<div class="btn-group-vertical">
-	<button type="button" class="btn btn-default">Classrooms</button>
-	<button type="button" class="btn btn-default">Teachers</button>
-	<button type="button" class="btn btn-default">Students</button>
-	<button type="button" class="btn btn-default">CourseInfo</button>
+<div class="background">
+
+<div class="container-fluid background">
+	<div class="col-sm-2 menu_left">
+		<div class="profile_display">
+			<h2>admin</h2>
+		</div>
+		<div class="optionlist">
+			<!--
+			<button type="button" class="btn btn-default">Classrooms</button>
+			<button type="button" class="btn btn-default">Teachers</button>
+			<button type="button" class="btn btn-default">Students</button>
+			<button type="button" class="btn btn-default">CourseInfo</button>
+			-->
+			<%= link_to 'Classrooms', admin_dashboard_path(infoType: "Classrooms")%>
+			<%= link_to 'Teachers', admin_dashboard_path(infoType: "Teachers")%>
+			<%= link_to 'Students', admin_dashboard_path(infoType: "Students")%>
+		</div>
+	</div>
 </div>
+
+<div class="container-fluid background">
+	<div align="center">
+		<!-- Search not that simple
+		<form>
+			<input type="submit" value="Search">
+			<input id="query" name="query" type="text">
+			<br>
+		</form>
+		-->
+	    <% if @infoType == "classroom" %>
+	    	<table id="tableData" class="table table-hover">
+	    		<% @info.each do |row| %>
+				    <tr>
+				  		<td><%= info.name %></td>
+			      		<td><%= info.time %></td>
+			      		<td><%= info.location %></td>
+				  	</tr>
+			  	<% end %>
+			</table>
+	  	<% elsif @infoType == "students" or @infoType == "teachers" %>
+	  		<table id="tableData" class="table table-hover">
+		    	<% @info.each do |row| %>
+			  		<tr>
+			      		<td><%= info.firstname %></td>
+			      		<td><%= info.middlename %></td>
+			      		<td><%= info.lastname %></td>
+			      		<td><%= info.user_id %></td>
+			  		</tr>
+			  	<% end %>
+			</table>
+		<% else %>
+			<!--Calendar code should be in here-->
+	  	<% end %>
+	</div>
+</div>
+
+<%= javascript_include_tag '../jquery.autoSuggest.js' %>
+  window.infoURL = "<%= j info_url%>"
+  var info = <%= @info %>
+  $(function(){
+      $("input[type=text]").autoSuggest(info, {selectedObjProp: "firstname, middlename, lastname", selectedItemProp: "firstname");
+  });
+<% end %>
+
