@@ -2,8 +2,24 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+//Variables for css
+$general-user-info-size: 1000px;
+$panel-border-top-color: grey;
+$panel-border-bottom: none;
+$panel-width: 80%;
+$panel-form-spacing: 10%;
+$save-canel-btn-left-margin: 69%;
+$core-info-left-margin: 11%;
+
+
+// Styling for alert messages
+.user-msg-styling {
+	width: $general-user-info-size;
+	text-align: center;
+}
+
 .user-info {
-	width:700px;
+	width: $general-user-info-size;
 	border-top-style: solid;
 	border-bottom-style: solid;
 	border-top-width:1px;
@@ -12,95 +28,112 @@
 	border-bottom-color: grey;
 }
 
+.core-user-info {
+	margin-left:$core-info-left-margin;
+}
+
 .panel-group .panel+.panel {
 	margin-top: 0px;	
 }
-
-
 .user-info .panel-heading{
 	border-top-style: solid;
 	border-top-color: lightgrey;
 	border-top-width: 1px;
 }
-
 .user-info a{
 	float:right;
 }
-
 .col-sm-3 {
 	padding-left:0px;
 	padding-right:0px;
 }
-
 .col-sm-8 {
 	padding-left:0px;
 }
-
 .panel-height {
 	height: 20px;
 }
-
 .first-panel-row {
 	border-top-style: none;
 }
-
 .no-padding-panel {
 	margin-bottom:0px;
 }
-
 .spacing {
 	display:block;
 	padding-bottom:20px;
 }
 
+// Styling for forms within the acordians
+
+
 #edit-password-form hr {
-	border-top-color:grey;
-	border-bottom:none;
-	width:80%;
-	margin-left:10%;
+	border-top-color:$panel-border-top-color;
+	border-bottom:$panel-border-bottom;
+	width:$panel-width;
+	margin-left:$panel-form-spacing;
 }
 #edit-email-form hr {
-	border-top-color:grey;
-	border-bottom:none;
-	width:80%;
-	margin-left:10%;
+	border-top-color:$panel-border-top-color;
+	border-bottom:$panel-border-bottom;
+	width:$panel-width;
+	margin-left:$panel-form-spacing;
 }
 #edit-phone-form hr {
-	border-top-color:grey;
-	border-bottom:none;
-	width:80%;
-	margin-left:10%;
+	border-top-color:$panel-border-top-color;
+	border-bottom:$panel-border-bottom;
+	width:$panel-width;
+	margin-left:$panel-form-spacing;
 }
 #edit-address-form hr {
-	border-top-color:grey;
-	border-bottom:none;
-	width:80%;
-	margin-left:10%;
+	border-top-color:$panel-border-top-color;
+	border-bottom:$panel-border-bottom;
+	width:$panel-width;
+	margin-left:$panel-form-spacing;
+}
+
+
+// Styling for buttons to cancel or save current edits
+#save-cancel-password {
+	float:left;
+	margin-left:$save-canel-btn-left-margin;
+	margin-right:2%;
+}
+#save-cancel-email {
+	float:left;
+	margin-left:$save-canel-btn-left-margin;
+	margin-right:2%;
+}
+#save-cancel-phone {
+	float:left;
+	margin-left:$save-canel-btn-left-margin;
+	margin-right:2%;
+}
+#save-cancel-address {
+	float:left;
+	margin-left:$save-canel-btn-left-margin;
+	margin-right:2%;
 }
 
 .edit-input-fields {
 	margin-left:25%;
 }
 
-#save-cancel-password {
-	float:left;
-	margin-left:60%;
-	margin-right:2%;
+//Color of text objects
+.panel-label-color {
+	color:black;
 }
 
-#save-cancel-email {
-	float:left;
-	margin-left:60%;
-	margin-right:2%;
+.panel-value-color {
+	color:#707070 ;
 }
 
-#save-cancel-phone {
-	float:left;
-	margin-left:60%;
-	margin-right:2%;
+.panel-title a{
+	color:#336699;
 }
-#save-cancel-address {
-	float:left;
-	margin-left:60%;
-	margin-right:2%;
+
+.back-btn-padding {
+	margin-left:1%;
 }
+
+
