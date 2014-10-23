@@ -8,7 +8,6 @@ FactoryGirl.define do
     last_name              "Smith"
     password               "password"
     password_confirmation  "password"
-    school
   end
 
   factory :admin_user, parent: :user do

@@ -36,11 +36,30 @@ RSpec.describe User, :type => :model do
     }.not_to raise_error
   end
 
-  it "email can be non-unique" do
+  it "email must be unique" do
+    FactoryGirl.create(:user, :email => "fake@fake.com")
     expect {
       FactoryGirl.create(:user, :email => "fake@fake.com")
-      FactoryGirl.create(:user, :email => "fake@fake.com")
+    }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
+  it "identifier can be empty" do
+    expect {
+      FactoryGirl.create(:user, :identifier => "")
     }.not_to raise_error
+  end
+
+  it "identifier must be unique" do
+    FactoryGirl.create(:user, :identifier => "fake")
+    expect {
+      FactoryGirl.create(:user, :identifier => "fake")
+    }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
+  it "email and identifier cannot both be empty" do
+    expect {
+      FactoryGirl.create(:user, :email => "", :identifier => "")
+    }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it "password encrypted with bcrypt and correct cost" do
@@ -69,4 +88,17 @@ RSpec.describe User, :type => :model do
     expect(account).to eq(account.user.account)
   end
 
+  it "can create user with random password" do
+    account, pass = User.create_account_random_pass('Student', {:identifier => 'studenttest'})
+    # Magic length defined in User.create_account_random_pass
+    expect(pass.length).to eq(10)
+    expect(account.user.valid?).to eq(true)
+    expect(account.user.valid_password?(pass)).to eq(true)
+  end
+
+  it "random password is correct length" do
+    (1..10).each {|i|
+      expect(User.random_password(i).length).to eq(i)
+    }
+  end
 end

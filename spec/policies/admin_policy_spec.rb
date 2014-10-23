@@ -3,46 +3,38 @@ require 'rails_helper'
 
 describe AdminPolicy do
 
-  # let(:user) { User.new }
+  
 
-  # subject { AdminPolicy }
+  before(:each) do
+    # Factory_girl definitions found in spec/factories
+    # *name*_user factories create a User AND associated account, and
+    # return the newly created User instance
+    @admin0   = FactoryGirl.create(:admin_user,   email: "", identifier: "admin0")
+    @teacher0 = FactoryGirl.create(:teacher_user, email: "", identifier: "teacher0")
+    @teacher1 = FactoryGirl.create(:teacher_user, email: "", identifier: "teacher1")
+    @student0 = FactoryGirl.create(:student_user, email: "", identifier: "student0")
+    @student1 = FactoryGirl.create(:student_user, email: "", identifier: "student1")
+    @class0   = FactoryGirl.create(:classroom,    name: "class0")
+    @class1   = FactoryGirl.create(:classroom,    name: "class1")
 
-  #First test
-
-    Admin.delete_all
-    Teacher.delete_all
-    Student.delete_all
-    User.delete_all
-    Classroom.delete_all
-    
-    #make some admins
-    ua = User.create
-    ua.account_type='admin'
-    a0 = Admin.create(user: ua)
-    a1 = Admin.create
-
-    #make some teachers
-    ut = User.create
-    ut.account_type='teacher'
-    t0 = Teacher.create(:user=>ut)
-
-    #make some students
-    us = User.create
-    us.account_type='student'
-    s0 = Student.create(:user=>us)
-       
+    @class0.teachers << @teacher0.account
+    @class0.students << @student0.account
+    @class1.teachers << @teacher1.account
+    @class1.students << @student0.account
+  end
+   
 
 #first test
     describe "Admin Scope on Admin" do
-      it {expect(AdminPolicy::Scope.new(a0.user, Admin).resolve ).to eq(Admin.all)} 
+      it {expect(AdminPolicy::Scope.new(@admin0, Admin).resolve ).to eq(Admin.all)} 
     end
 #Second test
     describe "Teacher Scope on Admin" do
-      it {expect(AdminPolicy::Scope.new(t0.user,Admin).resolve).to eq(Admin.all)}
+      it {expect(AdminPolicy::Scope.new(@teacher0,Admin).resolve).to eq(Admin.all)}
     end
 # Third test
     describe "Student Scope on Admin" do
-      it {expect(AdminPolicy::Scope.new(s0.user,Admin).resolve).to eq(Admin.all)}
+      it {expect(AdminPolicy::Scope.new(@student0,Admin).resolve).to eq(Admin.all)}
     end
 end
 

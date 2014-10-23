@@ -2,6 +2,8 @@ class School < ActiveRecord::Base
     has_many :classrooms
     has_many :users
 
+    validates :name, uniqueness: true
+
     def admins
         Admin.where(id: users.where(account_type: "Admin").select(:account_id))
     end
