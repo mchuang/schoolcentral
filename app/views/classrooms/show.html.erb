@@ -6,7 +6,6 @@
 	<div class="col-sm-offset-2 class-content">
 
 		<div class="row sub-tab-menu">
-
 			<div class="col-sm-3 class-label">
 				<h1><%= @classroom.name %></h1>
 			</div>
@@ -24,16 +23,44 @@
 				<h4>grades</h4>
 			</div>
 		</div>
-		<div class="class_content">
+
+		<div class="tab-content">
+
+			<!-- The content if the students tab is selected (default) -->
 			<div id="students-content" style="display: block;">
-				<h2>Students</h2>
+				<table class="table table-striped table-condensed student-list">
+					<thead>
+						<tr>
+							<th>last name</th>
+							<th>first name</th>
+							<th>identifier</th>
+							<th>email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% for student in @classroom.students %>
+							<tr>
+								<td><%= student.user.last_name %></td>
+								<td><%= student.user.first_name %></td>
+								<td><%= student.user.identifier %></td>
+								<td><%= student.user.email %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
 			</div>
+
+			<!-- The content if the assignments tab is selected -->
 			<div id="assignments-content" style="display: none;">
 				<h2>Assignments</h2>
 			</div>
+
+			<!-- The content if the attendance tab is selected -->
 			<div id="attendance-content" style="display: none;">
 				<h2>Attendance</h2>
 			</div>
+
+			<!-- The content if the grades tab is selected -->
 			<div id="grades-content" style="display: none;">
 				<h2>Grades</h2>
 			</div>

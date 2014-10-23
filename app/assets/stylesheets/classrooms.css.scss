@@ -7,7 +7,8 @@ $secondary-color: #FFF;
 
 .class-content {
 	position: relative;
-	height: 100%;
+	min-height: 100%;
+	border-left: 4px solid $primary-color;
 }
 
 .sub-tab-menu {
@@ -67,4 +68,13 @@ $secondary-color: #FFF;
 	position: relative;
 	color: #444;
 	bottom: 6px;
+}
+
+.tab-content {
+	position: relative;
+	min-height: 100%;
+}
+
+.student-list {
+	margin: 4px;
 }
