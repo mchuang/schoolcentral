@@ -1,7 +1,7 @@
 class ClassroomsController < ApplicationController
 
 	def show
-		@classrooms = Classroom.all
+		@classrooms = current_user.account.classrooms
 		@classroom = Classroom.find(params[:id])
 	end
 	

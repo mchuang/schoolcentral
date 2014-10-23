@@ -3,7 +3,7 @@
 class DashboardController < ApplicationController
 
 	def index
-		@classrooms = Classroom.all
+		@classrooms = current_user.account.classrooms
 
 		render 'dashboard'
 	end

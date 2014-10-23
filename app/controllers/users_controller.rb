@@ -6,9 +6,6 @@ class UsersController < ApplicationController
 		@user = current_user
 	end
 
-
-	#TODO: Add alerts for user to confirm actions
-
 	def update_address
 		@user = User.find(current_user.id)
 		if @user.update(user_address_params)
@@ -29,8 +26,13 @@ class UsersController < ApplicationController
 		@user = User.find(current_user.id)
 		if @user.update_with_password(user_password_params)
 			sign_in @user, :bypass => true
+			flash[:success] = "Successfully made changes"
+			redirect_to '/users/show'
+		else
+			flash[:danger] = @user.errors.full_messages.to_sentence
+			redirect_to '/users/show'
 		end
-		redirect_to '/users/show'
+
 	end
 
 	def update_phone
