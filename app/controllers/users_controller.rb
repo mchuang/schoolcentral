@@ -6,8 +6,6 @@ class UsersController < ApplicationController
 		@user = current_user
 	end
 
-
-
 	def update_address
 		@user = User.find(current_user.id)
 		if @user.update(user_address_params)
