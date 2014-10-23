@@ -2,40 +2,67 @@
 <div class="container-fluid background">
 	<%= render "layouts/side_admin_menu" %>
 	<div class="col-sm-8 menu-center">
-		<!-- Search not that simple
-		<form>
-			<input type="submit" value="Search">
-			<input id="query" name="query" type="text">
-			<br>
-		</form>
-		-->
-	    <% if @infoType == "Classrooms" %>
-	    	<table id="tableData" class="table table-hover">
-	    		<% @info.each do |classroom| %>
-				    <tr>
-				  		<td><%= classroom.name %></td>
-			      		<td><%= classroom.time %></td>
-			      		<td><%= classroom.location %></td>
-				  	</tr>
-			  	<% end %>
-			</table>
-	  	<% elsif @infoType === "Students" or @infoType === "Teachers" %>
-	  		<%= link_to "New", new_path %>
-	  		
-	  		<table id="tableData" class="table table-hover">
-	  			<tr><td>Account ID</td><td>First Name</td><td>Middle Name</td><td>Last Name</td></tr>
-		    	<% @info.each do |user| %>
-			  		<tr>
-			  			<td><%= user.user.account_id %></td>
-			      		<td><%= user.user.first_name %></td>
-			      		<td><%= user.user.middle_name %></td>
-			      		<td><%= user.user.last_name %></td>
-			  		</tr>
-			  	<% end %>
-			</table>
-		<% else %>
-			<!--Calendar code should be in here-->
-	  	<% end %>
+		<% if @type === "Classrooms" %>
+			<form>
+			  <div>
+	            Teacher: <input id="teacher" name="teacher" type="text"><br>
+	          </div>
+	          <div>
+	            Students: <input id="students" name="students" type="text"><br>
+	          </div>
+	          <div>
+	            Course: <input id="course" name="course" type="text"><br>
+	          </div>
+	          <div>
+	            Time: <input id="time" name="time" type="text"><br>
+	          </div>
+	          <div>
+	            Location: <input id="location" name="location" type="text"><br>
+	          </div>
+	          <div>
+	            Capacity: <input id="capacity" name="capacity" type="text"><br>
+	          </div>
+	          <div>
+	            <input type="submit" value="Create new classroom">
+	          </div>
+			</form>
+		<% elsif @type === "Teachers" %>
+			<form>
+			  <div>
+                First name: <input name="firstname" type="text"><br>
+	          </div>
+	          <div>
+	            Middle name: <input name="middlename" type="text"><br>
+	          </div>
+	          <div>
+	            Last name: <input name="lastname" type="text"><br>
+	          </div>
+	          <div>
+	            Teacher ID: <input name="studentid" type="text"><br>
+	          </div>
+	          <div>
+	            <input type="submit" value="Create new teacher">
+	          </div>
+			</form>
+		<% elsif @type === "Students" %>
+			<form>
+			  <div>
+	            First name: <input name="firstname" type="text"><br>
+	          </div>
+	          <div>
+	            Middle name: <input name="middlename" type="text"><br>
+	          </div>
+	          <div>
+	            Last name: <input name="lastname" type="text"><br>
+	          </div>
+	          <div>
+	            Student ID: <input name="studentid" type="text"><br>
+	          </div>
+	          <div>
+	            <input type="submit" value="Create new student">
+	          </div>
+			</form>
+		<% end %>
 	</div>
 </div>
 

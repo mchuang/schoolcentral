@@ -27,6 +27,7 @@ class DashboardController < ApplicationController
 	end
 
 	def new
+		@type = params[:type]
 		render 'admin_dashboard_new'
 	end
 

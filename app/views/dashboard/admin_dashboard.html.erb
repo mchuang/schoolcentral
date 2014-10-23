@@ -9,6 +9,7 @@
 			<br>
 		</form>
 		-->
+		<%= link_to "New", dashboard_new_path(type: @infoType) %>
 	    <% if @infoType == "Classrooms" %>
 	    	<table id="tableData" class="table table-hover">
 	    		<% @info.each do |classroom| %>
@@ -19,9 +20,7 @@
 				  	</tr>
 			  	<% end %>
 			</table>
-	  	<% elsif @infoType === "Students" or @infoType === "Teachers" %>
-	  		<%= link_to "New", new_path %>
-	  		
+	  	<% elsif @infoType === "Students" or @infoType === "Teachers" %>	  		
 	  		<table id="tableData" class="table table-hover">
 	  			<tr><td>Account ID</td><td>First Name</td><td>Middle Name</td><td>Last Name</td></tr>
 		    	<% @info.each do |user| %>
