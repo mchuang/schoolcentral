@@ -1,0 +1,58 @@
+<!-- @author Michael Chuang -->
+
+<span class="pull-right">
+  <button class="btn btn-sm" onclick="toggleModal('newClassroom')">
+    Create new classroom
+  </button>
+</span>
+<div class="modal" id="newClassroom">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title center">Create new classroom</h2>
+      </div>
+      <div class="modal-body">
+        <h4 class="center">"Create new classroom"</h4>
+        <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div>
+            Teacher: <input id="teacher" name="teacher" type="text"><br>
+          </div>
+          <div>
+            Students: <input id="students" name="students" type="text"><br>
+          </div>
+          <div>
+            Course: <input id="course" name="course" type="text"><br>
+          </div>
+          <div>
+            Time: <input id="time" name="time" type="text"><br>
+          </div>
+          <div>
+            Location: <input id="location" name="location" type="text"><br>
+          </div>
+          <div>
+            Capacity: <input id="capacity" name="capacity" type="text"><br>
+          </div>
+          <div>
+            <input type="submit" value="Create new classroom">
+          </div>
+          
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="toggleModal('newClassroom')">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag '../jquery.autoSuggest.js' %>
+  window.infoURL = "<%= j info_url%>"
+  var students = <%= @students %>
+  var teachers = <%= @teachers %>
+  $(function(){
+    $("students input").autoSuggest(students, {selectedObjProp: "firstname, middlename, lastname", selectedItemProp: "firstname");
+    $("teacher input").autoSuggest(teachers, {selectedObjProp: "firstname, middlename, lastname", selectedItemProp: "firstname");
+  });
+<% end %>
