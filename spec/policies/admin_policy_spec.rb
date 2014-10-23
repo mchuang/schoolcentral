@@ -3,9 +3,7 @@ require 'rails_helper'
 
 describe AdminPolicy do
 
-  # let(:user) { User.new }
-
-  # subject { AdminPolicy }
+  
 
   before(:each) do
     # Factory_girl definitions found in spec/factories

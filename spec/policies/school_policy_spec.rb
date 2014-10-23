@@ -2,79 +2,71 @@ require 'spec_helper'
 require 'rails_helper'
 
 describe SchoolPolicy do
-  Admin.delete_all
-  Teacher.delete_all
-  Student.delete_all
-  User.delete_all
-  Classroom.delete_all
-  School.delete_all
 
-  #create school
-  school1 = School.create
 
-  #create admin
-  ua = User.create
-  ua.account_type='admin'
-  a0 = Admin.create(:user=>ua)
+  before(:each) do
+    # Factory_girl definitions found in spec/factories
+    # *name*_user factories create a User AND associated account, and
+    # return the newly created User instance
+    @admin0   = FactoryGirl.create(:admin_user,   email: "", identifier: "admin0")
+    @teacher0 = FactoryGirl.create(:teacher_user, email: "", identifier: "teacher0")
+    @teacher1 = FactoryGirl.create(:teacher_user, email: "", identifier: "teacher1")
+    @student0 = FactoryGirl.create(:student_user, email: "", identifier: "student0")
+    @student1 = FactoryGirl.create(:student_user, email: "", identifier: "student1")
+    @class0   = FactoryGirl.create(:classroom,    name: "class0")
+    @class1   = FactoryGirl.create(:classroom,    name: "class1")
 
-  #create teacher
-  ut = User.create
-  ut.account_type='teacher'
-  t0 = Teacher.create(:user=>ut)
-  t1 = Teacher.create(:user=>User.create)
+    @class0.teachers << @teacher0.account
+    @class0.students << @student0.account
+    @class1.teachers << @teacher1.account
+    @class1.students << @student0.account
 
-  #create students
-  us = User.create
-  us.account_type='student'
-  s0 = Student.create(:user=>us)
-  s1 = Student.create(:user=>User.create)
+    @school1 = School.create
+    @school1.users << @admin0
+    @school1.users << @teacher0
+    @school1.users << @student0
+    @school1.users << @student1
+    @school1.classrooms << @class1
+  end
 
-  #create classrooms
-  c0 = Classroom.create(:teachers => [t0], :students => [s0])
-  c1 = Classroom.create(:teachers=>[t1], :students => [s1])
 
-  school1.users << a0.user
-  school1.users << t0.user
-  school1.users << s0.user
-  school1.users << s1.user
-
-  school1.classrooms << c1
+ 
 
 
 #First test
   describe 'Admin Scope on School' do
-    it {expect(SchoolPolicy::Scope.new(a0.user,School).resolve).not_to eq(School.all)}
+    it {expect(SchoolPolicy::Scope.new(@admin0,School).resolve).not_to eq(School.all)}
   end
 #Second test
   describe 'Teacher Scope on School' do
-    it {expect(SchoolPolicy::Scope.new(t0.user,School).resolve).not_to eq(School.all)}
+    it {expect(SchoolPolicy::Scope.new(@teacher0,School).resolve).not_to eq(School.all)}
   end
 #Third test
   describe 'Student Scope on School' do
-    it {expect(SchoolPolicy::Scope.new(s0.user,School).resolve).not_to eq(School.all)}
+    it {expect(SchoolPolicy::Scope.new(@student0,School).resolve).not_to eq(School.all)}
   end
 
 #Fourth test
     describe 'Admin Scope on School 2' do
     it {
-      expect(SchoolPolicy::Scope.new(a0.user,School).resolve).to(
-        match_array(School.where(id: a0.user.school_id))
+      expect(SchoolPolicy::Scope.new(@admin0,School).resolve).to(
+        match_array(School.where(id: @admin0.school_id))
       )
     }
   end
 #Fifth test
   describe 'Teacher Scope on School 2' do
     it {
-      expect(SchoolPolicy::Scope.new(t0.user,School).resolve).to(
-        match_array(School.where(id: t0.user.school_id))
+      expect(SchoolPolicy::Scope.new(@teacher0,School).resolve).to(
+        match_array(School.where(id: @teacher0.school_id))
       )
     }
   end
 #Sixth test
   describe 'Student Scope on School 2' do
     it {
-      expect(SchoolPolicy::Scope.new(s0.user,School).resolve).to(
-        match_array(School.where(id: s0.user.school))
+      expect(SchoolPolicy::Scope.new(@student0,School).resolve).to(
+        match_array(School.where(id: @student0.school))
       )
     }
   end
