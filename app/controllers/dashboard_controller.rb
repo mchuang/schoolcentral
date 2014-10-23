@@ -1,4 +1,13 @@
+# voe
+
 class DashboardController < ApplicationController
+
+	def index
+		@classrooms = current_user.account.classrooms
+
+		render 'dashboard'
+	end
+
 	def admin_dashboard
 		@infoType = params[:infoType]
 		case params[:infoType]

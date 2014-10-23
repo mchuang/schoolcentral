@@ -1,0 +1,155 @@
+<div class="background">
+
+	<div class="user-profile">
+
+		<!-- Link to reroute to the user dashboard -->
+		<a class="btn btn-default" href="../dashboard/index">Dashboard</a>
+
+		<!-- Contains the users ID photo -->
+		<div class="user-portrait">
+		</div>
+
+		<!-- Alert message gives user edits confirmation -->
+		<% unless flash.nil? %>
+			<% flash.each do |name, msg| %>
+				<% if msg != 'Signed in successfully.'%>
+					<div class="alert alert-<%=name%>" role="alert"> <%= msg %> </div>
+				<% end %>
+			<% end %>
+		<% end %>
+
+
+		<!-- Div containing all the user's information in the form of an accordian -->
+		<div class="user-info">
+
+			<!-- Beginning of accordian  -->
+			<div class="panel-group no-padding-panel" id="accordion">
+
+			  <div class="panel first-panel-row">
+			    <div class="panel-heading">
+			      <h4 class="panel-title panel-height">
+			      	<div class="col-sm-3">
+				        Identifier
+				    </div>
+				    <div class="col-sm-8">
+				        <%= @user.identifier %>
+				    </div>
+			      </h4>
+			    </div>
+			  </div>
+
+			  <div class="panel">
+			    <div class="panel-heading">
+			      <h4 class="panel-title panel-height">
+			        <div class="col-sm-3">
+				        ID
+				    </div>
+				    <div class="col-sm-8">
+				        <%= @user.id %>
+				    </div>
+			      </h4>
+			    </div>
+			  </div>
+
+			  <div class="panel">
+			    <div class="panel-heading">
+			      <h4 class="panel-title panel-height">
+			        <div class="col-sm-3">
+				        Password
+				    </div>
+				    <div class="col-sm-8">
+				        **************
+				    </div>
+		        	<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+		        		Edit
+		        	</a>
+			      </h4>
+			    </div>
+			    <div id="collapseThree" class="panel-collapse collapse">
+			      <div class="panel-body">
+			        <%= render "users/partials/edit_password" %>
+					<button class="btn-danger btn" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+				  		Cancel
+				  	</button>
+			       
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="panel">
+			    <div class="panel-heading">
+			      <h4 class="panel-title panel-height">
+			        <div class="col-sm-3">
+				        Email
+				    </div>
+				    <div class="col-sm-8">
+				        <%= @user.email %>
+				    </div>
+		        	<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+		        		Edit
+		        	</a>
+			      </h4>
+			    </div>
+			    <div id="collapseFour" class="panel-collapse collapse">
+			      <div class="panel-body">
+			        <%= render "users/partials/edit_email" %>
+			        <button class="btn-danger btn" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+				  		Cancel
+				  	</button>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="panel">
+			    <div class="panel-heading">
+			      <h4 class="panel-title panel-height">
+			        <div class="col-sm-3">
+				        Mobile Phone
+				    </div>
+				    <div class="col-sm-8">
+				        <%= @user.phone_mobile %>
+				    </div>
+		        	<a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+		        		Edit
+		        	</a>
+			      </h4>
+			    </div>
+			    <div id="collapseFive" class="panel-collapse collapse">
+			      <div class="panel-body">
+			        <%= render "users/partials/edit_phone" %>
+			        <button class="btn-danger btn" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+				  		Cancel
+				  	</button>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="panel">
+			    <div class="panel-heading">
+			      <h4 class="panel-title panel-height">
+			        <div class="col-sm-3">
+				        Address
+				    </div>
+				    <div class="col-sm-8">
+				        <%= @user.address %>
+				    </div>
+		        	<a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+		        		Edit
+		        	</a>
+			      </h4>
+			    </div>
+			    <div id="collapseSix" class="panel-collapse collapse">
+			      <div class="panel-body">
+			        <%= render "users/partials/edit_address" %>
+			        <button class="btn-danger btn" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+				  		Cancel
+				  	</button>
+			      </div>
+			    </div>
+			  </div>
+
+			<!-- End of accordian -->
+			</div>
+		</div>
+	</div>
+</div>

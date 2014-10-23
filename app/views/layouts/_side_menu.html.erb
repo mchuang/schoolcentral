@@ -1,0 +1,45 @@
+<div class="col-sm-2 menu-left">
+    <div class="profile-display">
+    	<div class="profile-panel">
+			<a href="/users/show">
+		      <img class="thumbnail user-image" src="http://simpleicon.com/wp-content/uploads/user1-150x150.png">
+              <h4><%= current_user.identifier %></h4>
+		    </a>
+	    </div>
+    </div>
+
+    <div class="classlist">
+    	<hr>
+
+    	<% if @classroom.nil? %>
+    		<div class="row classlist-item active">
+    			<h3>dashboard</h3>
+    		</div>
+    	<% else %>
+    		<%= link_to dashboard_index_path do %>
+				<div class="row classlist-item">
+    				<h3>dashboard</h3>
+    			</div>
+			<% end %>
+		<% end %>
+
+    	<hr>
+
+    	<% @classrooms.each do |t, a| %>
+
+    		<% if @classroom and @classroom.name == t.name %>
+    			<div class="row classlist-item active">
+    				<h3><%= t.name %></h3>
+    			</div>
+    		<% else %>
+				<%= link_to t do %>
+					<div class="row classlist-item">
+						<h3><%= t.name %></h3>
+					</div>
+				<% end %>
+    		<% end %>
+			<hr>
+
+    	<%end%>
+	</div>
+</div>

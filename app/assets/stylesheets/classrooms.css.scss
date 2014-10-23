@@ -1,0 +1,80 @@
+// Place all the styles related to the classrooms controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$primary-color: #FF7519;
+$secondary-color: #FFF;
+
+.class-content {
+	position: relative;
+	min-height: 100%;
+	border-left: 4px solid $primary-color;
+}
+
+.sub-tab-menu {
+	position: relative;
+	height: 50px;
+	margin-left: 0px;
+	background-color: $primary-color;
+}
+
+.class-label {
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+	height: 50px;
+}
+
+.class-label h1 {
+	position: absolute;
+	margin: 0px;
+	padding: 0px;
+	bottom: 0px;
+	font-weight: bold;
+}
+
+.sub-tab {
+	position: relative;
+	height: 30px;
+	top: 10px;
+	border-left: 1px solid $secondary-color;
+	border-right: 1px solid $secondary-color;
+	text-align: center;
+}
+
+.sub-tab:hover {
+	height: 45px;
+	top: 5px;
+	padding-top: 5px;
+	background-color: $secondary-color;
+	border-top: 2px solid $secondary-color;
+	border-left: 2px solid $secondary-color;
+	border-right: 2px solid $secondary-color;
+	border-radius: 8px 8px 0px 0px;
+}
+
+.sub-tab.active {
+	height: 45px;
+	top: 5px;
+	padding-top: 5px;
+	background-color: $secondary-color;
+	border-top: 2px solid $secondary-color;
+	border-left: 2px solid $secondary-color;
+	border-right: 2px solid $secondary-color;
+	border-radius: 8px 8px 0px 0px;
+}
+
+.sub-tab h4 {
+	position: relative;
+	color: #444;
+	bottom: 6px;
+}
+
+.tab-content {
+	position: relative;
+	min-height: 100%;
+}
+
+.student-list {
+	margin: 4px;
+}

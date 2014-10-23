@@ -2,6 +2,13 @@ Rails.application.routes.draw do
 
   get 'static/home'
 
+  get 'dashboard/index'
+
+  post 'users/update_address'
+  post 'users/update_email'
+  post 'users/update_password'
+  post 'users/update_phone'
+
   devise_for :users, 
     :path => '',
     :path_names => {
@@ -11,6 +18,8 @@ Rails.application.routes.draw do
     }
 
   root 'static#home'
+
+  resources :users, :classrooms
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -11,13 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141012205727) do
+ActiveRecord::Schema.define(version: 20141021053503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "admins", force: true do |t|
-    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "attendances", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "classroom_id"
+    t.date     "date"
+    t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -30,6 +38,7 @@ ActiveRecord::Schema.define(version: 20141012205727) do
     t.integer  "student_capacity"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "school_id"
   end
 
   create_table "classrooms_students", id: false, force: true do |t|
@@ -42,14 +51,18 @@ ActiveRecord::Schema.define(version: 20141012205727) do
     t.integer "classroom_id", null: false
   end
 
+  create_table "schools", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "students", force: true do |t|
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "teachers", force: true do |t|
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -83,6 +96,7 @@ ActiveRecord::Schema.define(version: 20141012205727) do
     t.datetime "updated_at"
     t.integer  "account_id"
     t.string   "account_type"
+    t.integer  "school_id"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
