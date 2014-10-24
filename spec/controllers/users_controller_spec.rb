@@ -3,22 +3,44 @@ require 'rails_helper'
 RSpec.describe UsersController, :type => :controller do
 
 	before(:each) do
-		@admin0   = FactoryGirl.create(:admin_user,   email: "", identifier: "admin0")
-		@teacher0 = FactoryGirl.create(:teacher_user, email: "", identifier: "teacher0")
-		@student0 = FactoryGirl.create(:student_user, email: "", identifier: "student0")
+		@admin0   = FactoryGirl.create(:admin_user,   email: "old email", identifier: "admin0")
+		sign_in @admin0
+		@success = "Successfully made changes"
 	end
 
 	describe "UsersController" do 
 		it "Show assigns @user to current_user" do
-			sign_in @admin0
-			get :show , id: @admin0.id
+			get :show , :id=> @admin0.id
 			expect(assigns(:user)).to eq(@admin0)
 		end
 
 		it "update_address" do
-			sign_in @admin0
-			post :update_address, email: "succ@ces", id: @admin0.id
-			expect(response).to redirect_to(:show) 
+			@u = {:address=> 'new address'}
+			post :update_address , :user =>@u , :id =>@admin0
+			expect(response).to redirect_to("/users/show") 
+			expect(flash[:success]).to eq(@success)
 		end
+
+		it "update_email" do
+		 	@u = {:email=> 'new email'}
+		 	post :update_email , :user=>@u
+		 	expect(response).to redirect_to("/users/show") 
+		 	expect(flash[:success]).to eq(@success)
+		 end
+
+		it "update_password" do
+			@u ={:password => 'new', :password_confirmation => 'new', :current_password => 'notpassword'}
+		 	post :update_password , :user => @u
+		 	expect(response).to redirect_to("/users/show")
+		 	expect(flash[:danger]).to_not eq(@success) 
+		end
+
+		it "update_phone" do
+			@u = {:phone_mobile=> '123-456'}
+		 	post :update_email , :user=>@u
+		 	expect(response).to redirect_to("/users/show") 
+		 	expect(flash[:success]).to eq(@success)
+	    end
+
 	end
 end
