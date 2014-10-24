@@ -1,5 +1,6 @@
 class ClassroomPolicy < ApplicationPolicy
   class Scope < Scope
+    
     def resolve
       type = user.account_type
       case type
