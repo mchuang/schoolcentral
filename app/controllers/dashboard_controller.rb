@@ -3,9 +3,12 @@
 class DashboardController < ApplicationController
 
 	def index
-		@classrooms = current_user.account.classrooms
-
-		render 'dashboard'
+		if current_user.account_type === "Admin"
+			render 'admin_dashboard'
+		else
+			@classrooms = current_user.account.classrooms
+			render 'dashboard'
+		end
 	end
 
 	def admin_dashboard
@@ -54,11 +57,18 @@ class DashboardController < ApplicationController
 				@info = Classroom.all
 				classroom = Classroom.create(
 					:name => params[:name],
-					:student_capacity => 30
+					:time => params[:time],
+					:location => params[:location],
+					:description => params[:description],
+					:student_capacity => params[:capacity]
 					)
-				classroom.teachers << User.find_by_identifier(params[:teacher]).account
+				if User.find_by_identifier(params[:teacher])
+					classroom.teachers << User.find_by_identifier(params[:teacher]).account
+				end
 				params[:students].split(',').each do |student|
-					classroom.students << User.find_by_identifier(student).account
+					if User.find_by_identifier(student)
+						classroom.students << User.find_by_identifier(student).account
+					end
 				end
 				classroom.save
 		end

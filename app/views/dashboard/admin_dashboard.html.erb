@@ -12,12 +12,14 @@
 	    <% if @infoType == "Classrooms" %>
 	    	<%= link_to "New", dashboard_new_form_path(infoType: @infoType) %>
 	    	<table id="tableData" class="table table-hover">
-	    		<tr><td>Course</td><td>Time</td><td>Location</td></tr>
+	    		<tr><td>Course</td><td>Time</td><td>Location</td><td>Description</td><td>Student Capacity</td></tr>
 	    		<% @info.each do |classroom| %>
 				    <tr>
 				  		<td><%= classroom.name %></td>
 			      		<td><%= classroom.time %></td>
 			      		<td><%= classroom.location %></td>
+			      		<td><%= classroom.description %></td>
+			      		<td><%= classroom.student_capacity %></td>
 				  	</tr>
 			  	<% end %>
 			</table>
