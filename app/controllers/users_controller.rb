@@ -2,6 +2,9 @@ class UsersController < ApplicationController
 
 	before_action :authenticate_user!
 
+
+	@@success_message = "Successfully made changes"
+
 	def show
 		@user = current_user
 	end
@@ -9,14 +12,19 @@ class UsersController < ApplicationController
 	def update_address
 		@user = User.find(current_user.id)
 		if @user.update(user_address_params)
+			flash[:success] = @@success_message
+		else
+			#Need to fill flash[:danger] with error messages
 		end
-		render '/users/show'
-
+		redirect_to '/users/show'
 	end
 
 	def update_email
 		@user = User.find(current_user.id)
 		if @user.update(user_email_params)
+			flash[:success] = @@success_message
+		else
+			#Need to fill flash[:danger] with error messages
 		end
 		redirect_to '/users/show'
 	end
@@ -26,18 +34,19 @@ class UsersController < ApplicationController
 		@user = User.find(current_user.id)
 		if @user.update_with_password(user_password_params)
 			sign_in @user, :bypass => true
-			flash[:success] = "Successfully made changes"
-			redirect_to '/users/show'
+			flash[:success] = @@success_message
 		else
 			flash[:danger] = @user.errors.full_messages.to_sentence
-			redirect_to '/users/show'
+		redirect_to '/users/show'
 		end
-
 	end
 
 	def update_phone
 		@user = User.find(current_user.id)
 		if @user.update(user_phone_params)
+			flash[:success] = @@success_message
+		else
+			#Need to fill flash[:danger] with error messages
 		end
 		redirect_to '/users/show'
 	end

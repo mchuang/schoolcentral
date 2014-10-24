@@ -36,6 +36,34 @@ $text-color: #444;
 	height: 100%;
 }
 
+.menu-center {
+	position: relative;
+	height: 100%;
+}
+
+.adminlist-item h3 {
+	position: relative;
+	bottom: 4px;
+	color: $text-color;
+}
+
+.adminlist-item {
+	position: relative;
+	margin-top: -2px;
+	margin-bottom: -2px;
+	text-align: center;
+}
+
+.adminlist-item:hover {
+	background-color: $primary-color;
+	border-radius: 10px 0px 0px 10px;
+}
+
+.adminlist-item.active {
+	background-color: $primary-color;
+	border-radius: 10px 0px 0px 10px;
+}
+
 .profile-display {
 	margin-top: 12px;
 }
