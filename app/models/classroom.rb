@@ -9,7 +9,7 @@ class Classroom < ActiveRecord::Base
     has_many :attendance
 
     validates :name, presence: true, uniqueness: true
-    validates :student_capacity, numericality: { greater_than: 0 }
+    validates :student_capacity, numericality: { greater_than_or_equal_to: 0 }
     validate  :enforce_student_capacity
 
     private

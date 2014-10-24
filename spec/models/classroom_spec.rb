@@ -12,8 +12,11 @@ RSpec.describe Classroom, :type => :model do
 
   it "student capacity must be >= 0" do
     expect {
-        FactoryGirl.create(:classroom, :student_capacity => -1)
+      FactoryGirl.create(:classroom, :student_capacity => -1)
     }.to raise_error(ActiveRecord::RecordInvalid)
+    expect {
+      FactoryGirl.create(:classroom, :student_capacity => 0)
+    }.not_to raise_error
   end
 
   it "students must not exceed capacity" do
