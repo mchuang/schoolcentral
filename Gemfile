@@ -50,5 +50,8 @@ end
 # Use Devise for user authentication and management
 gem 'devise'
 
-#Use pundit for authorization 
+# Use pundit for authorization 
 gem 'pundit'
+
+# Enable Heroku debugging features
+gem 'rails_12factor'
