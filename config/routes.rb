@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
   get 'dashboard/index'
   get 'dashboard/admin_dashboard'
-  get 'dashboard/new'
+  post 'dashboard/admin_dashboard'
+  get 'dashboard/new_form'
+  post 'dashboard/new_create'
 
   post 'users/update_address'
   post 'users/update_email'
