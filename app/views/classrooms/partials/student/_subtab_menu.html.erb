@@ -1,0 +1,18 @@
+<!-- @author: voe -->
+
+<div class="row sub-tab-menu">
+	<div class="col-sm-3 class-label">
+		<h1><%= @classroom.name %></h1>
+	</div>
+	<span id="sub-tabs">
+		<div id="assignments-tab" class="col-sm-2 sub-tab active" onclick="toggleTab('assignments')">
+			<h4>assignments</h4>
+		</div>
+		<div id="attendance-tab" class="col-sm-2 sub-tab" onclick="toggleTab('attendance')">
+			<h4>attendance</h4>
+		</div>
+		<div id="grades-tab" class="col-sm-2 sub-tab" onclick="toggleTab('grades')">
+			<h4>grades</h4>
+		</div>
+	</span>
+</div>

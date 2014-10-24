@@ -16,6 +16,8 @@
 //= require_tree .
 //= require bootstrap.min
 
+//@author: voe
+
 function toggleModal(id) {
 	if (document.getElementById(id).style.display != 'block') {
 		document.getElementById(id).style.display = 'block';
@@ -24,21 +26,35 @@ function toggleModal(id) {
 	}
 }
 
-var subTabs = ["students", "assigments", "attendance", "grades"];
-var selectedTab = "students";
+var subTabs = ["students", "assignments", "attendance", "grades"];
 
 function toggleTab(identifier) {
 
-	var previous = selectedTab;
-	
-	var oldTabId = previous + "-tab";
-	var oldTab = document.getElementById(oldTabId);
-	oldTab.classList.remove("active");
-	oldTab.addEventListener("click", function(){toggleTab(previous)}, true);
-
-	var oldContentId = previous + "-content";
-	var oldContent = document.getElementById(oldContentId);
-	oldContent.style.display = "none";
+	for (var i = 0; i < subTabs.length; i++) {
+		var s = subTabs[i];
+		var tab = document.getElementById(s + "-tab");
+		var content = document.getElementById(s + "-content");
+		if (tab && content) {
+			tab.classList.remove("active");
+			content.style.display = "none";
+			switch(s) {
+				case "students":
+					tab.addEventListener("click", function(){toggleTab("students")}, true);
+					break;
+				case "assignments":
+					tab.addEventListener("click", function(){toggleTab("assignments")}, true);
+					break;
+				case "attendance":
+					tab.addEventListener("click", function(){toggleTab("attendance")}, true);
+					break;
+				case "grades":
+					tab.addEventListener("click", function(){toggleTab("grades")}, true);
+					break;
+				default:
+					break;
+			}
+		}
+	}
 
 	var newTabId = identifier + "-tab";
 	var newTab = document.getElementById(newTabId);
@@ -49,6 +65,14 @@ function toggleTab(identifier) {
 	var newContent = document.getElementById(newContentId);
 	newContent.style.display = "block";
 
-	selectedTab = identifier;
+}
 
+function toggleAttendanceModal(dateString) {
+	if (document.getElementById("attendanceInputModal").style.display != 'block') {
+		document.getElementById("attendanceInputModal").style.display = 'block';
+		document.getElementById("attendanceTitle").innerHTML = "attendance for: " + dateString;
+		document.getElementById("date-specifier").setAttribute("value", dateString);
+	} else {
+		document.getElementById("attendanceInputModal").style.display = 'none';
+	}
 }

@@ -1,0 +1,28 @@
+<!-- @author: voe -->
+
+<table class="table table-striped table-condensed attendance-table attendance-table">
+	<thead>
+		<th>name</th>
+		<% for day in Attendance.get_week_array(Date.current) %>
+			<th><%= day.to_s %></th>
+		<% end %>
+	</thead>
+	<tbody>
+		<tr>
+			<td><%= current_user.identifier %>, <%= current_user.first_name %></td>
+			<% row = Attendance.get_week_for_student(current_user.account, Date.today) %>
+			<% for day in Attendance.get_week_array(Date.current) %>
+				<% has_value = false %>
+				<% for attendance in row %>
+					<% if attendance.date == day %>
+						<% has_value = true %>
+						<td><%= attendance.status %></td>
+					<% end %>
+				<% end %>
+				<% if has_value == false %>
+					<td>-</td>
+				<% end %>
+			<% end %>
+		</tr>
+	</tbody>		
+</table>

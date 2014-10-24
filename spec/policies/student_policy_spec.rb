@@ -18,7 +18,6 @@ describe StudentPolicy do
     @class0.teachers << @teacher0.account
     @class0.students << @student0.account
     @class1.teachers << @teacher1.account
-    @class1.students << @student0.account
   end
 
 # First test

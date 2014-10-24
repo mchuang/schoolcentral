@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   post 'users/update_password'
   post 'users/update_phone'
 
+  post 'classrooms/setAttendance'
+
   devise_for :users, 
     :path => '',
     :path_names => {
