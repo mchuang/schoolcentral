@@ -16,6 +16,8 @@
 //= require_tree .
 //= require bootstrap.min
 
+//@author: voe
+
 function toggleModal(id) {
 	if (document.getElementById(id).style.display != 'block') {
 		document.getElementById(id).style.display = 'block';
@@ -63,4 +65,14 @@ function toggleTab(identifier) {
 	var newContent = document.getElementById(newContentId);
 	newContent.style.display = "block";
 
+}
+
+function toggleAttendanceModal(dateString) {
+	if (document.getElementById("attendanceInputModal").style.display != 'block') {
+		document.getElementById("attendanceInputModal").style.display = 'block';
+		document.getElementById("attendanceTitle").innerHTML = "attendance for: " + dateString;
+		document.getElementById("date-specifier").setAttribute("value", dateString);
+	} else {
+		document.getElementById("attendanceInputModal").style.display = 'none';
+	}
 }

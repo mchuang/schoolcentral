@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// @author: voe
+
 $primary-color: #FF7519;
 $secondary-color: #FFF;
 
@@ -81,4 +83,9 @@ $secondary-color: #FFF;
 
 .attendance-table {
 	margin: 12px;
+}
+
+.modal-content.static {
+	height: 80vh;
+	overflow-y: scroll;
 }
