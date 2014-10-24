@@ -54,4 +54,6 @@ gem 'devise'
 gem 'pundit'
 
 # Enable Heroku debugging features
-gem 'rails_12factor'
+group :production do
+    gem 'rails_12factor'
+end
