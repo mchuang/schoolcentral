@@ -1,0 +1,86 @@
+
+<div class="container-fluid background">
+	<%= render "layouts/side_admin_menu" %>
+	<div class="col-sm-8 menu-center">
+		<% if @infoType === "Classrooms" %>
+			<%= form_tag '/dashboard/new_create?infoType=Classrooms' do %>
+			  <div class="field">
+			    <%= label_tag :teacher %><br>
+			    <%= text_field_tag :teacher %>
+			  </div>
+			  <div class="field">
+			    <%= label_tag :students %><br>
+			    <%= text_field_tag :students %>
+			  </div>
+			  <div class="field">
+			    <%= label_tag :course %><br>
+			    <%= text_field_tag :name %>
+			  </div>
+			  <div class="field">
+			    <%= label_tag :time %><br>
+			    <%= text_field_tag :time %>
+			  </div>
+			  <div class="field">
+			    <%= label_tag :location %><br>
+			    <%= text_field_tag :location %>
+			  </div>
+			  <div class="field">
+			    <%= label_tag :description %><br>
+			    <%= text_field_tag :description %>
+			  </div>
+			  <div class="field">
+			    <%= label_tag :capacity %><br>
+			    <%= number_field_tag :capacity %>
+			  </div>
+			  <div class="actions">
+			    <%= submit_tag 'Create new classroom' %>
+			  </div>
+			<% end %>
+		<% elsif @infoType === "Teachers" %>
+			<%= form_tag '/dashboard/new_create?infoType=Teachers' do %>
+			  <div class="field">
+			    <%= label_tag :firstname %><br>
+			    <%= text_field_tag :firstname %>
+			  </div>
+			  <div class="field">
+			    <%= label_tag :middlename %><br>
+			    <%= text_field_tag :middlename %>
+			  </div>
+			  <div class="field">
+			    <%= label_tag :lastname %><br>
+			    <%= text_field_tag :lastname %>
+			  </div>
+			  <div class="field">
+			    <%= label_tag :id %><br>
+			    <%= text_field_tag :id %>
+			  </div>
+			  <div class="actions">
+			    <%= submit_tag 'Create new teacher' %>
+			  </div>
+			<% end %>
+		<% elsif @infoType === "Students" %>
+			<%= form_tag '/dashboard/new_create?infoType=Students' do %>
+			  <div class="field">
+			    <%= label_tag :firstname %><br>
+			    <%= text_field_tag :firstname %>
+			  </div>
+			  <div class="field">
+			    <%= label_tag :middlename %><br>
+			    <%= text_field_tag :middlename %>
+			  </div>
+			  <div class="field">
+			    <%= label_tag :lastname %><br>
+			    <%= text_field_tag :lastname %>
+			  </div>
+			  <div class="field">
+			    <%= label_tag :id %><br>
+			    <%= text_field_tag :id %>
+			  </div>
+			  <div class="actions">
+			    <%= submit_tag 'Create new student' %>
+			  </div>
+			<% end %>
+		<% end %>
+	</div>
+</div>
+

@@ -1,6 +1,46 @@
-<div class="btn-group-vertical">
-	<button type="button" class="btn btn-default">Classrooms</button>
-	<button type="button" class="btn btn-default">Teachers</button>
-	<button type="button" class="btn btn-default">Students</button>
-	<button type="button" class="btn btn-default">CourseInfo</button>
+
+<div class="container-fluid background">
+	<%= render "layouts/side_admin_menu" %>
+	<div class="col-sm-8 menu-center">
+		<!-- Search not that simple
+		<form>
+			<input type="submit" value="Search">
+			<input id="query" name="query" type="text">
+			<br>
+		</form>
+		-->
+	    <% if @infoType == "Classrooms" %>
+	    	<%= link_to "New", dashboard_new_form_path(infoType: @infoType) %>
+	    	<table id="tableData" class="table table-hover">
+	    		<tr><td>Course</td><td>Time</td><td>Location</td><td>Description</td><td>Student Capacity</td></tr>
+	    		<% @info.each do |classroom| %>
+				    <tr>
+				  		<td><%= classroom.name %></td>
+			      		<td><%= classroom.time %></td>
+			      		<td><%= classroom.location %></td>
+			      		<td><%= classroom.description %></td>
+			      		<td><%= classroom.student_capacity %></td>
+				  	</tr>
+			  	<% end %>
+			</table>
+	  	<% elsif @infoType === "Students" or @infoType === "Teachers" %>	
+	  		<%= link_to "New", dashboard_new_form_path(infoType: @infoType) %>  		
+	  		<table id="tableData" class="table table-hover">
+	  			<tr><td></td><td>Account ID</td><td>First Name</td><td>Middle Name</td><td>Last Name</td></tr>
+		    	<% @info.each do |user| %>
+			  		<tr>
+			  			<td><%= user.user.account_id %></td>
+			  			<td><%= user.user.identifier %></td>
+			      		<td><%= user.user.first_name %></td>
+			      		<td><%= user.user.middle_name %></td>
+			      		<td><%= user.user.last_name %></td>
+			  		</tr>
+			  	<% end %>
+			</table>
+		<% else %>
+			<!--Calendar code should be in here-->
+	  	<% end %>
+	</div>
 </div>
+
+
