@@ -37,8 +37,8 @@ class UsersController < ApplicationController
 			flash[:success] = @@success_message
 		else
 			flash[:danger] = @user.errors.full_messages.to_sentence
-		redirect_to '/users/show'
 		end
+		redirect_to '/users/show'
 	end
 
 	def update_phone

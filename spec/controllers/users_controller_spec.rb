@@ -28,6 +28,13 @@ RSpec.describe UsersController, :type => :controller do
 		 	expect(flash[:success]).to eq(@success)
 		 end
 
+		it "update correct password" do
+			@u ={:password => 'newpassw', :password_confirmation => 'newpassw', :current_password => 'password'}
+			post :update_password, :user => @u
+			expect(response).to redirect_to("/users/show")
+			expect(flash[:success]).to eq(@success)
+		end
+
 		it "update_password" do
 			@u ={:password => 'new', :password_confirmation => 'new', :current_password => 'notpassword'}
 		 	post :update_password , :user => @u
