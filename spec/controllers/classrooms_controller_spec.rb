@@ -26,6 +26,17 @@ RSpec.describe ClassroomsController, :type => :controller do
       get :show, :id => @class0.id
       expect(assigns(:classrooms)).to eq(@student0.account.classrooms)
     end
+    it 'check attendance and date' do
+      sign_in @teacher0
+      get :setAttendance, :id => @class0.id
+      expect(assigns(:classrooms[:id])).to eq(@teacher0.account.classrooms[:id])
+
+    end
+
+
+
+    @classroom = Classroom.find(params[:classroom][:id])
+    @date = Date.parse(params[:date])
   end
 
 end
