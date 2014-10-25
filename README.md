@@ -1,15 +1,20 @@
-== README
+README
+=======
 
-=== INSTALL
-$ git clone
-$ bundle install
-$ rails server
-navigate to http://localhost:3000
+INSTALL
+-------
 
-=== TESTING
-test_admin => {Username: “test_admin”, Password: “password”}
-test_teacher => {Username: “test_teacher”, Password: “password”}
-test_student => {Username: “test_student”, Password: “password”}
+$ git clone  
+$ bundle install  
+$ rails server  
+navigate to http://localhost:3000  
+
+TESTING
+-------
+
+test_admin => {Username: “test_admin”, Password: “password”}  
+test_teacher => {Username: “test_teacher”, Password: “password”}  
+test_student => {Username: “test_student”, Password: “password”}  
 
 Currently to test the features of this app, sign in as one of these users.
 
