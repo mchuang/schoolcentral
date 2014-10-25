@@ -29,12 +29,15 @@ describe SchoolPolicy do
     @school1.classrooms << @class1
   end
 
-
- 
-
-
+#sanity check
+  describe 'Make sure there is only one school' do
+    it 'makes sure there is one school' do
+      School.all.length.should eql(1)
+    end
+  end
 #First test
   describe 'Admin Scope on School' do
+
     it {expect(SchoolPolicy::Scope.new(@admin0,School).resolve).not_to eq(School.all)}
   end
 #Second test
@@ -45,9 +48,8 @@ describe SchoolPolicy do
   describe 'Student Scope on School' do
     it {expect(SchoolPolicy::Scope.new(@student0,School).resolve).not_to eq(School.all)}
   end
-
 #Fourth test
-    describe 'Admin Scope on School 2' do
+  describe 'Admin Scope on School 2' do
     it {
       expect(SchoolPolicy::Scope.new(@admin0,School).resolve).to(
         match_array(School.where(id: @admin0.school_id))
@@ -69,5 +71,35 @@ describe SchoolPolicy do
         match_array(School.where(id: @student0.school))
       )
     }
+  end
+#Seventh test
+  describe 'Admin Scope on School 3' do
+    it 'should contain the school that the admin belongs to' do
+      expect(SchoolPolicy::Scope.new(@admin0,School).resolve).to(match_array(School.where(id: @admin0.school_id)))
+    end
+    it 'should only contain the school that the admin belongs to' do
+      FactoryGirl.create(:school, name: "other_school1")
+      expect(SchoolPolicy::Scope.new(@admin0,School).resolve).not_to(match_array(School.all))
+    end
+  end
+#Eigth test
+  describe 'Teacher Scope on School 3' do
+    it 'should contain the school that the teacher belongs to' do
+      expect(SchoolPolicy::Scope.new(@teacher0,School).resolve).to(match_array(School.where(id: @teacher0.school_id)))
+    end
+    it 'should only contain the school that the teacher belongs to' do
+      FactoryGirl.create(:school, name: "other_school1")
+      expect(SchoolPolicy::Scope.new(@teacher0,School).resolve).not_to(match_array(School.all))
+    end
+  end
+#Ninth test
+  describe 'Student Scope on School 3' do
+    it 'should contain the school that the student belongs to' do
+      expect(SchoolPolicy::Scope.new(@student0,School).resolve).to( match_array(School.where(id: @student0.school)) )
+    end
+    it 'should contain the school that the student belongs to' do
+      FactoryGirl.create(:school, name: "other_school1")
+      expect(SchoolPolicy::Scope.new(@student0,School).resolve).not_to(match_array(School.all))
+    end
   end
 end

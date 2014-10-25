@@ -6,14 +6,13 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.where(identifier: "test_admin").delete_all
-User.where(identifier: "test_teacher").delete_all
-User.where(identifier: "test_student").delete_all
+User.where(first_name: "TEST").delete_all
 
 puts "Creating test Admin..."
 test_admin = User.create_account("Admin", {
     :identifier => "test_admin",
     :email => "test_admin@fake.com",
+    :first_name => "TEST",
     :password => "password",
     :password_confirmation => "password"
 })
@@ -22,6 +21,14 @@ puts "Creating test Teacher..."
 test_teacher = User.create_account("Teacher", {
     :identifier => "test_teacher",
     :email => "test_teacher@fake.com",
+    :first_name => "TEST",
+    :password => "password",
+    :password_confirmation => "password"
+})
+test_teacher2 = User.create_account("Teacher", {
+    :identifier => "test_teacher2",
+    :email => "test_teacher2@fake.com",
+    :first_name => "TEST",
     :password => "password",
     :password_confirmation => "password"
 })
@@ -30,39 +37,71 @@ puts "Creating test Student..."
 test_student = User.create_account("Student", {
     :identifier => "test_student",
     :email => "test_student@fake.com",
+    :first_name => "TEST",
     :password => "password",
     :password_confirmation => "password"
 })
 
 
-
-Classroom.where(name: "test_class").delete_all
+Classroom.where(description: "TEST").delete_all
 
 nstudents = 20
-puts "Creating test Classroom with #{nstudents} students"
-cls = Classroom.create(
+puts "Creating test Classrooms with #{nstudents} students"
+cls1 = Classroom.create(
     :name => "test_class",
     :time => "12:00",
     :location => "Room 404",
-    :description => "Test classroom with multiple students",
-    :student_capacity => 30
+    :description => "TEST"
 )
-# Add test_teacher and test_student to new class
-cls.teachers << test_teacher
-cls.students << test_student
+cls2 = Classroom.create(
+    :name => "test_class2",
+    :time => "1:00",
+    :location => "Room 500",
+    :description => "TEST"
+)
+cls3 = Classroom.create(
+    :name => "test_class3",
+    :time => "2:00",
+    :location => "Room 200 OK",
+    :description => "TEST"
+)
+cls4 = Classroom.create(
+    :name => "test_class4",
+    :time => "3:00",
+    :location => "Room 304 NOT MODIFIED",
+    :description => "TEST"
+)
+
+# Assign teachers
+cls1.teachers << test_teacher
+cls2.teachers << test_teacher2
+cls3.teachers << test_teacher
+cls4.teachers << test_teacher
+
+# Assign students
+cls1.students << test_student
+cls2.students << test_student
+
 # Enroll additional students
 (0...nstudents).each do |sid|
-    # Remove existing seeded users and student accounts
-    User.where(identifier: "cls_student_#{sid}").delete_all
-
-    # Replace with new Student in class
-    cls.students << User.create_account("Student", {
+    std = User.create_account("Student", {
         :identifier => "cls_student_#{sid}",
         :email => "cls_student_#{sid}@fake.com",
+        :first_name => "TEST",
         :password => "password",
-        :password_confirmation => "password",
+        :password_confirmation => "password"
     })
+    cls1.students << std
+    cls2.students << std
     print "."
 end
+
+# Assign students randomly to cls3 and cls4
+students = Student.all.to_a
+(0...(nstudents/2)).each do |sid|
+    cls3.students << students.delete_at(rand(students.length))
+end
+(0...(nstudents/2)).each do |sid|
+    cls4.students << students.delete_at(rand(students.length))
+end
 puts
-cls.save

@@ -75,4 +75,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Allow asset compilation on production systems
+  config.assets.compile = true
+  config.assets.precompile =  ['*.js', '*.css', '*.css.scss'] 
 end
