@@ -1,3 +1,5 @@
+# @author: jdefond, dkang
+
 require 'rails_helper'
 
 RSpec.describe StaticController, :type => :controller do

@@ -1,3 +1,5 @@
+# @author: jdefond, dkang
+
 require 'rails_helper'
 
 RSpec.describe ClassroomsController, :type => :controller do
@@ -32,11 +34,6 @@ RSpec.describe ClassroomsController, :type => :controller do
       expect(assigns(:classrooms[:id])).to eq(@teacher0.account.classrooms[:id])
 
     end
-
-
-
-    @classroom = Classroom.find(params[:classroom][:id])
-    @date = Date.parse(params[:date])
   end
 
 end
