@@ -11,7 +11,7 @@
 	<tbody>
 		<tr>
 			<td><%= current_user.identifier %>, <%= current_user.first_name %></td>
-			<% row = Attendance.get_week_for_student(current_user.account, Date.today) %>
+			<% row = Attendance.get_week_for_student(current_user.account, @classroom, Date.today) %>
 			<% for day in Attendance.get_week_array(Date.current) %>
 				<% has_value = false %>
 				<% for attendance in row %>
