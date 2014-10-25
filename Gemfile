@@ -27,6 +27,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
+gem 'simplecov', '~>0.9.0', :require => false, :group => :test
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -48,5 +50,10 @@ end
 # Use Devise for user authentication and management
 gem 'devise'
 
-#Use pundit for authorization 
+# Use pundit for authorization 
 gem 'pundit'
+
+# Enable Heroku debugging features
+group :production do
+    gem 'rails_12factor'
+end

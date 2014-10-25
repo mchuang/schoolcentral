@@ -40,12 +40,12 @@ describe AttendancePolicy do
 
   #Second test
   describe "Teacher Scope on Attendance" do
-    it{expect(AttendancePolicy::Scope.new(@teacher0,Attendance).resolve).to eq(Attendance.where({id: @attendance0.id}))}
+    it{expect(AttendancePolicy::Scope.new(@teacher0,Attendance).resolve).to match_array(Attendance.where({id: @attendance0.id}))}
   end
 
   #thrid test
   describe "student Scope on Attendance" do 
-    it{expect(AttendancePolicy::Scope.new(@student0,Attendance).resolve).to eq(Attendance.where({id: @attendance0.id}))}
+    it{expect(AttendancePolicy::Scope.new(@student0,Attendance).resolve).to match_array(Attendance.where({id: @attendance0.id}))}
   end
   # let(:user) { User.new }
 
