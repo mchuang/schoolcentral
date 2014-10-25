@@ -1,28 +1,53 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+=== INSTALL
+$ git clone
+$ bundle install
+$ rails server
+navigate to http://localhost:3000
 
-Things you may want to cover:
+=== TESTING
+test_admin => {Username: “test_admin”, Password: “password”} 
+test_teacher => {Username: “test_teacher”, Password: “password”} 
+test_student => {Username: “test_student”, Password: “password”} 
 
-* Ruby version
+Currently to test the features of this app, sign in as one of these users.
 
-* System dependencies
+Create a new user: 
+- Log in as admin
+- Go to Students or Teachers tab
+- Click New above the table 
+- Input a unique identifier in ID field
+- Click create new student/teacher
+- Redirected to the users table again with the new user
 
-* Configuration
+Create a classroom: 
+- Log in as admin
+- Go to Classrooms tab 
+- Click New above the table 
+- Input the identifiers for existing teachers and students (for multiple students {id0, id1, id2}) ie Teacher: test_teacher / Students: cls_student_0, cls_student_1, cls_student_2
+- Input a positive integer for capacity (30)
+- Click create new classroom
+- Redirected to classrooms table with newly created class            
 
-* Database creation
+Change attendance: 
+- Log in as test_student
+- Go to test_class tab
+- Go to attendance tab
+- take note of student attendance for test_class
+- Logout
+- Log in as test_teacher
+- Go to test_class tab
+- Go to attendance tab
+- Click on date
+- Change test_student attendance for that date
+- Logout
+- Repeat test_student steps
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Change profile info:
+- Log in as test_teacher
+- Click on profile button in navbar or the profile thumbnail
+- Click the edit button for any user attribute
+- Fill in the input fields
+- Click save
+- Verify changes were stored
