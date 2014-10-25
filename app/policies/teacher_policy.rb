@@ -1,3 +1,5 @@
+# @author: elewis, jdefond
+
 class TeacherPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve

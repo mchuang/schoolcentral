@@ -1,3 +1,5 @@
+# @voe
+
 class StaticController < ApplicationController
 
 	def home

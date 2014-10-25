@@ -1,3 +1,5 @@
+# @author: elewis, jdefond
+
 class Classroom < ActiveRecord::Base
 
 	#more then one teacher and more then one student per class, but teachers and

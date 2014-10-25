@@ -1,3 +1,5 @@
+# @author: elewis, jdefond
+
 class ClassroomPolicy < ApplicationPolicy
   class Scope < Scope
     
