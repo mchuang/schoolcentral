@@ -6,6 +6,7 @@ INSTALL
 
 $ git clone  
 $ bundle install  
+$ rake db:create db:schema:load db:seed
 $ rails server  
 navigate to http://localhost:3000  
 
