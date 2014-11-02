@@ -21,6 +21,17 @@ ActiveRecord::Schema.define(version: 20141102223242) do
     t.datetime "updated_at"
   end
 
+  create_table "assignments", force: true do |t|
+    t.integer  "teacher_id"
+    t.integer  "classroom_id"
+    t.integer  "max_points"
+    t.string   "name"
+    t.string   "description"
+    t.datetime "due"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "attendances", force: true do |t|
     t.integer  "student_id"
     t.integer  "classroom_id"

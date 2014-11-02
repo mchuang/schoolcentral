@@ -6,6 +6,8 @@ class Teacher < ActiveRecord::Base
 	#teacher is a member of many classrooms 
 	has_and_belongs_to_many :classrooms
 
+    has_many :assignments
+
 	#return list of all students for a teacher in all classrooms
 	def students
 		classrooms.map {|cls| cls.students}.flatten.uniq
