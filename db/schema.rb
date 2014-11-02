@@ -13,10 +13,22 @@
 
 ActiveRecord::Schema.define(version: 20141102223332) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "admins", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "assignments", force: true do |t|
+    t.integer  "teacher_id"
+    t.integer  "classroom_id"
+    t.integer  "max_points"
+    t.string   "name"
+    t.string   "description"
+    t.datetime "due"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -56,7 +68,10 @@ ActiveRecord::Schema.define(version: 20141102223332) do
     t.datetime "startime"
     t.datetime "endtime"
     t.string   "description"
+<<<<<<< HEAD
     t.integer  "classroom_id"
+=======
+>>>>>>> e198e30db79b1bcd95ead9e063e0382dcc08b6a4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -68,6 +83,15 @@ ActiveRecord::Schema.define(version: 20141102223332) do
   end
 
   create_table "students", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "submissions", force: true do |t|
+    t.string   "filename"
+    t.integer  "grade"
+    t.integer  "assignment_id"
+    t.integer  "student_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
