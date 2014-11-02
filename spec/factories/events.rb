@@ -2,10 +2,10 @@
 
 FactoryGirl.define do
   factory :event do
-    name "MyString"
+    name "TEST EVENT"
     startime "2014-11-02 14:33:32"
     endtime "2014-11-02 14:33:32"
-    description "MyString"
+    description "TESTING description"
     classroom_id 1
   end
 end

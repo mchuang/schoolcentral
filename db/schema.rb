@@ -68,10 +68,7 @@ ActiveRecord::Schema.define(version: 20141102223332) do
     t.datetime "startime"
     t.datetime "endtime"
     t.string   "description"
-<<<<<<< HEAD
     t.integer  "classroom_id"
-=======
->>>>>>> e198e30db79b1bcd95ead9e063e0382dcc08b6a4
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -12,4 +12,8 @@ class Teacher < ActiveRecord::Base
 	def students
 		classrooms.map {|cls| cls.students}.flatten.uniq
 	end
+
+	def events 
+		classrooms.map {|cls| cls.events}.flatten
+	end
 end
