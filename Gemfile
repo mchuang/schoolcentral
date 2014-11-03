@@ -29,6 +29,8 @@ gem 'spring',        group: :development
 
 gem 'simplecov', '~>0.9.0', :require => false, :group => :test
 
+gem 'momentjs-rails', '>= 2.8.1'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
