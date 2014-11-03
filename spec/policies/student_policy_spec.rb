@@ -34,21 +34,108 @@ describe StudentPolicy do
   it "Student scope on Student" do
     expect(StudentPolicy::Scope.new(@student0, Student).resolve).to eq(Student.where({id: @student0.account_id}))
   end
+
+  permissions :index? do
+    it "should allow admin to index students" do
+      expect(described_class).to permit(@admin0, Student)
+    end
+
+    it "should allow teacher to index scoped students" do
+      expect(described_class).to permit(@teacher0, Student)
+    end
+
+    it "should not allow students to index students" do
+      expect(described_class).not_to permit(@student0, Student)
+    end
+  end
+
+  permissions :create? do
+    it "should allow admins to create students" do
+      expect(described_class).to permit(@admin0, Student)
+    end
+
+    it "should not allow teachers to create student" do
+      expect(described_class).not_to permit(@teacher0, Student)
+    end
+
+    it "should not allow students to create student" do
+      expect(described_class).not_to permit(@student0, Student)
+    end
+  end
+
+  permissions :show? do
+    it "should allow admins to show students" do
+      expect(described_class).to permit(@admin0, @student1.account)
+    end
+
+    it "should allow teachers to show scoped students" do
+      expect(described_class).to permit(@teacher0, @student0.account)
+    end
+
+    it "should not allow teachers to show other students" do
+      expect(described_class).not_to permit(@teacher0, @student1.account)
+    end
+
+    it "should allow students to show themselves" do
+      expect(described_class).to permit(@student0, @student0.account)
+    end
+
+    it "should not allow students to show other students" do
+      expect(described_class).not_to permit(@student0, @student1.account)
+    end
+  end
+
+  permissions :edit? do
+    it "should allow admins to edit students" do
+      expect(described_class).to permit(@admin0, @student0.account)
+    end
+
+    it "should not allow teachers to edit students" do
+      expect(described_class).not_to permit(@teacher0, @student0.account)
+    end
+
+    it "should allow students to edit themselves" do
+      expect(described_class).to permit(@student0, @student0.account)
+    end
+
+    it "should not allow students to edit other students" do
+      expect(described_class).not_to permit(@student0, @student1.account)
+    end
+  end
+
+  permissions :update? do
+    it "should allow admins to edit students" do
+      expect(described_class).to permit(@admin0, @student0.account)
+    end
+
+    it "should not allow teachers to edit students" do
+      expect(described_class).not_to permit(@teacher0, @student0.account)
+    end
+
+    it "should allow students to edit themselves" do
+      expect(described_class).to permit(@student0, @student0.account)
+    end
+
+    it "should not allow students to edit other students" do
+      expect(described_class).not_to permit(@student0, @student1.account)
+    end
+  end
+
+  permissions :destroy? do
+    it "should allow admins to edit students" do
+      expect(described_class).to permit(@admin0, @student0.account)
+    end
+
+    it "should not allow teachers to delete students" do
+      expect(described_class).not_to permit(@teacher0, @student0.account)
+    end
+
+    it "should not allow students to delete themselves" do
+      expect(described_class).not_to permit(@student0, @student0.account)
+    end
+
+    it "should not allow students to delete other students" do
+      expect(described_class).not_to permit(@student0, @student1.account)
+    end
+  end
 end
-
-  # permissions :create? do
-  #   pending "add some examples to (or delete) #{__FILE__}"
-  # end
-
-  # permissions :show? do
-  #   pending "add some examples to (or delete) #{__FILE__}"
-  # end
-
-  # permissions :update? do
-  #   pending "add some examples to (or delete) #{__FILE__}"
-  # end
-
-  # permissions :destroy? do
-  #   pending "add some examples to (or delete) #{__FILE__}"
-  # end
-
