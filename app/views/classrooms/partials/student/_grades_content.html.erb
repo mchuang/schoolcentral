@@ -19,7 +19,7 @@
 					<td><%= submission.grade %></td>
 				<% end %>
 			<% end %>
-			<td>100</td>
+			<td><%= current_user.account.grade(@classroom.id)%>/<%= @classroom.max_points %> , <%=current_user.account.grade(@classroom.id)%>%</td>
 		</tr>
 	</tbody>		
 </table>
