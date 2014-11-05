@@ -1,3 +1,36 @@
-<h1>teachers assignments content</h1>
+
+<div class="col-sm-6">
+	<table class="table table-striped assignments-table">
+		<h3>Current Assignments</h3>
+		<tbody>
+			<% for assignment in @classroom.assignments %>
+				<% if assignment.due > DateTime.now %>
+					<tr>
+						<td><%= link_to assignment.name, assignment %></td>
+						<td><%= assignment.description %></td>
+						<td><%= formatDate(assignment.due) %></td>
+					</tr>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+<div class="col-sm-6">
+	<table class="table table-striped assignments-table">
+		<h3>Past Assignments</h3>
+		<tbody>
+			<% for assignment in @classroom.assignments %>
+				<% if assignment.due < DateTime.now %>
+					<tr>
+						<td><%= link_to assignment.name, assignment %></td>
+						<td><%= assignment.description %></td>
+						<td><%= formatDate(assignment.due) %></td>
+					</tr>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
 
 <%= render "assignments/partials/new_assignment" %>
