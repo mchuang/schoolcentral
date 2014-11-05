@@ -16,10 +16,11 @@
 				<% if submission.nil? %>
 					<td>N/A</td>
 				<% else %>
-					<td><%= submission.grade %></td>
+					<td><%= submission.grade %>/<%= assignment.max_points %></td>
 				<% end %>
 			<% end %>
-			<td><%= current_user.account.grade(@classroom.id)%>/<%= @classroom.max_points %> , <%=current_user.account.grade(@classroom.id)%>%</td>
+			<td><%= current_user.account.recv_points(@classroom_id)%>/<%= @classroom.max_points %>,
+				<%=current_user.account.grade(@classroom.id)%>%</td>
 		</tr>
 	</tbody>		
 </table>
