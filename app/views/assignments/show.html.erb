@@ -1,0 +1,6 @@
+<div class="background">
+	<h1>name: <%= @assignment.name %></h1>
+	<p>description: <%= @assignment.description %></p>
+	<h3>possible points: <%= @assignment.max_points %></h3>
+	<h3>due date: <%= formatDate(@assignment.due) %></h3>
+</div>
