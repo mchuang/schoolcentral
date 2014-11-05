@@ -23,4 +23,23 @@ class Classroom < ActiveRecord::Base
             errors.add(:student_capacity, "student capacity is overloaded")
         end
     end
+
+    def self.editClassroom(course, time, location, description, capacity, teachers, students)
+        @time = time
+        @location = location
+        @description = description
+        @capacity = capacity
+        teachers.clear()
+        students.clear()
+        teachers.split(',').each do |teacher|
+            if Teacher.find_by_id(teacher)
+                @teachers << Teacher.find_by_identifier(teacher).account
+            end
+        end
+        students.split(',').each do |student|
+            if Student.find_by_id(student)
+                @students << Student.find_by_identifer(student).account
+            end
+        end
+    end
 end

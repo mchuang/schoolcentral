@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   post 'users/update_phone'
 
   post 'classrooms/setAttendance'
+  get 'classrooms/getClassroom'
+  post 'classrooms/editClassroom'
 
   devise_for :users, 
     :path => '',

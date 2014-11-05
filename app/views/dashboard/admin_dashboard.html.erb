@@ -4,10 +4,24 @@
 <div class="container-fluid background">
 	<%= render "layouts/side_admin_menu" %>
 	<div class="col-sm-8 menu-center">
-		<!-- Search not that simple
+		<!-- test search code with autosuggest
 		<form>
 			<input type="submit" value="Search">
-			<input id="query" name="query" type="text">
+			<input id="test" name="query" type="text">
+			<script type="text/javascript">
+			  var data = {items: [
+			    {value: "21", name: "Mick Jagger"},
+			    {value: "43", name: "Johnny Storm"},
+			    {value: "46", name: "Richard Hatch"},
+			    {value: "54", name: "Kelly Slater"},
+			    {value: "55", name: "Rudy Hamilton"},
+			    {value: "79", name: "Michael Jordan"}
+			]};
+			  $(function(){
+			    $("input[type=text]").autoSuggest(data);
+			  });
+
+			</script>
 			<br>
 		</form>
 		-->
@@ -22,6 +36,7 @@
 			      		<td><%= classroom.location %></td>
 			      		<td><%= classroom.description %></td>
 			      		<td><%= classroom.student_capacity %></td>
+			      		<td><%= link_to "Details", classrooms_getClassroom_path(id: classroom.id) %></td>
 				  	</tr>
 			  	<% end %>
 			</table>
@@ -44,5 +59,4 @@
 	  	<% end %>
 	</div>
 </div>
-
 
