@@ -19,7 +19,7 @@ class AssignmentsController < ApplicationController
 			"due" => date, 
 		}
 
-		logger.debug "------------------assignmentParams2: #{assignmentParams2}"
+		logger.debug "------------------assignmentParams2: #{assignmentParams}"
 
 		@assignment = Assignment.create(assignmentParams)
 		#@assignment = Assignment.create(assignment_params) #currently does not work
@@ -36,6 +36,9 @@ class AssignmentsController < ApplicationController
 
 	def show
 		@assignment = Assignment.find(params[:id])
+		if current_user.account_type == "Student"
+			@submission = current_user.account.submission(@assignment.id)
+		end
 	end
 
 	def update
