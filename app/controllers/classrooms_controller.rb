@@ -47,4 +47,14 @@ class ClassroomsController < ApplicationController
 		end	
 	end
 	
+	def getClassroom
+		@classroom = Classroom.find(params[:id])
+		render 'classroominfo'
+	end
+
+	def editClassroom
+		Classroom.editClassroom(params[:course], params[:time], params[:location], params[:description], params[:capacity], params[:teachers].split(','), params[:students].split(','))
+		@classroom = Classroom.find_by_id(params[:id])
+		render '/dashboard/admin_dashboard'
+	end
 end
