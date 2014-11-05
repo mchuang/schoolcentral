@@ -7,6 +7,7 @@ class Student < ActiveRecord::Base
 	has_and_belongs_to_many :classrooms
 
 	has_many :attendance
+	has_many :submissions
  	
  	#return list of all teachers in all classrooms
  	def teachers
@@ -17,5 +18,12 @@ class Student < ActiveRecord::Base
 		classrooms.map {|cls| cls.events}.flatten
 	end
 
-	
+	def grade(classroom_id)
+		recv_points = submissions.where(assignment_id: Assignment.where(classroom_id: classroom_id)).sum(:grade)
+		recv_points.to_f / classrooms.find(classroom_id).max_points
+	end
+
+	def submission(assignment_id)
+		submissions.find_by_assignment_id(assignment_id)
+	end
 end

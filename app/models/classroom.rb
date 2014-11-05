@@ -18,6 +18,10 @@ class Classroom < ActiveRecord::Base
 
     before_save :default_values
 
+    def max_points
+        assignments.sum(:max_points)
+    end
+
     private
 
     def enforce_student_capacity
