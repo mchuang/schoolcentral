@@ -1,1 +1,27 @@
-<h1>students grades content</h1>
+<table class="table table-striped table-condensed attendance-table">
+	<thead>
+		<th>Name</th>
+		<th>Identifier</th>
+		<% for assignment in @classroom.assignments %>
+			<th><%= link_to assignment.name, '#' %></th>
+		<% end %>
+		<th>Total</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td><%= current_user.first_name %>, <%= current_user.last_name %></td>
+			<td><%= current_user.identifier %></td>
+			<% for assignment in @classroom.assignments %>
+				<% submission = assignment.get_submission(current_user.id) %>
+				<% if submission.nil? %>
+					<td>N/A</td>
+				<% else %>
+					<td><%= submission.grade %>/<%= assignment.max_points %></td>
+				<% end %>
+			<% end %>
+			<td><%= current_user.account.recv_points(@classroom_id)%>/<%= @classroom.max_points %>,
+				<%=current_user.account.grade(@classroom.id)%>%</td>
+		</tr>
+	</tbody>		
+</table>
+

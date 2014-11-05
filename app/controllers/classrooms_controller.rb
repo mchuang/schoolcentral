@@ -29,5 +29,22 @@ class ClassroomsController < ApplicationController
 			redirect_to @classroom # should add error message
 		end
 	end
+
+	def setGrades
+		@classroom = Classroom.find(params[:classroom][:id])
+		@assignment = Assignment.find(params[:assignment])
+		if @classroom and @assignment
+			gradesSheet = params['grades']
+			subs = @assignment.submissions
+			subs.each do |sub|
+				student = sub.student_id
+				studentScore = gradesSheet[student.to_s]
+				sub.update(grade: studentScore.to_i)
+			end
+			redirect_to @classroom
+		else
+			redirect_to @classroom
+		end	
+	end
 	
 end
