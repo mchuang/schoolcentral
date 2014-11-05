@@ -12,11 +12,11 @@ class AssignmentsController < ApplicationController
 
 		assignmentParams = {
 			"teacher_id" => params[:teacher_id],
-			"classroom_id" => params[:classroom_id], 
+			"classroom_id" => params[:classroom_id],
 			"max_points" => params[:max_points],
-			"name" => params[:name], 
-			"description" => params[:description], 
-			"due" => date, 
+			"name" => params[:name],
+			"description" => params[:description],
+			"due" => date,
 		}
 
 		logger.debug "------------------assignmentParams2: #{assignmentParams}"

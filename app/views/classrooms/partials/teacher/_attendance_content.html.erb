@@ -18,7 +18,7 @@
 					<% for attendance in row %>
 						<% if attendance.date == day %>
 							<% has_value = true %>
-							<td><%= attendance.status %></td>
+							<td><%= attendance.get_status() %></td>
 						<% end %>
 					<% end %>
 					<% if has_value == false %>
