@@ -22,6 +22,26 @@ class Classroom < ActiveRecord::Base
         assignments.sum(:max_points)
     end
 
+    def current_assignments
+        currentAssignments = []
+        for a in assignments
+            if a.due > DateTime.now
+                currentAssignments.append(a)
+            end
+        end
+        return currentAssignments
+    end
+
+    def past_assignments
+        pastAssignments = []
+        for a in assignments
+            if a.due < DateTime.now
+                pastAssignments.append(a)
+            end
+        end
+        return pastAssignments
+    end
+
     private
 
     def enforce_student_capacity
