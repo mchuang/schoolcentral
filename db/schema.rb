@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102223332) do
+ActiveRecord::Schema.define(version: 20141105035111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,12 +22,12 @@ ActiveRecord::Schema.define(version: 20141102223332) do
   end
 
   create_table "assignments", force: true do |t|
-    t.integer  "teacher_id"
-    t.integer  "classroom_id"
+    t.integer  "teacher_id",   null: false
+    t.integer  "classroom_id", null: false
     t.integer  "max_points"
-    t.string   "name"
+    t.string   "name",         null: false
     t.string   "description"
-    t.datetime "due"
+    t.datetime "due",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(version: 20141102223332) do
     t.integer  "classroom_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "owner_id"
+    t.string   "owner_type"
   end
 
   create_table "schools", force: true do |t|
@@ -86,8 +88,8 @@ ActiveRecord::Schema.define(version: 20141102223332) do
   create_table "submissions", force: true do |t|
     t.string   "filename"
     t.integer  "grade"
-    t.integer  "assignment_id"
-    t.integer  "student_id"
+    t.integer  "assignment_id", null: false
+    t.integer  "student_id",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
