@@ -10,7 +10,7 @@ class AssignmentsController < ApplicationController
 			date = DateTime.strptime(dateString, '%Y-%m-%d %H:%M')
 		end
 
-		assignmentParams2 = {
+		assignmentParams = {
 			"teacher_id" => params[:teacher_id],
 			"classroom_id" => params[:classroom_id], 
 			"max_points" => params[:max_points],
@@ -21,7 +21,7 @@ class AssignmentsController < ApplicationController
 
 		logger.debug "------------------assignmentParams2: #{assignmentParams2}"
 
-		@assignment = Assignment.create(assignmentParams2)
+		@assignment = Assignment.create(assignmentParams)
 		#@assignment = Assignment.create(assignment_params) #currently does not work
 
 		if @assignment
