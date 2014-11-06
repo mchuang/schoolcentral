@@ -9,11 +9,11 @@ class SubmissionPolicy < ApplicationPolicy
         # scope.all
         # Teachers can see their own school
         when 'Teacher'
-          scope.where({id:user.school(&:id)})
+          scope.where({assignment_id: user.assignments.map(&:id)})
         # scope.all
         # Students can see their own school
         when 'Student'
-          scope.where({id:user.school(&:id)})
+          scope.where({id:user.account.submissions.map(&:id)})
         # scope.all
       end
     end
