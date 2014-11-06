@@ -14,8 +14,8 @@ RSpec.describe School, :type => :model do
 
   it "name must be unique" do
     expect {
-      FactoryGirl.create(:school)
-      FactoryGirl.create(:school)
+      FactoryGirl.create(:school, :name => "school1")
+      FactoryGirl.create(:school, :name => "school1")
     }.to raise_error(ActiveRecord::RecordInvalid)
   end
 

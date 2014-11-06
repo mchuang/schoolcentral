@@ -4,6 +4,7 @@ require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'simplecov'
+require 'paperclip/matchers'
 SimpleCov.start
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -27,6 +28,8 @@ SimpleCov.start
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+
+  config.include Paperclip::Shoulda::Matchers
 
   #use devise TestHelpers on controllers
   config.include Devise::TestHelpers, type: :controller

@@ -26,6 +26,12 @@ RSpec.describe Attendance, :type => :model do
     expect(att.absent?).to eq(true)
   end
 
+  it "correctly reports status symbols" do
+    expect(FactoryGirl.create(:present_attendance).get_status).to eq(:present)
+    expect(FactoryGirl.create(:tardy_attendance).get_status).to eq(:tardy)
+    expect(FactoryGirl.create(:absent_attendance).get_status).to eq(:absent)
+  end
+
   it "attendance get_week correct" do
     cls = FactoryGirl.create(:classroom)
     std = FactoryGirl.create(:student)

@@ -29,4 +29,19 @@ RSpec.describe Classroom, :type => :model do
     cls.students << FactoryGirl.create(:student)
     expect { cls.save! }.to raise_error(ActiveRecord::RecordInvalid)
   end
+
+  it "should correctly aggregate assignment points" do
+    total_points = 0
+    cls = FactoryGirl.create(:classroom)
+    expect(cls.max_points).to eq(0)
+    (0..5).each {|i|
+      assgn = FactoryGirl.create(:assignment,
+        :name => "assgn-#{i}",
+        :max_points => i*5,
+        :classroom => cls
+      )
+      total_points += assgn.max_points
+    }
+    expect(cls.max_points).to eq(total_points)
+  end
 end

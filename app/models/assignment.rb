@@ -5,15 +5,14 @@ class Assignment < ActiveRecord::Base
 
   has_one :event, :as => :owner, :dependent => :destroy
 
-  before_save  :default_values
+  before_validation :default_values, on: :create
   after_create :create_submissions
   after_create :create_event
 
-  validates :teacher_id,   presence: true
-  validates :classroom_id, presence: true
+  validates :teacher,      presence: true
+  validates :classroom,    presence: true
   validates :name,         presence: true
   validates :due,          presence: true
-  validate :due_in_future
 
   private
 
@@ -29,12 +28,6 @@ class Assignment < ActiveRecord::Base
         :endtime => due,
         :classroom_id => classroom_id
     )
-  end
-
-  def due_in_future
-    if due < Time.zone.now
-      errors.add(:due, "due date must be in the future")
-    end
   end
 
   def default_values
