@@ -16,7 +16,7 @@ class Classroom < ActiveRecord::Base
     validates :student_capacity, numericality: { greater_than_or_equal_to: 0 }
     validate  :enforce_student_capacity
 
-    before_save :default_values
+    before_validation :default_values, on: :create
 
     def max_points
         assignments.sum(:max_points)

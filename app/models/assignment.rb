@@ -5,7 +5,7 @@ class Assignment < ActiveRecord::Base
 
   has_one :event, :as => :owner, :dependent => :destroy
 
-  before_save  :default_values
+  before_validation :default_values, on: :create
   after_create :create_submissions
   after_create :create_event
 

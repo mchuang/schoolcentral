@@ -24,7 +24,7 @@ class Student < ActiveRecord::Base
 
 	def grade(classroom_id)
 		max_points = classrooms.find(classroom_id).max_points
-		max_points > 0 ? recv_points(classroom_id).to_f / max_points : 0
+		max_points > 0 ? recv_points(classroom_id).to_f / max_points : 0.0
 	end
 
 	def submission(assignment_id)
