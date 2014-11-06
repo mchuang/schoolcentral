@@ -1,0 +1,51 @@
+<span class="pull-right">
+  <button class="btn btn-sm" onclick="toggleModal('newAssignmentModal')">
+    new assignment
+  </button>
+</span>
+<div class="modal" id="newAssignmentModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title center">Create New Assignment</h2>
+      </div>
+      <div class="modal-body">
+        <%= form_tag url_for(assignments_path) do %>
+          
+          <%= hidden_field_tag(:classroom_id, @classroom.id) %>
+
+          <div>
+            <%= label_tag(:name, "name:") %>
+            <%= text_field_tag(:name, nil, required: true) %>
+          </div>
+          <br>
+          <div>
+            <%= label_tag(:description, "description:") %>
+            <%= text_area_tag(:description, nil) %>
+          </div>
+          <br>
+          <div>
+            <%= label_tag(:max_points, "total possible points:") %>
+            <%= number_field_tag(:max_points, in: 1..Float::INFINITY, step: 0.5) %>
+          </div>
+          <br>
+          <div>
+            <%= label_tag(:due_date, "due date:") %>
+            <%= date_field_tag(:due_date, required: true) %>
+          </div>
+          <br>
+          <div>
+            <%= label_tag(:due_time, "due time:") %>
+            <%= time_field_tag(:due_time, required: true) %>
+          </div>
+          <br>
+          <%= submit_tag("create assignment") %>
+
+      <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="toggleModal('newAssignmentModal')">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

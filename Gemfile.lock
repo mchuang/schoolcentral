@@ -70,6 +70,8 @@ GEM
       mime-types (>= 1.16, < 3)
     mime-types (2.3)
     minitest (5.4.2)
+    momentjs-rails (2.8.3)
+      railties (>= 3.1)
     multi_json (1.10.1)
     orm_adapter (0.5.0)
     paperclip (4.2.0)
@@ -170,7 +172,11 @@ DEPENDENCIES
   factory_girl_rails
   jbuilder (~> 2.0)
   jquery-rails
+<<<<<<< HEAD
   paperclip (~> 4.2)
+=======
+  momentjs-rails (>= 2.8.1)
+>>>>>>> 31d0a11db995c3cc1783843846f8fa833ae02251
   pg
   pundit
   rails (= 4.1.6)

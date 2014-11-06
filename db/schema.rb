@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20141105234935) do
+=======
+ActiveRecord::Schema.define(version: 20141105035111) do
+>>>>>>> 31d0a11db995c3cc1783843846f8fa833ae02251
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,12 +26,12 @@ ActiveRecord::Schema.define(version: 20141105234935) do
   end
 
   create_table "assignments", force: true do |t|
-    t.integer  "teacher_id"
-    t.integer  "classroom_id"
+    t.integer  "teacher_id",   null: false
+    t.integer  "classroom_id", null: false
     t.integer  "max_points"
-    t.string   "name"
+    t.string   "name",         null: false
     t.string   "description"
-    t.datetime "due"
+    t.datetime "due",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -70,6 +74,8 @@ ActiveRecord::Schema.define(version: 20141105234935) do
     t.integer  "classroom_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "owner_id"
+    t.string   "owner_type"
   end
 
   create_table "schools", force: true do |t|
@@ -86,8 +92,8 @@ ActiveRecord::Schema.define(version: 20141105234935) do
   create_table "submissions", force: true do |t|
     t.string   "filename"
     t.integer  "grade"
-    t.integer  "assignment_id"
-    t.integer  "student_id"
+    t.integer  "assignment_id", null: false
+    t.integer  "student_id",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "file_file_name"
