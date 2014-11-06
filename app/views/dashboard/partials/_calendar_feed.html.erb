@@ -1,3 +1,88 @@
-<div class="calendar col-sm-7">
-	text
+<div class="col-sm-7">
+	<div class="container-fluid calendar">
+		<div class="row calendar-header">
+			<h2 class="month-label">Month</h2>
+		</div>
+		<div class="row calendar-week-header">
+			<div class="calendar-day day-label">sun</div>
+	        <div class="calendar-day day-label">mon</div>
+	      	<div class="calendar-day day-label">tue</div>
+	      	<div class="calendar-day day-label">wed</div>
+	      	<div class="calendar-day day-label">thu</div>
+	      	<div class="calendar-day day-label">fri</div>
+	      	<div class="calendar-day day-label">sat</div>
+	    </div>
+
+	    <% for week in Event.get_dates_for_month(Date.current.year, Date.current.month) %>
+	    	<div class="row calendar-week">
+	    		<% for day in week %>
+	    			<div class="calendar-day">
+	    				<% if day.month == Date.current.month %>
+		    				<text><%= day.day %></text>
+		    			<% else %>
+		    				<text class="light-text"><%= day.day %></text>
+		    			<% end %>
+	    			</div>
+	    		<% end %>
+	    	</div>
+	    <% end %>
+
+	  <!--
+		<div class="row calendar-week">
+	      	<div class="calendar-day"></div>
+	        <div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	  	</div>
+	  	<div class="row calendar-week">
+	      	<div class="calendar-day"></div>
+	        <div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	  	</div>
+	  	<div class="row calendar-week">
+	      	<div class="calendar-day"></div>
+	        <div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	  	</div>
+	  	<div class="row calendar-week">
+	      	<div class="calendar-day"></div>
+	        <div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	  	</div>
+	  	<div class="row calendar-week">
+	      	<div class="calendar-day"></div>
+	        <div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	  	</div>
+	  	<div class="row calendar-week">
+	      	<div class="calendar-day"></div>
+	        <div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	      	<div class="calendar-day"></div>
+	  	</div>
+	  -->
+
+	</div>
 </div>
