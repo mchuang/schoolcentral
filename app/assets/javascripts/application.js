@@ -16,6 +16,8 @@
 //= require_tree .
 //= require bootstrap.min
 //= require moment
+//= require jquery.autoSuggest
+
 
 //@author: voe
 

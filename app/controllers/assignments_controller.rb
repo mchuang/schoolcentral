@@ -12,14 +12,14 @@ class AssignmentsController < ApplicationController
 
 		assignmentParams = {
 			"teacher_id" => params[:teacher_id],
-			"classroom_id" => params[:classroom_id], 
+			"classroom_id" => params[:classroom_id],
 			"max_points" => params[:max_points],
-			"name" => params[:name], 
-			"description" => params[:description], 
-			"due" => date, 
+			"name" => params[:name],
+			"description" => params[:description],
+			"due" => date,
 		}
 
-		logger.debug "------------------assignmentParams2: #{assignmentParams2}"
+		logger.debug "------------------assignmentParams2: #{assignmentParams}"
 
 		@assignment = Assignment.create(assignmentParams)
 		#@assignment = Assignment.create(assignment_params) #currently does not work
@@ -36,6 +36,9 @@ class AssignmentsController < ApplicationController
 
 	def show
 		@assignment = Assignment.find(params[:id])
+		if current_user.account_type == "Student"
+			@submission = current_user.account.submission(@assignment.id)
+		end
 	end
 
 	def update

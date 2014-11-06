@@ -3,7 +3,7 @@
 		<th>Name</th>
 		<th>Identifier</th>
 		<% for assignment in @classroom.assignments %>
-			<th><%= link_to assignment.name, '#' %></th>
+			<th><%= link_to assignment.name, assignment %></th>
 		<% end %>
 		<th>Total</th>
 	</thead>
@@ -24,4 +24,3 @@
 		</tr>
 	</tbody>		
 </table>
-
