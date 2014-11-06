@@ -7,6 +7,6 @@ FactoryGirl.define do
     max_points 1
     name "MyString"
     description "MyString"
-    due "2014-11-02 14:21:22"
+    due (Time.now + 3.hours).to_s
   end
 end

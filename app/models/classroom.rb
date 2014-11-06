@@ -16,11 +16,21 @@ class Classroom < ActiveRecord::Base
     validates :student_capacity, numericality: { greater_than_or_equal_to: 0 }
     validate  :enforce_student_capacity
 
+    before_save :default_values
+
+    def max_points
+        assignments.sum(:max_points)
+    end
+
     private
 
     def enforce_student_capacity
         if student_capacity && students.count > student_capacity
             errors.add(:student_capacity, "student capacity is overloaded")
         end
+    end
+
+    def default_values
+        self.student_capacity ||= 30
     end
 end
