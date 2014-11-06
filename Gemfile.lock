@@ -172,11 +172,8 @@ DEPENDENCIES
   factory_girl_rails
   jbuilder (~> 2.0)
   jquery-rails
-<<<<<<< HEAD
-  paperclip (~> 4.2)
-=======
   momentjs-rails (>= 2.8.1)
->>>>>>> 31d0a11db995c3cc1783843846f8fa833ae02251
+  paperclip (~> 4.2)
   pg
   pundit
   rails (= 4.1.6)
