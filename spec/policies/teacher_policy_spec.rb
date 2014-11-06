@@ -20,21 +20,21 @@ describe TeacherPolicy do
     @class0.teachers << @teacher0.account
     @class0.students << @student0.account
     @class1.teachers << @teacher1.account
-    @class1.students << @student0.account
+    @class1.students << @student1.account
   end
 
 
 #First test
   describe "Admin Scope on Teacher" do
-    it {expect(TeacherPolicy::Scope.new(@admin0,Teacher).resolve).to eq(Teacher.all)}
+    it {expect(TeacherPolicy::Scope.new(@admin0,Teacher).resolve).to match_array(Teacher.all)}
   end
 #Second test
   describe "Teacher Scope on Teacher" do
-    it {expect(TeacherPolicy::Scope.new(@teacher0,Teacher).resolve).to eq(Teacher.where({id: @teacher0.account_id}))}
+    it {expect(TeacherPolicy::Scope.new(@teacher0,Teacher).resolve).to match_array(Teacher.where({id: @teacher0.account_id}))}
   end
 # Third test
   describe "Student Scope on Teacher" do 
-    it {expect(TeacherPolicy::Scope.new(@teacher0,Teacher).resolve).to eq(@class0.teachers)}
+    it {expect(TeacherPolicy::Scope.new(@student0,Teacher).resolve).to match_array(@class0.teachers)}
   end
 
   permissions :index? do
