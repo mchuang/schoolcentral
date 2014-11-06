@@ -11,7 +11,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.get_day(account, date)
-    get_date_range(account, date, date + 1.day)
+    get_date_range(account, date.beginning_of_day, date.end_of_day)
   end
 
   def self.get_week(account, date)
