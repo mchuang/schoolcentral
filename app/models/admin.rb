@@ -5,6 +5,6 @@ class Admin < ActiveRecord::Base
 	has_one :user, :as => :account, :dependent => :destroy
 
     def events
-        user.school.classrooms.map {|cls| cls.events}.flatten
+        Event.where(classroom_id: user.school.classrooms.map(&:id))
     end
 end

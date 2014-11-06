@@ -15,7 +15,7 @@ class Student < ActiveRecord::Base
 	end
 
 	def events 
-		classrooms.map {|cls| cls.events}.flatten
+		Event.where(classroom_id: classrooms.map(&:id))
 	end
 
 	def recv_points(classroom_id)
