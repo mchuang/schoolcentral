@@ -19,6 +19,7 @@ class Student < ActiveRecord::Base
 	end
 
 	def recv_points(classroom_id)
+		logger.debug "_________________________%%%%%%%%%%%%%%%%%%%%%%%%%%%%%_____________________________"
 		submissions.where(assignment_id: Assignment.where(classroom_id: classroom_id)).sum(:grade)
 	end
 
