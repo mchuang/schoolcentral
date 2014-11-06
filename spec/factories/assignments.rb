@@ -2,11 +2,10 @@
 
 FactoryGirl.define do
   factory :assignment do
-    teacher_id 1
-    classroom_id 1
-    max_points 1
-    name "MyString"
+    teacher
+    classroom
+    name        "MyString"
     description "MyString"
-    due (Time.now + 3.hours).to_s
+    due { Time.zone.now + 3.hours }
   end
 end

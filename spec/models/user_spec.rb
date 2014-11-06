@@ -90,6 +90,12 @@ RSpec.describe User, :type => :model do
     expect(account).to eq(account.user.account)
   end
 
+  it "can report invalid account types" do
+    expect {
+      User.create_account('Aasdf', {:password=>'password',:password_confirmation=>'password',:identifier=>'badtest'})
+    }.to raise_error(ArgumentError)
+  end
+
   it "can create user with random password" do
     account, pass = User.create_account_random_pass('Student', {:identifier => 'studenttest'})
     # Magic length defined in User.create_account_random_pass
