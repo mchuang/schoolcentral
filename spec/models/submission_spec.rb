@@ -1,16 +1,13 @@
 require 'rails_helper'
 
 
+
 RSpec.describe Submission, :type => :model do
  
-  before do
-   	@file = File.new(Rails.root+"testfiles/hw.pdf","a")
-   	@submission = FactoryGirl.create(:submission)
-   	@submission.file = @file
-  end
-  it "should have an attachment"  do
-  	expect(@submission.attachment_definitions).to eq("")
-  end
+  
+  it {should have_attached_file(:file)}
+  it {should validate_attachment_content_type(:file).
+                      allowing('application/pdf').rejecting('image/gif')}
 
-  # :rails_root/public/system/:class/:attachment/:id_partition/:style/:filename
+ 
 end
