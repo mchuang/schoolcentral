@@ -9,7 +9,7 @@ RSpec.describe Submission, :type => :model do
    	@submission.file = @file
   end
   it "should have an attachment"  do
-  	expect(@submission.file).to eq(@file)
+  	expect(@submission.attachment_definitions).to eq("")
   end
 
   # :rails_root/public/system/:class/:attachment/:id_partition/:style/:filename
