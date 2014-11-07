@@ -5,15 +5,14 @@ class AssignmentPolicy < ApplicationPolicy
       case type
         # Admins can see all
         when 'Admin'
-          scope.where({id:user.school(&:id)})
-        # scope.all
+        scope.all
         # Teachers can see their own school
         when 'Teacher'
-          scope.where({id:user.school(&:id)})
+          scope.where({id:user.account.assignments.map(&:id)})
         # scope.all
         # Students can see their own school
         when 'Student'
-          scope.where({id:user.school(&:id)})
+          scope.where({classroom_id:user.account.classrooms.map(&:id)})
         # scope.all
       end
     end

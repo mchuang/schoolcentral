@@ -16,6 +16,8 @@
 //= require_tree .
 //= require bootstrap.min
 //= require moment
+//= require jquery.autoSuggest
+
 
 //@author: voe
 
@@ -77,3 +79,17 @@ function toggleAttendanceModal(dateString) {
 		document.getElementById("attendanceInputModal").style.display = 'none';
 	}
 }
+
+
+function toggleGradesModal(assignmentId, assignmentName) {
+	if (document.getElementById("gradesInputModal").style.display != 'block') {
+		document.getElementById("gradesInputModal").style.display = 'block';
+		document.getElementById("gradesTitle").innerHTML = "Grades for: " + assignmentName;
+		document.getElementById("assignment-specifier").setAttribute("value", assignmentId);
+	} else {
+		document.getElementById("gradesInputModal").style.display = 'none';
+	}
+}
+
+
+
