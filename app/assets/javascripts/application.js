@@ -135,12 +135,9 @@ function renderCalendarDates(data) {
 		rowElement.classList.add("calendar-week");
 		var dates = data.dates[i];
 		for (var j = 0; j < dates.length; j++) {
-			var dayInfo = dates[j];
-			var dayElement = document.createElement("div")
-			dayElement.classList.add("calendar-day")
-			dayElement.setAttribute("id", dayInfo.month + "-" + dayInfo.date);
-			dayElement.innerText = dayInfo.date;
-			if (dayInfo.month != data.month) {
+			var date = new Date(dates[j]);
+			var dayElement = createDateDiv(date);
+			if (date.getMonth() + 1 != data.month) {
 				dayElement.style.color = "lightgrey";
 			}
 			rowElement.appendChild(dayElement);
@@ -149,6 +146,30 @@ function renderCalendarDates(data) {
 	}
 }
 
+function createDateDiv(date) { // ADD ONCLICK FUNCTION
+	var dayElement = document.createElement("div");
+	dayElement.classList.add("calendar-day")
+	dayElement.setAttribute("id", date.getMonth()-1 + "-" + date.getDate());
+	dayElement.innerText = date.getDate();
+	return dayElement;
+}
+
 function renderCalendarEvents(data) {
-	var i;
+	var date;
+	var identifier;
+	var eventBlock;
+	for (var i = 0; i < data.events.length; i++) {
+		calendarEvent = data.events[i];
+		date = new Date(calendarEvent.startime);
+		identifier = date.getMonth()-1 + "-" + date.getDate();
+		eventBlock = createEventDiv(calendarEvent);
+		document.getElementById(identifier).appendChild(eventBlock);
+	}
+}
+
+function createEventDiv(calEvent) {
+	var calendarElement = document.createElement("div");
+	calendarElement.classList.add("event");
+	calendarElement.innerText = calEvent.name;
+	return calendarElement;
 }

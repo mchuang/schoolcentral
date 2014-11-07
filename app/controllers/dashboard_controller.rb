@@ -86,7 +86,8 @@ class DashboardController < ApplicationController
 	def calendarEvents
 		year = params[:year].to_i
 		month = params[:month].to_i
-		render json: {year: year, month: month, test: "SWELLY"}
+		eventList = Event.get_date_range(current_user.account, Event.calendar_first_date(year, month), Event.calendar_last_date(year, month))
+		render json: {year: year, month: month, events: eventList}
 	end
 
 end
