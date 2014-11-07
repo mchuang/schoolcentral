@@ -91,5 +91,64 @@ function toggleGradesModal(assignmentId, assignmentName) {
 	}
 }
 
+function getCalendarDates(year, month) {
+	$.ajax({
+  		url: "calendarDates",
+  		data: {
+  			year: year,
+  			month: month
+  		},
+  		success: function (response) {
+            renderCalendarDates(response);
+            getCalendarEvents(year, month);
+        },
+  		dataType: "json"
+	});
+}
 
+function getCalendarEvents(year, month) {
+	$.ajax({
+  		url: "calendarEvents",
+  		data: {
+  			year: year,
+  			month: month
+  		},
+  		success: function (response) {
+            renderCalendarEvents(response);
+        },
+  		dataType: "json"
+	});
+}
 
+function renderCalendarDates(data) {
+	calendarContentNode = document.getElementById("calendar-content");
+	calendarHeaderNode = document.getElementById("calendar-header");
+	calendarHeaderNode.children[0].innerText = data.monthString;
+
+	while (calendarContentNode.firstChild) {
+    	calendarContentNode.removeChild(calendarContentNode.firstChild);
+	}
+
+	for (var i = 0; i < data.dates.length; i++) {
+		var rowElement = document.createElement("div")
+		rowElement.classList.add("row");
+		rowElement.classList.add("calendar-week");
+		var dates = data.dates[i];
+		for (var j = 0; j < dates.length; j++) {
+			var dayInfo = dates[j];
+			var dayElement = document.createElement("div")
+			dayElement.classList.add("calendar-day")
+			dayElement.setAttribute("id", dayInfo.month + "-" + dayInfo.date);
+			dayElement.innerText = dayInfo.date;
+			if (dayInfo.month != data.month) {
+				dayElement.style.color = "lightgrey";
+			}
+			rowElement.appendChild(dayElement);
+		}
+		calendarContentNode.appendChild(rowElement);
+	}
+}
+
+function renderCalendarEvents(data) {
+	var i;
+}

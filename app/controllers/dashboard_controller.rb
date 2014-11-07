@@ -75,4 +75,18 @@ class DashboardController < ApplicationController
 		render 'admin_dashboard'
 	end
 
+	def calendarDates
+		year = params[:year].to_i
+		month = params[:month].to_i
+		monthString = Date.new(year, month).strftime("%B")
+		dateList = Event.get_dates_for_month(year, month)
+		render json: {year: year, month: month, monthString: monthString, dates: dateList}
+	end
+
+	def calendarEvents
+		year = params[:year].to_i
+		month = params[:month].to_i
+		render json: {year: year, month: month, test: "SWELLY"}
+	end
+
 end

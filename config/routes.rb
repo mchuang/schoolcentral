@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   post 'dashboard/admin_dashboard'
   get 'dashboard/new_form'
   post 'dashboard/new_create'
+  get 'dashboard/calendarDates'
+  get 'dashboard/calendarEvents'
 
   post 'users/update_address'
   post 'users/update_email'

@@ -1,6 +1,5 @@
 class Event < ActiveRecord::Base
   	belongs_to :owner, :polymorphic => true
-
   	belongs_to :classroom
 
   	def self.get_dates_for_month(year, month)
@@ -16,12 +15,32 @@ class Event < ActiveRecord::Base
 		end
 
 		dateArr = (firstDate..lastDate).to_a
+
+		dateHashArr = []
 		i = 0
-		weekArr = []
+
 		while i < dateArr.length
-			weekArr.push(dateArr.slice(i, 7))
+			weekArr = []
+			for j in (0..6)
+				date = dateArr[i+j]
+				weekArr.push({date: date.day, month: date.month})
+			end
+			dateHashArr.push(weekArr)
 			i += 7
 		end
-		return weekArr
+
+		return dateHashArr
+
+		# i = 0
+		# weekArr = []
+		# while i < dateArr.length
+		# 	weekArr.push(dateArr.slice(i, 7))
+		# 	i += 7
+		# end
+		# return weekArr
+	end
+
+	def self.get_events_for_month(year, month)
+
 	end
 end
