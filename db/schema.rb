@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141105035111) do
+ActiveRecord::Schema.define(version: 20141105234935) do
 
 
   # These are extensions that must be enabled in order to support this database
@@ -89,10 +89,14 @@ ActiveRecord::Schema.define(version: 20141105035111) do
   create_table "submissions", force: true do |t|
     t.string   "filename"
     t.integer  "grade"
-    t.integer  "assignment_id", null: false
-    t.integer  "student_id",    null: false
+    t.integer  "assignment_id",     null: false
+    t.integer  "student_id",        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
   end
 
   create_table "teachers", force: true do |t|
