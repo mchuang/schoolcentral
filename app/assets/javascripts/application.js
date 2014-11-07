@@ -135,31 +135,32 @@ function renderCalendarDates(data) {
 		rowElement.classList.add("calendar-week");
 		var dates = data.dates[i];
 		for (var j = 0; j < dates.length; j++) {
-			var date = new Date(dates[j]);
-			var dayElement = createDateDiv(date);
-			if (date.getMonth()+1 != data.month) {
-				dayElement.style.color = "lightgrey";
-			}
+			var dayElement = createDateDiv(dates[j], data.month);
 			rowElement.appendChild(dayElement);
 		}
 		calendarContentNode.appendChild(rowElement);
 	}
 }
 
-function createDateDiv(date) { // ADD ONCLICK FUNCTION
+function createDateDiv(dateString, currentMonth) { // ADD ONCLICK FUNCTION
 	var dayElement = document.createElement("div");
 	dayElement.classList.add("calendar-day")
-	dayElement.setAttribute("id", (date.getYear()+1900) + "-" + (date.getMonth()+1) + "-" + date.getDate());
+	dayElement.setAttribute("id", dateString);
 	dayElement.setAttribute("onclick", "updateDayFeed(event)");
+	var date = new Date(Date.parse(dateString));
+	date.setDate(date.getDate() + 1);
 	dayElement.innerText = date.getDate();
+	if (date.getMonth()+1 != currentMonth) {
+		dayElement.style.color = "lightgrey";
+	}
 	return dayElement;
 }
 
 function updateDayFeed(event) {
-	var date = new Date(event.target.id);
+	var date = new Date(Date.parse(event.currentTarget.id));
+	date.setDate(date.getDate() + 1);
 	getDayEvents(date.getYear()+1900, date.getMonth()+1, date.getDate());
 }
-
 
 function renderCalendarEvents(data) {
 	var date;
@@ -167,7 +168,7 @@ function renderCalendarEvents(data) {
 	var eventBlock;
 	for (var i = 0; i < data.events.length; i++) {
 		calendarEvent = data.events[i];
-		date = new Date(calendarEvent.startime);
+		date = new Date(Date.parse(calendarEvent.startime));
 		identifier = (date.getYear()+1900) + "-" + (date.getMonth()+1) + "-" + date.getDate();
 		eventBlock = createEventDiv(calendarEvent);
 		document.getElementById(identifier).appendChild(eventBlock);
@@ -187,15 +188,14 @@ function renderDayEvents(data) {
 	}
 }
 
-
 function formattedDateString(rawDate) {
 	//var rawDate = "2014-11-07 18:06:00 UTC"
-	var newDate = new Date(rawDate).toString().split(" ");
+	var newDate = new Date(Date.parse(rawDate));
+	newDate.setDate(newDate.getDate()+1);
+	newDate = newDate.toString().split(" ");
 	var formattedString = newDate[0] + ", " + newDate[2] + " " + newDate[1] + " " + newDate[3];
 	return formattedString;
 }
-
-
 
 function createEventDiv(calEvent) {
 	var calendarElement = document.createElement("div");
