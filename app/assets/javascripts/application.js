@@ -100,7 +100,7 @@ function renderDayEvents(data) {
 	var events = data['events'];
 	for(var i = 0; i < events.length; i++) {
 		if events[i].owner_type == "Assignment" {
-			$('#day-feed-panel-body').append( "<a>events[i].name</a>" );
+			$('#day-feed-panel-body').append("<a>events[i].name</a>");
 		}
 	}
 }

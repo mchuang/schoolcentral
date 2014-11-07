@@ -7,8 +7,6 @@ class DashboardController < ApplicationController
 			render 'admin_dashboard'
 		else
 			@classrooms = current_user.account.classrooms
-			@d = Time.zone.now 
-			@events = Event.get_day(current_user.account, @d)
 			render 'dashboard'
 		end
 	end
