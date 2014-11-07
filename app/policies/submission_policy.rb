@@ -5,11 +5,11 @@ class SubmissionPolicy < ApplicationPolicy
       case type
         # Admins can see their own school
         when 'Admin'
-          scope.where({id:user.school(&:id)})
-        # scope.all
+          # scope.where({id:user.school(&:id)})
+        scope.all
         # Teachers can see their own school
         when 'Teacher'
-          scope.where({assignment_id: user.assignments.map(&:id)})
+          scope.where({assignment_id: user.account.assignments.map(&:id)})
         # scope.all
         # Students can see their own school
         when 'Student'
