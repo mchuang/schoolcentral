@@ -184,7 +184,8 @@ function renderDayEvents(data) {
 	var events = data['events'];
 	for(var i = 0; i < events.length; i++) {
 		if (events[i].owner_type == "Assignment") {
-			$('#day-feed-panel-body').append("<a>events[i].name</a>");
+			var eventID = events[i].owner_id;
+			$('#day-feed-panel-body').append("<div><a href='../assignments/"+eventID+"'>"+events[i].name+"</a></div>");
 		}
 	}
 }
