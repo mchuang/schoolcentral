@@ -137,7 +137,7 @@ function renderCalendarDates(data) {
 		for (var j = 0; j < dates.length; j++) {
 			var date = new Date(dates[j]);
 			var dayElement = createDateDiv(date);
-			if (date.getMonth() + 1 != data.month) {
+			if (date.getMonth()+1 != data.month) {
 				dayElement.style.color = "lightgrey";
 			}
 			rowElement.appendChild(dayElement);
@@ -149,9 +149,15 @@ function renderCalendarDates(data) {
 function createDateDiv(date) { // ADD ONCLICK FUNCTION
 	var dayElement = document.createElement("div");
 	dayElement.classList.add("calendar-day")
-	dayElement.setAttribute("id", date.getMonth()-1 + "-" + date.getDate());
+	dayElement.setAttribute("id", (date.getYear()+1900) + "-" + (date.getMonth()+1) + "-" + date.getDate());
+	dayElement.setAttribute("onclick", "updateDayFeed(event)");
 	dayElement.innerText = date.getDate();
 	return dayElement;
+}
+
+function updateDayFeed(event) {
+	var date = new Date(event.target.id);
+	getDayEvents(date.getYear()+1900, date.getMonth()+1, date.getDate());
 }
 
 function renderCalendarEvents(data) {
@@ -161,7 +167,7 @@ function renderCalendarEvents(data) {
 	for (var i = 0; i < data.events.length; i++) {
 		calendarEvent = data.events[i];
 		date = new Date(calendarEvent.startime);
-		identifier = date.getMonth()-1 + "-" + date.getDate();
+		identifier = (date.getYear()+1900) + "-" + (date.getMonth()+1) + "-" + date.getDate();
 		eventBlock = createEventDiv(calendarEvent);
 		document.getElementById(identifier).appendChild(eventBlock);
 	}
@@ -172,4 +178,19 @@ function createEventDiv(calEvent) {
 	calendarElement.classList.add("event");
 	calendarElement.innerText = calEvent.name;
 	return calendarElement;
+}
+
+function getDayEvents(year, month, day) {
+	$.ajax({
+  		url: "dayEvents",
+  		data: {
+  			year: year,
+  			month: month,
+  			day: day
+  		},
+  		success: function (response) {
+            renderDayEvents(response);
+        },
+  		dataType: "json"
+	});
 }
