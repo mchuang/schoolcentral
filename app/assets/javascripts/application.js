@@ -160,6 +160,7 @@ function updateDayFeed(event) {
 	getDayEvents(date.getYear()+1900, date.getMonth()+1, date.getDate());
 }
 
+
 function renderCalendarEvents(data) {
 	var date;
 	var identifier;
@@ -172,6 +173,29 @@ function renderCalendarEvents(data) {
 		document.getElementById(identifier).appendChild(eventBlock);
 	}
 }
+
+function renderDayEvents(data) {
+	var rawDate = data['date'];
+	var panelTitle = formattedDateString(rawDate);
+	$('#day-feed-panel-title').html(panelTitle);
+	$('#day-feed-panel-body').html('');
+	var events = data['events'];
+	for(var i = 0; i < events.length; i++) {
+		if (events[i].owner_type == "Assignment") {
+			$('#day-feed-panel-body').append("<a>events[i].name</a>");
+		}
+	}
+}
+
+
+function formattedDateString(rawDate) {
+	//var rawDate = "2014-11-07 18:06:00 UTC"
+	var newDate = new Date(rawDate).toString().split(" ");
+	var formattedString = newDate[0] + ", " + newDate[2] + " " + newDate[1] + " " + newDate[3];
+	return formattedString;
+}
+
+
 
 function createEventDiv(calEvent) {
 	var calendarElement = document.createElement("div");
