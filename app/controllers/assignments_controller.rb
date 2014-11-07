@@ -21,13 +21,13 @@ class AssignmentsController < ApplicationController
 
 		logger.debug "------------------assignmentParams2: #{assignmentParams}"
 
-		@assignment = Assignment.create(assignmentParams)
+		@assignment = Assignment.new(assignmentParams)
 		#@assignment = Assignment.create(assignment_params) #currently does not work
 
-		if @assignment
+		if @assignment.save
 			redirect_to @assignment
 		else
-			render @classroom
+			render "classrooms/show"
 		end
 	end
 
