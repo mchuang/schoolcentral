@@ -12,17 +12,17 @@
     </div>
 
     <div class="adminlist">
-        <%= link_to dashboard_admin_dashboard_path(infoType: "Classrooms") do %>
+        <%= link_to dashboard_admin_dashboard_path(infoType: "Classrooms"), id: "classrooms-tab" do %>
             <div class="row classlist-item">
                 <h3>Classrooms</h3>
             </div>
         <% end %>
-        <%= link_to dashboard_admin_dashboard_path(infoType: "Teachers") do %>
+        <%= link_to dashboard_admin_dashboard_path(infoType: "Teachers"), id: "teachers-tab"  do %>
             <div class="row classlist-item">
                 <h3>Teachers</h3>
             </div>
         <% end %>
-        <%= link_to dashboard_admin_dashboard_path(infoType: "Students") do %>
+        <%= link_to dashboard_admin_dashboard_path(infoType: "Students"), id: "students-tab"  do %>
             <div class="row classlist-item">
                 <h3>Students</h3>
             </div>
