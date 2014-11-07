@@ -105,3 +105,64 @@ end
     cls4.students << students.delete_at(rand(students.length))
 end
 puts
+
+puts "Creating assignments for test_class..."
+now = Time.zone.now
+asgn0 = Assignment.create(
+    :teacher => test_teacher,
+    :classroom => cls1,
+    :name => "Iteration 2 doc",
+    :max_points => 100,
+    :due => DateTime.new(2014, 10, 31, 22, 0, 0)
+)
+asgn1 = Assignment.create(
+    :teacher => test_teacher,
+    :classroom => cls1,
+    :name => "Iteration 2 code",
+    :max_points => 100,
+    :due => DateTime.new(2014, 11, 7, 22, 0, 0)
+)
+asgn2 = Assignment.create(
+    :teacher => test_teacher,
+    :classroom => cls1,
+    :name => "Iteration 3 doc",
+    :max_points => 100,
+    :due => DateTime.new(2014, 11, 14, 22, 0, 0)
+)
+asgn3 = Assignment.create(
+    :teacher => test_teacher,
+    :classroom => cls1,
+    :name => "Iteration 3 code",
+    :max_points => 100,
+    :due => DateTime.new(2014, 11, 21, 22, 0, 0)
+)
+asgn4 = Assignment.create(
+    :teacher => test_teacher,
+    :classroom => cls1,
+    :name => "Mini-lecture Presentation",
+    :max_points => 150,
+    :due => DateTime.new(2014, 11, 19, 17, 30, 0)
+)
+asgn5 = Assignment.create(
+    :teacher => test_teacher,
+    :classroom => cls1,
+    :name => "Final Presentation",
+    :max_points => 50000,
+    :due => DateTime.new(2014, 12, 19, 15, 0, 0)
+)
+
+nassignments = 20
+teachers = Teacher.all
+classrooms = Classroom.all
+puts "Creating random assignments for other classes..."
+(0...nassignments).each {|aid|
+    Assignment.create(
+        :teacher => teachers.sample,
+        :classroom => classrooms.sample,
+        :name => "RandomAssignment-#{aid}",
+        :max_points => rand(50),
+        :due => now + (rand(100) - 50).days + (rand(24) - 12).hours + (rand(120) - 60).minutes
+    )
+    print "."
+}
+puts
