@@ -13,6 +13,7 @@
         <%= form_tag url_for(assignments_path) do %>
           
           <%= hidden_field_tag(:classroom_id, @classroom.id) %>
+          <%= hidden_field_tag(:teacher_id, @classroom.teachers.first.id) %>
 
           <div>
             <%= label_tag(:name, "name:") %>
@@ -31,12 +32,12 @@
           <br>
           <div>
             <%= label_tag(:due_date, "due date:") %>
-            <%= date_field_tag(:due_date, required: true) %>
+            <%= date_field(:due, "date", required: true) %>
           </div>
           <br>
           <div>
             <%= label_tag(:due_time, "due time:") %>
-            <%= time_field_tag(:due_time, required: true) %>
+            <%= time_field(:due, "time", value: "23:59", required: true) %>
           </div>
           <br>
           <%= submit_tag("create assignment") %>

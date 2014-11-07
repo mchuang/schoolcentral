@@ -3,6 +3,7 @@ class Assignment < ActiveRecord::Base
   belongs_to :classroom
   has_many :submissions
 
+
   has_one :event, :as => :owner, :dependent => :destroy
 
   before_validation :default_values, on: :create
@@ -13,6 +14,10 @@ class Assignment < ActiveRecord::Base
   validates :classroom,    presence: true
   validates :name,         presence: true
   validates :due,          presence: true
+
+  def get_submission(student_id)
+    submissions.find_by_student_id(student_id)
+  end
 
   private
 

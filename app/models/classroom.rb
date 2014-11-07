@@ -22,6 +22,26 @@ class Classroom < ActiveRecord::Base
         assignments.sum(:max_points)
     end
 
+    def current_assignments
+        currentAssignments = []
+        for a in assignments
+            if a.due > DateTime.now
+                currentAssignments.append(a)
+            end
+        end
+        return currentAssignments
+    end
+
+    def past_assignments
+        pastAssignments = []
+        for a in assignments
+            if a.due < DateTime.now
+                pastAssignments.append(a)
+            end
+        end
+        return pastAssignments
+    end
+
     private
 
     def enforce_student_capacity
@@ -30,7 +50,27 @@ class Classroom < ActiveRecord::Base
         end
     end
 
+
     def default_values
         self.student_capacity ||= 30
+    end
+
+    def self.editClassroom(course, time, location, description, capacity, teachers, students)
+        @time = time
+        @location = location
+        @description = description
+        @capacity = capacity
+        teachers.clear()
+        students.clear()
+        teachers.split(',').each do |teacher|
+            if Teacher.find_by_id(teacher)
+                @teachers << Teacher.find_by_identifier(teacher).account
+            end
+        end
+        students.split(',').each do |student|
+            if Student.find_by_id(student)
+                @students << Student.find_by_identifer(student).account
+            end
+        end
     end
 end
