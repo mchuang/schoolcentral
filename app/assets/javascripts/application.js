@@ -168,8 +168,9 @@ function renderCalendarEvents(data) {
 	var eventBlock;
 	for (var i = 0; i < data.events.length; i++) {
 		calendarEvent = data.events[i];
-		date = new Date(Date.parse(calendarEvent.startime));
-		identifier = (date.getYear()+1900) + "-" + (date.getMonth()+1) + "-" + date.getDate();
+		startDate = calendarEvent.startime;
+		endDate = calendarEvent.endtime;
+		identifier = startDate.slice(0, 10);
 		eventBlock = createEventDiv(calendarEvent);
 		document.getElementById(identifier).appendChild(eventBlock);
 	}
