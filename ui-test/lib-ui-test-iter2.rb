@@ -61,3 +61,51 @@ def hasStudent(id)
 	end
 	return false
 end
+
+def hasStudentAdmin(id)
+	students = @@driver.find_element(:id => "tableData").find_element(:tag_name => "tbody").find_elements(:tag_name => "tr")
+	students.each do |student|
+		if student.find_elements(:tag_name => "td")[1].text == id
+			return true
+		end
+	end
+	return false
+end
+
+def hasTeacherAdmin(id)
+	teachers = @@driver.find_element(:id => "tableData").find_element(:tag_name => "tbody").find_elements(:tag_name => "tr")
+	teachers.each do |teacher|
+		if teacher.find_elements(:tag_name => "td")[1].text == id
+			return true
+		end
+	end
+	return false
+end
+
+def hasClassroomAdmin(course)
+	classrooms = @@driver.find_element(:id => "tableData").find_element(:tag_name => "tbody").find_elements(:tag_name => "tr")
+	classrooms.each do |classroom|
+		if classroom.find_elements(:tag_name => "td")[0].text == course
+			return true
+		end
+	end
+	return false
+end
+
+def hasDayInfoFeed
+	if @@driver.find_element(:id => "day-info-feed-panel")
+		return true
+	else
+		return false
+	end
+end
+
+def hasDayInfoFeedLink(event)
+	links = @@driver.find_element(:id => "day-info-feed-panel").find_elements(:tag_name => "a")
+	links.each do |link|
+		if link.text == event
+			return true
+		end
+	end
+	return false
+end
