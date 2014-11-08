@@ -2,8 +2,7 @@
 
 class UsersController < ApplicationController
 
-	before_action :authenticate_user!
-
+	before_action :authenticate_user!, :require_login
 
 	@@success_message = "Successfully made changes"
 
@@ -56,8 +55,6 @@ class UsersController < ApplicationController
 
 	private
 
-
-
 	def user_address_params
 	    # NOTE: Using `strong_parameters` gem
 	    params.required(:user).permit(:address)
@@ -76,6 +73,13 @@ class UsersController < ApplicationController
 	def user_phone_params
 	    # NOTE: Using `strong_parameters` gem
 	    params.required(:user).permit(:phone_mobile)
+	end
+
+	def require_login
+	    unless user_signed_in?
+	      flash[:error] = "please log in"
+	      redirect_to new_user_session_path
+	    end
 	end
 
 

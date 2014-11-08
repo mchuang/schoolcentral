@@ -1,6 +1,7 @@
 #@author: voe
 
 class ClassroomsController < ApplicationController
+	before_action :require_login
 
 	def show
 		@classrooms = current_user.account.classrooms
@@ -65,5 +66,14 @@ class ClassroomsController < ApplicationController
 			)
 		end
 		render 'classroominfo'
+	end
+
+	private
+
+	def require_login
+	    unless user_signed_in?
+	      flash[:error] = "please log in"
+	      redirect_to new_user_session_path
+	    end
 	end
 end
