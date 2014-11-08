@@ -2,10 +2,8 @@
 	<%= render "layouts/side_admin_menu" %>
 	<div class="col-sm-8 menu-center">
 		<%= form_tag '/classrooms/editClassroom' do %>
-			<div class="field">
-				<%= label_tag :id %><br>
-				<%= text_field_tag :id, value = @classroom.id, :disabled=>true %>
-			</div>
+
+			<%= hidden_field_tag :id, value = @classroom.id %>
 			<div class="field">
 				<%= label_tag :course %><br>
 			    <%= text_field_tag :course, @classroom.name %>

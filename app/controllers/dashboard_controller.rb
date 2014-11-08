@@ -24,11 +24,6 @@ class DashboardController < ApplicationController
 		render 'admin_dashboard'
 	end
 
-	def admin_dashboard_classroom
-		@students = Student.all
-		@teachers = Teacher.all
-	end
-
 	def new_form
 		@infoType = params[:infoType]
 		render 'admin_dashboard_new'
