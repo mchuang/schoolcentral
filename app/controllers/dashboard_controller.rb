@@ -1,7 +1,7 @@
 # voe
 
 class DashboardController < ApplicationController
-
+	before_action :require_login
 	def index
 		if current_user.account_type === "Admin"
 			render 'admin_dashboard'
@@ -93,6 +93,15 @@ class DashboardController < ApplicationController
 		date = DateTime.new(year, month, day)
 		eventList = Event.get_day(current_user.account, date)
 		render json: {date: date, events: eventList}
+	end
+
+	private
+
+	def require_login
+	    unless user_signed_in?
+	      flash[:error] = "please log in"
+	      redirect_to new_user_session_path
+	    end
 	end
 
 end
