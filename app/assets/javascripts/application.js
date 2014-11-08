@@ -91,12 +91,20 @@ function toggleGradesModal(assignmentId, assignmentName) {
 	}
 }
 
-function getCalendarDates(year, month) {
+function setCalendarToToday() {
+	selectedMonth = new Date();
+	dateSelected = false;
+	setCalendar(getCalendarYear(), getCalendarMonth(), getCalendarDate());	
+	getDayEvents(getCalendarYear(), getCalendarMonth(), getCalendarDate());
+}
+
+function setCalendar(year, month, date) {
 	$.ajax({
   		url: "calendarDates",
   		data: {
   			year: year,
-  			month: month
+  			month: month,
+  			date: date
   		},
   		success: function (response) {
             renderCalendarDates(response);
@@ -135,14 +143,14 @@ function renderCalendarDates(data) {
 		rowElement.classList.add("calendar-week");
 		var dates = data.dates[i];
 		for (var j = 0; j < dates.length; j++) {
-			var dayElement = createDateDiv(dates[j], data.month);
+			var dayElement = createDateDiv(dates[j], data.year, data.month, data.date);
 			rowElement.appendChild(dayElement);
 		}
 		calendarContentNode.appendChild(rowElement);
 	}
 }
 
-function createDateDiv(dateString, currentMonth) { // ADD ONCLICK FUNCTION
+function createDateDiv(dateString, currentYear, currentMonth, currentDate) {
 	var dayElement = document.createElement("div");
 	dayElement.classList.add("calendar-day")
 	dayElement.setAttribute("id", dateString);
@@ -153,10 +161,21 @@ function createDateDiv(dateString, currentMonth) { // ADD ONCLICK FUNCTION
 	if (date.getMonth()+1 != currentMonth) {
 		dayElement.style.color = "lightgrey";
 	}
+	if (date.getYear()+1900 == currentYear && date.getMonth()+1 == currentMonth && date.getDate() == currentDate) {
+		if (!dateSelected) {
+			dateSelected = true;
+			dayElement.classList.add("active");
+		}
+	}
 	return dayElement;
 }
 
 function updateDayFeed(event) {
+	var previouslySelected = document.getElementsByClassName("calendar-day active");
+	for (var i = 0; i < previouslySelected.length; i++) {
+		previouslySelected[i].classList.remove("active");
+	}
+	event.currentTarget.classList.add("active");
 	var date = new Date(Date.parse(event.currentTarget.id));
 	date.setDate(date.getDate() + 1);
 	getDayEvents(date.getYear()+1900, date.getMonth()+1, date.getDate());
@@ -174,6 +193,21 @@ function renderCalendarEvents(data) {
 		eventBlock = createEventDiv(calendarEvent);
 		document.getElementById(identifier).appendChild(eventBlock);
 	}
+}
+
+function getDayEvents(year, month, day) {
+	$.ajax({
+  		url: "dayEvents",
+  		data: {
+  			year: year,
+  			month: month,
+  			day: day
+  		},
+  		success: function (response) {
+            renderDayEvents(response);
+        },
+  		dataType: "json"
+	});
 }
 
 function renderDayEvents(data) {
@@ -206,17 +240,24 @@ function createEventDiv(calEvent) {
 	return calendarElement;
 }
 
-function getDayEvents(year, month, day) {
-	$.ajax({
-  		url: "dayEvents",
-  		data: {
-  			year: year,
-  			month: month,
-  			day: day
-  		},
-  		success: function (response) {
-            renderDayEvents(response);
-        },
-  		dataType: "json"
-	});
+function getCalendarMonth() {
+	return selectedMonth.getMonth() + 1;
+}
+
+function getCalendarYear() {
+	return selectedMonth.getYear() + 1900;
+}
+
+function getCalendarDate() {
+	return selectedMonth.getDate();
+}
+
+function nextMonth() {
+	selectedMonth.setMonth(selectedMonth.getMonth() + 1);
+	setCalendar(getCalendarYear(), getCalendarMonth(), getCalendarDate());	
+}
+
+function previousMonth() {
+	selectedMonth.setMonth(selectedMonth.getMonth() - 1);
+	setCalendar(getCalendarYear(), getCalendarMonth(), getCalendarDate());
 }
