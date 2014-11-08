@@ -1,3 +1,5 @@
+# @author: jdefond
+
 require 'spec_helper'
 require 'rails_helper'
 
@@ -31,5 +33,105 @@ before(:each) do
 #Third test
   describe "Student Scope on Classroom" do 
     it {expect(ClassroomPolicy::Scope.new(@student0,Classroom).resolve).to eq(Classroom.where({id: @student0.account.classrooms.map(&:id)}))}
+  end
+
+  permissions :index? do
+    it "should allow admin to index classrooms" do
+      expect(described_class).to permit(@admin0, Classroom)
+    end
+
+    it "should allow teacher to index scoped classrooms" do
+      expect(described_class).to permit(@teacher0, Classroom)
+    end
+
+    it "should allow students to index scoped classrooms" do
+      expect(described_class).to permit(@student0, Classroom)
+    end
+  end
+
+  permissions :show? do
+    it "should allow admins to show classroom" do
+      expect(described_class).to permit(@admin0, @class0)
+    end
+
+    it "should allow teachers to show classroom" do
+      expect(described_class).to permit(@teacher0, @class0)
+    end
+
+    it "should not allow teachers to show other classrooms" do
+      expect(described_class).not_to permit(@teacher0, @class1)
+    end
+
+    it "should allow students to show classroom" do
+      expect(described_class).to permit(@student0, @class0)
+    end
+
+    it "should not allow students to show other classrooms" do
+      expect(described_class).not_to permit(@student0, @class1)
+    end
+  end
+
+  permissions :create? do
+    it "should allow admins to create classroom" do
+      expect(described_class).to permit(@admin0, Classroom)
+    end
+
+    it "should not allow teachers to create classroom" do
+      expect(described_class).not_to permit(@teacher0, Classroom)
+    end
+
+    it "should not allow students to create classroom" do
+      expect(described_class).not_to permit(@student0, Classroom)
+    end
+  end
+
+  permissions :edit? do
+    it "should allow admins to edit classroom" do
+      expect(described_class).to permit(@admin0, @class0)
+    end
+
+    it "should allow teachers to edit classroom" do
+      expect(described_class).to permit(@teacher0, @class0)
+    end
+
+    it "should not allow teachers to edit other classrooms" do
+      expect(described_class).not_to permit(@teacher0, @class1)
+    end
+
+    it "should not allow students to edit classroom" do
+      expect(described_class).not_to permit(@student0, @class0)
+    end
+  end
+
+  permissions :update? do
+    it "should allow admins to edit classroom" do
+      expect(described_class).to permit(@admin0, @class0)
+    end
+
+    it "should allow teachers to edit classroom" do
+      expect(described_class).to permit(@teacher0, @class0)
+    end
+
+    it "should not allow teachers to edit other classrooms" do
+      expect(described_class).not_to permit(@teacher0, @class1)
+    end
+
+    it "should not allow students to edit classroom" do
+      expect(described_class).not_to permit(@student0, @class0)
+    end
+  end
+
+  permissions :destroy? do
+    it "should allow admins to delete class" do
+      expect(described_class).to permit(@admin0, @class0)
+    end
+
+    it "should not allow teachers to delete class" do
+      expect(described_class).not_to permit(@teacher0, @class0)
+    end
+
+    it "should not allow students to delete class" do
+      expect(described_class).not_to permit(@student0, @class0)
+    end
   end
 end  

@@ -1,4 +1,35 @@
+# @author: elewis, jdefond
+
 class TeacherPolicy < ApplicationPolicy
+
+  def index?
+    true
+  end
+
+  def show?
+    true
+  end
+
+  def create?
+    user.account_type == "Admin"
+  end
+
+  def new?
+    create?
+  end
+
+  def update?
+    user.account_type == "Admin" or (user.account_type == "Teacher" and user.account_id == record.id)
+  end
+
+  def edit?
+    update?
+  end
+
+  def destroy?
+    user.account_type == "Admin"
+  end
+
   class Scope < Scope
     def resolve
       type = user.account_type

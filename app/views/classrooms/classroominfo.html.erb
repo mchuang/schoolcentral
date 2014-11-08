@@ -1,0 +1,40 @@
+<div class="container-fluid background">
+	<%= render "layouts/side_admin_menu" %>
+	<div class="col-sm-8 menu-center class-info">
+		<%= form_tag '/classrooms/editClassroom' do %>
+
+			<%= hidden_field_tag :id, value = @classroom.id %>
+			<div class="field">
+				<%= label_tag :course %><br>
+			    <%= text_field_tag :course, @classroom.name %>
+			</div>
+			<div class="field">
+				<%= label_tag :time %><br>
+			    <%= text_field_tag :time, @classroom.time %>
+			</div>
+			<div class="field">
+				<%= label_tag :location %><br>
+			    <%= text_field_tag :location, @classroom.location %>
+			</div>
+			<div class="field">
+				<%= label_tag :description %><br>
+			    <%= text_field_tag :description, @classroom.description %>
+			</div>
+			<div class="field">
+				<%= label_tag :capacity %><br>
+			    <%= text_field_tag :capacity, @classroom.student_capacity %>
+			</div>
+			<div class="field">
+				<%= label_tag :teachers %><br>
+			    <%= text_field_tag :teachers, @classroom.teachers %>
+			</div>
+			<div class="field">
+				<%= label_tag :students %><br>
+			    <%= text_field_tag :students, @classroom.students %>
+			</div>
+			<div class="actions">
+			    <%= submit_tag 'Save Changes' %>
+			</div>
+		<% end %>
+	</div>
+</div>

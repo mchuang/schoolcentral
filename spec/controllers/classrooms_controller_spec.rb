@@ -1,3 +1,5 @@
+# @author: jdefond, dkang
+
 require 'rails_helper'
 
 RSpec.describe ClassroomsController, :type => :controller do
@@ -38,7 +40,6 @@ RSpec.describe ClassroomsController, :type => :controller do
       expect(assigns(@classroom)['classroom']).to eq(@class0)
 
     end
-
 
   end
 

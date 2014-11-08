@@ -1,16 +1,32 @@
+<!-- @author: mchang -->
+<!-- the dashboard for admin users -->
 
 <div class="container-fluid background">
 	<%= render "layouts/side_admin_menu" %>
 	<div class="col-sm-8 menu-center">
-		<!-- Search not that simple
+		<!-- test search code with autosuggest
 		<form>
 			<input type="submit" value="Search">
-			<input id="query" name="query" type="text">
+			<input id="test" name="query" type="text">
+			<script type="text/javascript">
+			  var data = {items: [
+			    {value: "21", name: "Mick Jagger"},
+			    {value: "43", name: "Johnny Storm"},
+			    {value: "46", name: "Richard Hatch"},
+			    {value: "54", name: "Kelly Slater"},
+			    {value: "55", name: "Rudy Hamilton"},
+			    {value: "79", name: "Michael Jordan"}
+			]};
+			  $(function(){
+			    $("input[type=text]").autoSuggest(data);
+			  });
+
+			</script>
 			<br>
 		</form>
 		-->
 	    <% if @infoType == "Classrooms" %>
-	    	<%= link_to "New", dashboard_new_form_path(infoType: @infoType) %>
+	    	<%= link_to "New", dashboard_new_form_path(infoType: @infoType), id: "new-link" %>  
 	    	<table id="tableData" class="table table-hover">
 	    		<tr><td>Course</td><td>Time</td><td>Location</td><td>Description</td><td>Student Capacity</td></tr>
 	    		<% @info.each do |classroom| %>
@@ -20,11 +36,12 @@
 			      		<td><%= classroom.location %></td>
 			      		<td><%= classroom.description %></td>
 			      		<td><%= classroom.student_capacity %></td>
+			      		<td><%= link_to "Details", classrooms_getClassroom_path(id: classroom.id), id: classroom.id %></td>
 				  	</tr>
 			  	<% end %>
 			</table>
-	  	<% elsif @infoType === "Students" or @infoType === "Teachers" %>	
-	  		<%= link_to "New", dashboard_new_form_path(infoType: @infoType) %>  		
+	  	<% elsif @infoType === "Students" or @infoType === "Teachers" %>
+	  		<%= link_to "New", dashboard_new_form_path(infoType: @infoType), id: "new-link" %>
 	  		<table id="tableData" class="table table-hover">
 	  			<tr><td></td><td>Account ID</td><td>First Name</td><td>Middle Name</td><td>Last Name</td></tr>
 		    	<% @info.each do |user| %>
@@ -42,5 +59,4 @@
 	  	<% end %>
 	</div>
 </div>
-
 

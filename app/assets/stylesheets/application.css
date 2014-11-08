@@ -13,6 +13,7 @@
  *= require bootstrap.min
  *= require_tree .
  *= require_self
+ *= require autoSuggest
 
  * @author voe
 
@@ -26,7 +27,9 @@ hr {
 
 .background {
 	position: relative;
-	padding-top: 52px;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 58px;
 	height: 100vh;
 	background-color: #FFF;
 }

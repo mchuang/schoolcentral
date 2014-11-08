@@ -6,6 +6,5 @@ FactoryGirl.define do
     time ""
     location "MyString"
     description "MyString"
-    student_capacity 1
   end
 end

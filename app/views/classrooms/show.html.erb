@@ -1,9 +1,11 @@
 <!-- @author: voe -->
+<!-- The show class for a classroom -->
 
 <div class="container-fluid background">
 	
 	<%= render "layouts/side_menu" %>
 
+	<!-- Everything to the right of the left menu -->
 	<div class="col-sm-offset-2 class-content">
 
 		<% if current_user.account_type == "Teacher" %>
@@ -16,18 +18,22 @@
 
 			<!-- The content if the students tab is selected (default) -->
 			<% if current_user.account_type == "Teacher" %>
+
 				<div id="students-content" style="display: block;">
 					<%= render "classrooms/partials/teacher/students_content" %>
 				</div>
 
 				<!-- The content if the assignments tab is selected -->
 				<div id="assignments-content" style="display: none;">
-					<h2>Assignments</h2>
+					<%= render "classrooms/partials/teacher/assignments_content" %>
 				</div>
+
 			<% else %>
+
 				<div id="assignments-content" style="display: block;">
-					<h2>Assignments</h2>
+					<%= render "classrooms/partials/student/assignments_content" %>
 				</div>
+
 			<% end %>
 
 			<!-- The content if the attendance tab is selected -->
@@ -41,7 +47,11 @@
 
 			<!-- The content if the grades tab is selected -->
 			<div id="grades-content" style="display: none;">
-				<h2>Grades</h2>
+				<% if current_user.account_type == "Teacher" %>
+					<%= render "classrooms/partials/teacher/grades_content" %>
+				<% else %>
+					<%= render "classrooms/partials/student/grades_content" %>
+				<% end %>
 			</div>
 
 		</div>

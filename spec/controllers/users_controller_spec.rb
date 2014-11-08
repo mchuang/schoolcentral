@@ -1,3 +1,5 @@
+# @author: jdefond, dkang
+
 require 'rails_helper'
 
 RSpec.describe UsersController, :type => :controller do
@@ -44,7 +46,7 @@ RSpec.describe UsersController, :type => :controller do
 
 		it "update_phone" do
 			@u = {:phone_mobile=> '123-456'}
-		 	post :update_email , :user=>@u
+		 	post :update_phone , :user=>@u
 		 	expect(response).to redirect_to("/users/show") 
 		 	expect(flash[:success]).to eq(@success)
 	    end

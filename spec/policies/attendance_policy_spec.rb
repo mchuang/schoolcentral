@@ -1,3 +1,5 @@
+# @author: jdefond
+
 require 'spec_helper'
 require 'rails_helper'
 
@@ -35,39 +37,102 @@ describe AttendancePolicy do
 
   #First test
   describe "Admin Scope on Attendance" do
-    it{expect(AttendancePolicy::Scope.new(@admin0,Attendance).resolve).to eq(Attendance.all)}
+    it{expect(AttendancePolicy::Scope.new(@admin0,Attendance).resolve).to match_array(Attendance.all)}
   end
 
   #Second test
   describe "Teacher Scope on Attendance" do
-    it{expect(AttendancePolicy::Scope.new(@teacher0,Attendance).resolve).to match_array(Attendance.where({id: @attendance0.id}))}
+    it{
+      expect(
+        AttendancePolicy::Scope.new(@teacher0,Attendance).resolve
+      ).to match_array(Attendance.where({classroom_id: @teacher0.account.classrooms.map(&:id)}))
+    }
   end
 
   #thrid test
   describe "student Scope on Attendance" do 
     it{expect(AttendancePolicy::Scope.new(@student0,Attendance).resolve).to match_array(Attendance.where({id: @attendance0.id}))}
   end
-  # let(:user) { User.new }
 
-  # subject { AttendancePolicy }
+  permissions :index? do
+    it "should allow admin to index attendance" do
+      expect(described_class).to permit(@admin0, Attendance)
+    end
 
-  # permissions ".scope" do
-  #   pending "add some examples to (or delete) #{__FILE__}"
-  # end
+    it "should allow teacher to index scoped attendance" do
+      expect(described_class).to permit(@teacher0, Attendance)
+    end
 
-  # permissions :create? do
-  #   pending "add some examples to (or delete) #{__FILE__}"
-  # end
+    it "should allow students to index scoped attendance" do
+      expect(described_class).to permit(@student0, Attendance)
+    end
+  end
 
-  # permissions :show? do
-  #   pending "add some examples to (or delete) #{__FILE__}"
-  # end
+  permissions :create? do
+    it "should allow admins to create attendance" do
+      expect(described_class).to permit(@admin0, Attendance)
+    end
 
-  # permissions :update? do
-  #   pending "add some examples to (or delete) #{__FILE__}"
-  # end
+    it "should allow teachers to create attendance" do
+      expect(described_class).to permit(@teacher0, Attendance)
+    end
 
-  # permissions :destroy? do
-  #   pending "add some examples to (or delete) #{__FILE__}"
-  # end
+    it "should not allow students to create attendance" do
+      expect(described_class).not_to permit(@student0, Attendance)
+    end
+  end
+
+  permissions :edit? do
+    it "should allow admins to edit attendance" do
+      expect(described_class).to permit(@admin0, @attendance0)
+    end
+
+    it "should allow teachers to edit attendance" do
+      expect(described_class).to permit(@teacher0, @attendance0)
+    end
+
+    it "should not allow teachers to edit attendance for other classes" do
+      expect(described_class).not_to permit(@teacher0, @attendance1)
+    end
+
+    it "should not allow students to edit attendance" do
+      expect(described_class).not_to permit(@student0, @attendance0)
+    end
+  end
+
+  permissions :update? do
+    it "should allow admins to update attendance" do
+      expect(described_class).to permit(@admin0, @attendance0)
+    end
+
+    it "should allow teachers to update attendance" do
+      expect(described_class).to permit(@teacher0, @attendance0)
+    end
+
+    it "should not allow teachers to update attendance for other classes" do
+      expect(described_class).not_to permit(@teacher0, @attendance1)
+    end
+
+    it "should not allow students to update attendance" do
+      expect(described_class).not_to permit(@student0, @attendance0)
+    end
+  end
+
+  permissions :destroy? do
+    it "should allow admins to delete attendance" do
+      expect(described_class).to permit(@admin0, @attendance0)
+    end
+
+    it "should allow teachers to delete attendance" do
+      expect(described_class).to permit(@teacher0, @attendance0)
+    end
+
+    it "should not allow teachers to delete attendance for other classes" do
+      expect(described_class).not_to permit(@teacher0, @attendance1)
+    end
+
+    it "should not allow students to delete attendance" do
+      expect(described_class).not_to permit(@student0, @attendance0)
+    end
+  end
 end

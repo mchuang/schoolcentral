@@ -1,4 +1,36 @@
+# @author: elewis, jdefond
+
 class AttendancePolicy < ApplicationPolicy
+
+  def index?
+    true
+  end
+
+  # Not applicable for attendance
+  def show?
+    false
+  end
+
+  def create?
+    ["Admin", "Teacher"].include? user.account_type
+  end
+
+  def new?
+    create?
+  end
+
+  def update?
+    user.account_type == "Admin" or (user.account_type == "Teacher" and user.account.classrooms.include? record.classroom)
+  end
+
+  def edit?
+    update?
+  end
+
+  def destroy?
+    update?
+  end
+
   class Scope < Scope
     def resolve
       case user.account_type

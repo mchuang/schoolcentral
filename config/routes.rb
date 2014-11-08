@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   post 'dashboard/admin_dashboard'
   get 'dashboard/new_form'
   post 'dashboard/new_create'
+  get 'dashboard/calendarDates'
+  get 'dashboard/calendarEvents'
+  get 'dashboard/dayEvents'
 
   post 'users/update_address'
   post 'users/update_email'
@@ -14,6 +17,9 @@ Rails.application.routes.draw do
   post 'users/update_phone'
 
   post 'classrooms/setAttendance'
+  post 'classrooms/setGrades'
+  get 'classrooms/getClassroom'
+  post 'classrooms/editClassroom'
 
   devise_for :users, 
     :path => '',
@@ -25,7 +31,7 @@ Rails.application.routes.draw do
 
   root 'static#home'
 
-  resources :users, :classrooms
+  resources :users, :classrooms, :assignments
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,3 +1,5 @@
+# @author: elewis, jdefond
+
 class ApplicationPolicy
   attr_reader :user, :record
 

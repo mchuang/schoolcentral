@@ -15,6 +15,10 @@ gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
+
+#paperclip for file storage
+gem 'paperclip', '~> 4.2'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -28,6 +32,11 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'simplecov', '~>0.9.0', :require => false, :group => :test
+
+gem 'momentjs-rails', '>= 2.8.1'
+
+# Selenium UI Testing
+gem 'selenium-webdriver', '~> 2.44.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

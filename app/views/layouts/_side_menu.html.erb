@@ -1,4 +1,5 @@
 <!-- @author: voe, dlaroue -->
+<!-- partial for the side menu of the dashboard for students and teachers -->
 
 <div class="col-sm-2 menu-left">
     <div class="profile-display">
@@ -34,7 +35,7 @@
     				<h3><%= t.name %></h3>
     			</div>
     		<% else %>
-				<%= link_to t do %>
+				<%= link_to t, id: t.name do %>
 					<div class="row classlist-item">
 						<h3><%= t.name %></h3>
 					</div>

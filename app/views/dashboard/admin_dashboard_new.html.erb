@@ -1,7 +1,9 @@
+<!-- @author: mchuang -->
+<!-- markup for the forms seen by admins -->
 
 <div class="container-fluid background">
 	<%= render "layouts/side_admin_menu" %>
-	<div class="col-sm-8 menu-center">
+	<div class="col-sm-8 menu-center new-form">
 		<% if @infoType === "Classrooms" %>
 			<%= form_tag '/dashboard/new_create?infoType=Classrooms' do %>
 			  <div class="field">

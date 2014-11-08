@@ -11,12 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141024022204) do
+ActiveRecord::Schema.define(version: 20141105234935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "admins", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "assignments", force: true do |t|
+    t.integer  "teacher_id",   null: false
+    t.integer  "classroom_id", null: false
+    t.integer  "max_points"
+    t.string   "name",         null: false
+    t.string   "description"
+    t.datetime "due",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -51,6 +62,18 @@ ActiveRecord::Schema.define(version: 20141024022204) do
     t.integer "classroom_id", null: false
   end
 
+  create_table "events", force: true do |t|
+    t.string   "name"
+    t.datetime "startime"
+    t.datetime "endtime"
+    t.string   "description"
+    t.integer  "classroom_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+  end
+
   create_table "schools", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -60,6 +83,19 @@ ActiveRecord::Schema.define(version: 20141024022204) do
   create_table "students", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "submissions", force: true do |t|
+    t.string   "filename"
+    t.integer  "grade"
+    t.integer  "assignment_id",     null: false
+    t.integer  "student_id",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
   end
 
   create_table "teachers", force: true do |t|

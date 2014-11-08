@@ -1,3 +1,5 @@
+# @author: elewis, jdefond, voe
+
 class Attendance < ActiveRecord::Base
     belongs_to :student
     belongs_to :classroom
@@ -32,12 +34,12 @@ class Attendance < ActiveRecord::Base
         }
     end
 
-    def self.get_date_range_for_student(student, start_d, end_d)
-        student.attendance.where('date BETWEEN ? AND ?', start_d, end_d)
+    def self.get_date_range_for_student(student, classroom, start_d, end_d)
+        student.attendance.where('classroom_id = ?', classroom.id).where('date BETWEEN ? AND ?', start_d, end_d)
     end
 
-    def self.get_week_for_student(student, date)
-        get_date_range_for_student(student, date.beginning_of_week, date.end_of_week)
+    def self.get_week_for_student(student, classroom, date)
+        get_date_range_for_student(student, classroom, date.beginning_of_week, date.end_of_week)
     end
 
     def self.get_week_array(date)
