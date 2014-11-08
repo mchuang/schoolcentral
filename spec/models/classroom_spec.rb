@@ -44,4 +44,12 @@ RSpec.describe Classroom, :type => :model do
     }
     expect(cls.max_points).to eq(total_points)
   end
+
+  it "current assignments returns current and past gets past" do
+    cls = FactoryGirl.create(:classroom)
+    asn0 = FactoryGirl.create(:assignment, :classroom =>cls, :due => DateTime.new(2013,2,3))
+    asn1 = FactoryGirl.create(:assignment, :classroom =>cls, :due => DateTime.new(2015,2,3))
+    expect(cls.current_assignments).to eq([asn1])
+    expect(cls.past_assignments).to eq([asn0])
+  end
 end

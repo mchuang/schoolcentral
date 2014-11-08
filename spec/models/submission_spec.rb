@@ -7,9 +7,9 @@ RSpec.describe Submission, :type => :model do
  
   
   it {should have_attached_file(:file)}
-  it {should validate_attachment_content_type(:file).
-                      allowing('application/pdf').rejecting('image/gif')}
+  it {should validate_attachment_content_type(:file).allowing('application/pdf').rejecting('image/gif')}
 
+ 
 
   it "should correctly test if graded" do
     sub = FactoryGirl.create(:submission, :grade => nil)

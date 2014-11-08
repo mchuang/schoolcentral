@@ -109,4 +109,5 @@ RSpec.describe User, :type => :model do
       expect(User.random_password(i).length).to eq(i)
     }
   end
+
 end
