@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'selenium-webdriver'
 
-@@driver = Selenium::WebDriver.for :firefox
+@@driver = Selenium::WebDriver.for :chrome
 @@driver.manage.timeouts.implicit_wait = 10
 @@wait = Selenium::WebDriver::Wait.new(:timeout => 10)
 def open
@@ -227,3 +227,24 @@ end
 def findAttendance(user_id)
 end
 
+def raiseAssertionError(m)
+  puts m
+end
+
+def assert(bool, message=nil)
+	if !bool
+		raiseAssertionError("----- assertion failed!: " + m)
+	end
+end
+
+def assertNotNil(value)
+	assert(value != nil, "value is nil")
+end
+
+def assertIdElementExists(id)
+	assert(!@@driver.find_element(:id, id).nil?, "----- " + id + " element does not exist")
+end
+
+# def assertIdElementNotExist(id)
+# 	assert(@@driver.find_element(:id, id).nil?, "----- " + id + " element does not exist")
+# end

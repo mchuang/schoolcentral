@@ -2,7 +2,7 @@
 <!-- partial for the side menu of the dashboard for students and teachers -->
 
 <div class="col-sm-2 menu-left">
-    <div class="profile-display">
+    <div id="profile-display" class="profile-display">
     	<div class="profile-panel">
 			<a href="/users/show">
 		      <img class="thumbnail user-image" src="http://simpleicon.com/wp-content/uploads/user1-150x150.png">
@@ -11,7 +11,7 @@
 	    </div>
     </div>
 
-    <div class="classlist">
+    <div id="classlist" class="classlist">
     	<hr>
 
     	<% if @classroom.nil? %>
