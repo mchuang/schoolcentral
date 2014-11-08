@@ -22,11 +22,13 @@
 //@author: voe
 
 function toggleModal(id) {
-	if (document.getElementById(id).style.display != 'block') {
-		document.getElementById(id).style.display = 'block';
+
+	if ($('#'+id).get(0).style.display != 'block') {
+		$('#'+id).get(0).style.display = 'block';
 	} else {
-		document.getElementById(id).style.display = 'none';
+		$('#'+id).get(0).style.display = 'none';
 	}
+
 }
 
 var subTabs = ["students", "assignments", "attendance", "grades"];
@@ -35,8 +37,8 @@ function toggleTab(identifier) {
 
 	for (var i = 0; i < subTabs.length; i++) {
 		var s = subTabs[i];
-		var tab = document.getElementById(s + "-tab");
-		var content = document.getElementById(s + "-content");
+		var tab = $("#" + s + "-tab").get(0);
+		var content = $("#" + s + "-content").get(0);
 		if (tab && content) {
 			tab.classList.remove("active");
 			content.style.display = "none";
@@ -60,34 +62,33 @@ function toggleTab(identifier) {
 	}
 
 	var newTabId = identifier + "-tab";
-	var newTab = document.getElementById(newTabId);
+	var newTab = $("#" + newTabId).get(0);
 	newTab.classList.add("active");
 	newTab.setAttribute("onclick", null);
 
 	var newContentId = identifier + "-content";
-	var newContent = document.getElementById(newContentId);
+	var newContent = $("#" + newContentId).get(0);
 	newContent.style.display = "block";
 
 }
 
 function toggleAttendanceModal(dateString) {
-	if (document.getElementById("attendanceInputModal").style.display != 'block') {
-		document.getElementById("attendanceInputModal").style.display = 'block';
-		document.getElementById("attendanceTitle").innerHTML = "attendance for: " + dateString;
-		document.getElementById("date-specifier").setAttribute("value", dateString);
+	if ($("#attendanceInputModal").get(0).style.display != 'block') {
+		$("#attendanceInputModal").get(0).style.display = 'block';
+		$("#attendanceTitle").get(0).innerHTML = "attendance for: " + dateString;
+		$("#date-specifier").get(0).setAttribute("value", dateString);
 	} else {
-		document.getElementById("attendanceInputModal").style.display = 'none';
+		$("#attendanceInputModal").get(0).style.display = 'none';
 	}
 }
 
-
 function toggleGradesModal(assignmentId, assignmentName) {
-	if (document.getElementById("gradesInputModal").style.display != 'block') {
-		document.getElementById("gradesInputModal").style.display = 'block';
-		document.getElementById("gradesTitle").innerHTML = "Grades for: " + assignmentName;
-		document.getElementById("assignment-specifier").setAttribute("value", assignmentId);
+	if ($("#gradesInputModal").get(0).style.display != 'block') {
+		$("#gradesInputModal").get(0).style.display = 'block';
+		$("#gradesTitle").get(0).innerHTML = "Grades for: " + assignmentName;
+		$("#assignment-specifier").get(0).setAttribute("value", assignmentId);
 	} else {
-		document.getElementById("gradesInputModal").style.display = 'none';
+		$("#gradesInputModal").get(0).style.display = 'none';
 	}
 }
 
@@ -129,8 +130,8 @@ function getCalendarEvents(year, month) {
 }
 
 function renderCalendarDates(data) {
-	calendarContentNode = document.getElementById("calendar-content");
-	calendarHeaderNode = document.getElementById("calendar-header");
+	calendarContentNode = $("#calendar-content").get(0);
+	calendarHeaderNode = $("#calendar-header").get(0);
 	calendarHeaderNode.children[0].innerText = data.monthString;
 
 	while (calendarContentNode.firstChild) {
@@ -171,9 +172,9 @@ function createDateDiv(dateString, currentYear, currentMonth, currentDate) {
 }
 
 function updateDayFeed(event) {
-	var previouslySelected = document.getElementsByClassName("calendar-day active");
+	var previouslySelected = $(".calendar-day.active");
 	for (var i = 0; i < previouslySelected.length; i++) {
-		previouslySelected[i].classList.remove("active");
+		previouslySelected.get(i).classList.remove("active");
 	}
 	event.currentTarget.classList.add("active");
 	var date = new Date(Date.parse(event.currentTarget.id));
@@ -191,7 +192,7 @@ function renderCalendarEvents(data) {
 		endDate = calendarEvent.endtime;
 		identifier = startDate.slice(0, 10);
 		eventBlock = createEventDiv(calendarEvent);
-		document.getElementById(identifier).appendChild(eventBlock);
+		$("#" + identifier).get(0).appendChild(eventBlock);
 	}
 }
 

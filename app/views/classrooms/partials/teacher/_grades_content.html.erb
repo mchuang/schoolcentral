@@ -4,8 +4,8 @@
 		<th>Identifier</th>
 		<% for assignment in @classroom.assignments %>
 			<th>
-				<%= link_to assignment.name, assignment%>  <%= link_to 'Edit',
-				'#', onclick: "toggleGradesModal('#{assignment.id}, #{assignment.name}')"%>
+				<%= link_to assignment.name, assignment%>  
+				<%= link_to 'Edit', '#', onclick: "toggleGradesModal(#{assignment.id}, '#{assignment.name}')"%>
 			</th>
 		<% end %>
 		<th>Total</th>
