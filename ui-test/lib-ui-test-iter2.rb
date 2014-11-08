@@ -45,6 +45,19 @@ def changeAttendanceDate(name, date, attendance)
 		cells = row.find_elements(:tag_name => "td")
 		if cells[0].text == name
 			cells[1].click
-			row.find_elements(:class => "attendance-selector")
+			row.find_elements(:tag_name => "option")[attendance].click
+			form.find_element(:name => "commit").click
+			break
+		end
 	end
+end
+
+def hasStudent(id)
+	students = @@driver.find_element(:id => "students-table").find_element(:tag_name => "tbody").find_elements(:tag_name => "tr")
+	students.each do |student|
+		if student.find_elements(:tag_name => "td")[2].text == id
+			return true
+		end
+	end
+	return false
 end
