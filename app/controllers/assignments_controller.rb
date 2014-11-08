@@ -1,4 +1,5 @@
 class AssignmentsController < ApplicationController
+	before_action :require_login
 
 	def new
 	end
@@ -54,6 +55,13 @@ class AssignmentsController < ApplicationController
 		params.require(:classroom_id)
 		params.require(:name)
 		params.require(:due)
+	end
+
+	def require_login
+	    unless user_signed_in?
+	      flash[:error] = "please log in"
+	      redirect_to new_user_session_path
+	    end
 	end
 
 end
