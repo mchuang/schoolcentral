@@ -31,7 +31,7 @@ def hasPastAssignment(name)
 	return false
 end
 
-def changeAttendanceDate(name, date, attendance)
+def changeAttendance(name, date, attendance)
 	dates = @@driver.find_element(:tag_name => "thead").find_elements(:tag_name => "th")
 	dates.each do |date|
 		if date.text == date
@@ -43,7 +43,7 @@ def changeAttendanceDate(name, date, attendance)
 	rows = form.find_elements(:tag_name => "tr")
 	rows.each do |row|
 		cells = row.find_elements(:tag_name => "td")
-		if cells[0].text == name
+		if cells[0].find_element(:tag_name => "label").text == name
 			cells[1].click
 			row.find_elements(:tag_name => "option")[attendance].click
 			form.find_element(:name => "commit").click

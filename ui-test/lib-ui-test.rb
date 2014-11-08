@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'selenium-webdriver'
 
-@@driver = Selenium::WebDriver.for :chrome
+@@driver = Selenium::WebDriver.for :firefox
 @@driver.manage.timeouts.implicit_wait = 10
 @@wait = Selenium::WebDriver::Wait.new(:timeout => 10)
 def open
@@ -121,7 +121,7 @@ end
 def editPhoneNumber(phoneNumber)
 	pnPanel = @@driver.find_element(:id => "accordion").find_elements(:class => "panel")[4]
 	pnPanel.find_element(:tag_name => "a").click
-	@@driver.find_element(:id => "user_phone").send_keys phone
+	@@driver.find_element(:id => "user_phone_mobile").send_keys phoneNumber
 	@@driver.find_element(:id => "save-cancel-phone").click
 end
 
