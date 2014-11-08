@@ -24,11 +24,6 @@ class DashboardController < ApplicationController
 		render 'admin_dashboard'
 	end
 
-	def admin_dashboard_classroom
-		@students = Student.all
-		@teachers = Teacher.all
-	end
-
 	def new_form
 		@infoType = params[:infoType]
 		render 'admin_dashboard_new'
@@ -73,6 +68,30 @@ class DashboardController < ApplicationController
 				classroom.save
 		end
 		render 'admin_dashboard'
+	end
+
+	def calendarDates
+		year = params[:year].to_i
+		month = params[:month].to_i
+		monthString = Date.new(year, month).strftime("%B")
+		dateList = Event.get_dates_for_month(year, month)
+		render json: {year: year, month: month, monthString: monthString, dates: dateList}
+	end
+
+	def calendarEvents
+		year = params[:year].to_i
+		month = params[:month].to_i
+		eventList = Event.get_date_range(current_user.account, Event.calendar_first_date(year, month), Event.calendar_last_date(year, month))
+		render json: {year: year, month: month, events: eventList}
+	end
+
+	def dayEvents
+		year = params[:year].to_i
+		month = params[:month].to_i
+		day = params[:day].to_i
+		date = DateTime.new(year, month, day)
+		eventList = Event.get_day(current_user.account, date)
+		render json: {date: date, events: eventList}
 	end
 
 end

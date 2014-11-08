@@ -1,0 +1,55 @@
+
+.calendar {
+	border-right: solid 1px lightgrey;
+	border-bottom: solid 1px lightgrey;
+}
+
+.calendar-header {
+	position: relative;
+	height: 10vh;
+	border-top: solid 1px lightgrey;
+	border-left: solid 1px lightgrey;
+}
+
+.month-label {
+	text-align: center;
+}
+
+.calendar-week-header {
+	position: relative;
+	height: 3vh;
+	border-top: solid 1px lightgrey;
+}
+
+.calendar-day.day-label {
+	position: relative;
+	color: lightblue;
+	font-style: bold;
+	text-align: center;
+}
+
+.calendar-week {
+	position: relative;
+	height: 12vh;
+	border-top: solid 1px lightgrey;
+}
+
+.calendar-day {
+	position: relative;
+	height: 100%;
+	float: left;
+	width: 14.25%;
+	border-left: solid 1px lightgrey;
+}
+
+.light-text {
+	color: lightgrey;
+}
+
+.event {
+	font-size: 12px;
+	background-color: lightsalmon;
+	border-radius: 4px;
+	padding-left: 4px; 
+	padding-right: 4px;
+}

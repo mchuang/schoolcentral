@@ -1,10 +1,11 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
+include ActionDispatch::TestProcess
 
 FactoryGirl.define do
   factory :submission do
     filename "MyString"
-    grade 1
-    assignment_id 1
-    student_id 1
+    assignment 
+    student
+    file Rack::Test::UploadedFile.new(Rails.root.join("spec/testfile/hw.pdf"))
   end
 end

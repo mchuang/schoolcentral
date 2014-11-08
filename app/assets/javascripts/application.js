@@ -91,5 +91,132 @@ function toggleGradesModal(assignmentId, assignmentName) {
 	}
 }
 
+function getCalendarDates(year, month) {
+	$.ajax({
+  		url: "calendarDates",
+  		data: {
+  			year: year,
+  			month: month
+  		},
+  		success: function (response) {
+            renderCalendarDates(response);
+            getCalendarEvents(year, month);
+        },
+  		dataType: "json"
+	});
+}
 
+function getCalendarEvents(year, month) {
+	$.ajax({
+  		url: "calendarEvents",
+  		data: {
+  			year: year,
+  			month: month
+  		},
+  		success: function (response) {
+            renderCalendarEvents(response);
+        },
+  		dataType: "json"
+	});
+}
 
+function renderCalendarDates(data) {
+	calendarContentNode = document.getElementById("calendar-content");
+	calendarHeaderNode = document.getElementById("calendar-header");
+	calendarHeaderNode.children[0].innerText = data.monthString;
+
+	while (calendarContentNode.firstChild) {
+    	calendarContentNode.removeChild(calendarContentNode.firstChild);
+	}
+
+	for (var i = 0; i < data.dates.length; i++) {
+		var rowElement = document.createElement("div")
+		rowElement.classList.add("row");
+		rowElement.classList.add("calendar-week");
+		var dates = data.dates[i];
+		for (var j = 0; j < dates.length; j++) {
+			var dayElement = createDateDiv(dates[j], data.month);
+			rowElement.appendChild(dayElement);
+		}
+		calendarContentNode.appendChild(rowElement);
+	}
+}
+
+function createDateDiv(dateString, currentMonth) { // ADD ONCLICK FUNCTION
+	var dayElement = document.createElement("div");
+	dayElement.classList.add("calendar-day")
+	dayElement.setAttribute("id", dateString);
+	dayElement.setAttribute("onclick", "updateDayFeed(event)");
+	var date = new Date(Date.parse(dateString));
+	date.setDate(date.getDate() + 1);
+	dayElement.innerText = date.getDate();
+	if (date.getMonth()+1 != currentMonth) {
+		dayElement.style.color = "lightgrey";
+	}
+	return dayElement;
+}
+
+function updateDayFeed(event) {
+	var date = new Date(Date.parse(event.currentTarget.id));
+	date.setDate(date.getDate() + 1);
+	getDayEvents(date.getYear()+1900, date.getMonth()+1, date.getDate());
+}
+
+function renderCalendarEvents(data) {
+	var date;
+	var identifier;
+	var eventBlock;
+	for (var i = 0; i < data.events.length; i++) {
+		calendarEvent = data.events[i];
+		startDate = calendarEvent.startime;
+		endDate = calendarEvent.endtime;
+		identifier = startDate.slice(0, 10);
+		eventBlock = createEventDiv(calendarEvent);
+		document.getElementById(identifier).appendChild(eventBlock);
+	}
+}
+
+function renderDayEvents(data) {
+	var rawDate = data['date'];
+	var panelTitle = formattedDateString(rawDate);
+	$('#day-feed-panel-title').html(panelTitle);
+	$('#day-feed-panel-body').html('');
+	var events = data['events'];
+	for(var i = 0; i < events.length; i++) {
+		if (events[i].owner_type == "Assignment") {
+			var eventID = events[i].owner_id;
+			$('#day-feed-panel-body').append("<div><a href='../assignments/"+eventID+"'>"+events[i].name+"</a></div>");
+		}
+	}
+}
+
+function formattedDateString(rawDate) {
+	//var rawDate = "2014-11-07 18:06:00 UTC"
+	var newDate = new Date(Date.parse(rawDate));
+	newDate.setDate(newDate.getDate()+1);
+	newDate = newDate.toString().split(" ");
+	var formattedString = newDate[0] + ", " + newDate[2] + " " + newDate[1] + " " + newDate[3];
+	return formattedString;
+}
+
+function createEventDiv(calEvent) {
+	var calendarElement = document.createElement("div");
+	calendarElement.classList.add("event");
+	calendarElement.innerText = calEvent.name;
+	return calendarElement;
+}
+
+function getDayEvents(year, month, day) {
+	$.ajax({
+  		url: "dayEvents",
+  		data: {
+  			year: year,
+  			month: month,
+  			day: day
+  		},
+  		success: function (response) {
+            renderDayEvents(response);
+        },
+  		dataType: "json"
+	});
+}

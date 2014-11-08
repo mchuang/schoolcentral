@@ -47,7 +47,6 @@
 
 			<!-- The content if the grades tab is selected -->
 			<div id="grades-content" style="display: none;">
-				<h2>Grades</h2>
 				<% if current_user.account_type == "Teacher" %>
 					<%= render "classrooms/partials/teacher/grades_content" %>
 				<% else %>

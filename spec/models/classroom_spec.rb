@@ -29,4 +29,27 @@ RSpec.describe Classroom, :type => :model do
     cls.students << FactoryGirl.create(:student)
     expect { cls.save! }.to raise_error(ActiveRecord::RecordInvalid)
   end
+
+  it "should correctly aggregate assignment points" do
+    total_points = 0
+    cls = FactoryGirl.create(:classroom)
+    expect(cls.max_points).to eq(0)
+    (0..5).each {|i|
+      assgn = FactoryGirl.create(:assignment,
+        :name => "assgn-#{i}",
+        :max_points => i*5,
+        :classroom => cls
+      )
+      total_points += assgn.max_points
+    }
+    expect(cls.max_points).to eq(total_points)
+  end
+
+  it "current assignments returns current and past gets past" do
+    cls = FactoryGirl.create(:classroom)
+    asn0 = FactoryGirl.create(:assignment, :classroom =>cls, :due => DateTime.new(2013,2,3))
+    asn1 = FactoryGirl.create(:assignment, :classroom =>cls, :due => DateTime.new(2015,2,3))
+    expect(cls.current_assignments).to eq([asn1])
+    expect(cls.past_assignments).to eq([asn0])
+  end
 end

@@ -53,8 +53,17 @@ class ClassroomsController < ApplicationController
 	end
 
 	def editClassroom
-		Classroom.editClassroom(params[:course], params[:time], params[:location], params[:description], params[:capacity], params[:teachers].split(','), params[:students].split(','))
 		@classroom = Classroom.find_by_id(params[:id])
-		render '/dashboard/admin_dashboard'
+		unless @classroom.nil?
+			@classroom.update(
+				:name => params[:course],
+				:time => params[:time],
+				:location => params[:location],
+				:student_capacity => params[:capacity],
+				:teachers => User.where(identifier: params[:teachers].split(',')).map(&:account),
+				:students => User.where(identifier: params[:students].split(',')).map(&:account),
+			)
+		end
+		render 'classroominfo'
 	end
 end

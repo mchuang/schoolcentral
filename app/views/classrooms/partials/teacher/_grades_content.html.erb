@@ -23,7 +23,7 @@
 						<td><%= submission.grade %>/<%= assignment.max_points %></td>
 					<% end %>
 				<% end %>
-				<td><%= student.recv_points(@classroom_id)%>/<%= @classroom.max_points %>,
+				<td><%= student.recv_points(@classroom.id)%>/<%= @classroom.max_points %>,
 				<%=student.grade(@classroom.id)%>%</td>
 			</tr>
 		<% end %>

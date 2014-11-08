@@ -20,16 +20,22 @@ RSpec.describe Assignment, :type => :model do
     }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
+  it "should error on nil teacher" do
+    expect {
+        FactoryGirl.create(:assignment, :teacher => nil)
+    }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
   it "should seed submissions when assignment is created" do
     existing = Submission.count
-    asgn = FactoryGirl.create(:assignment, :classroom_id => @class0.id)
+    asgn = FactoryGirl.create(:assignment, :classroom => @class0)
     expect(
       Submission.count - existing
     ).to eq(asgn.classroom.students.count)
   end
 
   it "should create an event when assignment is created" do
-    asgn = FactoryGirl.create(:assignment, :classroom_id => @class0.id)
+    asgn = FactoryGirl.create(:assignment, :classroom => @class0)
     expect(asgn.event).not_to         eq(nil)
     expect(asgn.event.name).to        eq(asgn.name)
     expect(asgn.event.description).to eq(asgn.description)

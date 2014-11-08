@@ -15,15 +15,17 @@ class Student < ActiveRecord::Base
 	end
 
 	def events 
-		classrooms.map {|cls| cls.events}.flatten
+		Event.where(classroom_id: classrooms.map(&:id))
 	end
 
 	def recv_points(classroom_id)
+		logger.debug "_________________________%%%%%%%%%%%%%%%%%%%%%%%%%%%%%_____________________________"
 		submissions.where(assignment_id: Assignment.where(classroom_id: classroom_id)).sum(:grade)
 	end
 
 	def grade(classroom_id)
-		recv_points(classroom_id).to_f / classrooms.find(classroom_id).max_points
+		max_points = classrooms.find(classroom_id).max_points
+		max_points > 0 ? recv_points(classroom_id).to_f / max_points : 0.0
 	end
 
 	def submission(assignment_id)
