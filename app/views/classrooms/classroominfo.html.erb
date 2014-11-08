@@ -1,6 +1,6 @@
 <div class="container-fluid background">
 	<%= render "layouts/side_admin_menu" %>
-	<div class="col-sm-8 menu-center">
+	<div class="col-sm-8 menu-center class-info">
 		<%= form_tag '/classrooms/editClassroom' do %>
 
 			<%= hidden_field_tag :id, value = @classroom.id %>

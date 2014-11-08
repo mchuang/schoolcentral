@@ -13,7 +13,7 @@
 
       <ul class="nav navbar-nav navbar-right">
         <li> 
-          <%= link_to "profile", "/users/show" %>
+          <%= link_to "profile", "/users/show", id: "profile-path" %>
         </li>
         <li>
           <%= link_to "log out", destroy_user_session_path %>
@@ -40,7 +40,7 @@
           <%= link_to "contacts", root_path %>
         </li>
         <li>
-          <%= link_to "log in", new_user_session_path %>
+          <%= link_to "log in", new_user_session_path, id: "login-menu" %>
         </li>
       </ul>
 
