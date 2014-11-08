@@ -11,6 +11,12 @@ RSpec.describe UsersController, :type => :controller do
 	end
 
 	describe "UsersController" do 
+		it "should require login" do
+			sign_out @admin0
+			get :show, :id => @admin0.id
+			expect(response).to redirect_to(new_user_session_path)
+		end
+		
 		it "Show assigns @user to current_user" do
 			get :show , :id=> @admin0.id
 			expect(assigns(:user)).to eq(@admin0)

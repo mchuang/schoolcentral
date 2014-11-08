@@ -9,6 +9,13 @@ RSpec.describe DashboardController, :type => :controller do
 	end
 
 	describe "DashboardController" do
+		it "should require login" do
+			[:index, :admin_dashboard, :calendarDates, :calendarEvents].each {|a|
+				get a
+				expect(response).to redirect_to(new_user_session_path)
+			}
+		end
+
 		it "index for admin" do
 			sign_in @admin0
 			get :index, :id => @admin0.id

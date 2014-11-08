@@ -17,6 +17,13 @@ RSpec.describe ClassroomsController, :type => :controller do
   end
 
   describe "ClassroomsController" do
+    it "should require login" do
+      [:show, :getClassroom].each {|a|
+        get a, :id => @class0.id
+        expect(response).to redirect_to(new_user_session_path)
+      }
+    end
+
     it "get_teacher classrooms" do
       sign_in @teacher0
       get :show, :id => @class0.id
