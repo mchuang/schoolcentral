@@ -38,7 +38,7 @@ RSpec.describe ClassroomsController, :type => :controller do
 
     it 'set attendance for student' do
       sign_in @teacher0
-      
+
       @c = {:id=> @class0.id}
       @a = {@student0.account.id => 1}
       post :setAttendance, :id => @class0.id, :classroom => @c,:attendance => @a, :date => '2000-01-01'
