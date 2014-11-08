@@ -2,6 +2,11 @@
 	<div id="calendar" class="container-fluid calendar">
 		<div id="calendar-header" class="row calendar-header">
 			<h2 class="month-label">Month</h2>
+			<div class="btn-group calendar-navigation">
+				<button type="button" class="btn btn-default" onclick="previousMonth()">prev</button>
+				<button type="button" class="btn btn-default" onclick="setCalendarToToday()">today</button>
+				<button type="button" class="btn btn-default" onclick="nextMonth()">next</button>
+			</div>
 		</div>
 		<div class="row calendar-week-header">
 			<div class="calendar-day day-label">sun</div>
@@ -16,31 +21,12 @@
 		<div id="calendar-content">
 		</div>
 
-	    <!--
-	    <% #for week in Event.get_dates_for_month(Date.current.year, Date.current.month) %>
-	    	<div class="row calendar-week">
-	    		<% #for day in week %>
-	    			<div class="calendar-day">
-	    				<% #if day.month == Date.current.month %>
-		    				<text><#%= day.day %></text>
-		    			<% #else %>
-		    				<text class="light-text"><#%= day.day %></text>
-		    			<% #end %>
-	    			</div>
-	    		<% #end %>
-	    	</div>
-	    <% #end %>
-		-->
-
 	</div>
 </div>
 <script>
-	var selectedDay = new Date()
-	var calendarDate = selectedDay.getDate();
-	var calendarMonth = selectedDay.getMonth() + 1;
-	var calendarYear = selectedDay.getYear() + 1900;
+	var selectedMonth = new Date();
+	var dateSelected = false;
 	$(document).ready(function() {
-    	getCalendarDates(calendarYear, calendarMonth);
-		getDayEvents(calendarYear, calendarMonth, calendarDate);
+    	setCalendarToToday();
 	});
 </script>

@@ -22,11 +22,13 @@
 //@author: voe
 
 function toggleModal(id) {
-	if (document.getElementById(id).style.display != 'block') {
-		document.getElementById(id).style.display = 'block';
+
+	if ($('#'+id).get(0).style.display != 'block') {
+		$('#'+id).get(0).style.display = 'block';
 	} else {
-		document.getElementById(id).style.display = 'none';
+		$('#'+id).get(0).style.display = 'none';
 	}
+
 }
 
 var subTabs = ["students", "assignments", "attendance", "grades"];
@@ -35,8 +37,8 @@ function toggleTab(identifier) {
 
 	for (var i = 0; i < subTabs.length; i++) {
 		var s = subTabs[i];
-		var tab = document.getElementById(s + "-tab");
-		var content = document.getElementById(s + "-content");
+		var tab = $("#" + s + "-tab").get(0);
+		var content = $("#" + s + "-content").get(0);
 		if (tab && content) {
 			tab.classList.remove("active");
 			content.style.display = "none";
@@ -60,43 +62,50 @@ function toggleTab(identifier) {
 	}
 
 	var newTabId = identifier + "-tab";
-	var newTab = document.getElementById(newTabId);
+	var newTab = $("#" + newTabId).get(0);
 	newTab.classList.add("active");
 	newTab.setAttribute("onclick", null);
 
 	var newContentId = identifier + "-content";
-	var newContent = document.getElementById(newContentId);
+	var newContent = $("#" + newContentId).get(0);
 	newContent.style.display = "block";
 
 }
 
 function toggleAttendanceModal(dateString) {
-	if (document.getElementById("attendanceInputModal").style.display != 'block') {
-		document.getElementById("attendanceInputModal").style.display = 'block';
-		document.getElementById("attendanceTitle").innerHTML = "attendance for: " + dateString;
-		document.getElementById("date-specifier").setAttribute("value", dateString);
+	if ($("#attendanceInputModal").get(0).style.display != 'block') {
+		$("#attendanceInputModal").get(0).style.display = 'block';
+		$("#attendanceTitle").get(0).innerHTML = "attendance for: " + dateString;
+		$("#date-specifier").get(0).setAttribute("value", dateString);
 	} else {
-		document.getElementById("attendanceInputModal").style.display = 'none';
+		$("#attendanceInputModal").get(0).style.display = 'none';
 	}
 }
-
 
 function toggleGradesModal(assignmentId, assignmentName) {
-	if (document.getElementById("gradesInputModal").style.display != 'block') {
-		document.getElementById("gradesInputModal").style.display = 'block';
-		document.getElementById("gradesTitle").innerHTML = "Grades for: " + assignmentName;
-		document.getElementById("assignment-specifier").setAttribute("value", assignmentId);
+	if ($("#gradesInputModal").get(0).style.display != 'block') {
+		$("#gradesInputModal").get(0).style.display = 'block';
+		$("#gradesTitle").get(0).innerHTML = "Grades for: " + assignmentName;
+		$("#assignment-specifier").get(0).setAttribute("value", assignmentId);
 	} else {
-		document.getElementById("gradesInputModal").style.display = 'none';
+		$("#gradesInputModal").get(0).style.display = 'none';
 	}
 }
 
-function getCalendarDates(year, month) {
+function setCalendarToToday() {
+	selectedMonth = new Date();
+	dateSelected = false;
+	setCalendar(getCalendarYear(), getCalendarMonth(), getCalendarDate());	
+	getDayEvents(getCalendarYear(), getCalendarMonth(), getCalendarDate());
+}
+
+function setCalendar(year, month, date) {
 	$.ajax({
   		url: "calendarDates",
   		data: {
   			year: year,
-  			month: month
+  			month: month,
+  			date: date
   		},
   		success: function (response) {
             renderCalendarDates(response);
@@ -121,8 +130,8 @@ function getCalendarEvents(year, month) {
 }
 
 function renderCalendarDates(data) {
-	calendarContentNode = document.getElementById("calendar-content");
-	calendarHeaderNode = document.getElementById("calendar-header");
+	calendarContentNode = $("#calendar-content").get(0);
+	calendarHeaderNode = $("#calendar-header").get(0);
 	calendarHeaderNode.children[0].innerText = data.monthString;
 
 	while (calendarContentNode.firstChild) {
@@ -135,14 +144,14 @@ function renderCalendarDates(data) {
 		rowElement.classList.add("calendar-week");
 		var dates = data.dates[i];
 		for (var j = 0; j < dates.length; j++) {
-			var dayElement = createDateDiv(dates[j], data.month);
+			var dayElement = createDateDiv(dates[j], data.year, data.month, data.date);
 			rowElement.appendChild(dayElement);
 		}
 		calendarContentNode.appendChild(rowElement);
 	}
 }
 
-function createDateDiv(dateString, currentMonth) { // ADD ONCLICK FUNCTION
+function createDateDiv(dateString, currentYear, currentMonth, currentDate) {
 	var dayElement = document.createElement("div");
 	dayElement.classList.add("calendar-day")
 	dayElement.setAttribute("id", dateString);
@@ -153,10 +162,21 @@ function createDateDiv(dateString, currentMonth) { // ADD ONCLICK FUNCTION
 	if (date.getMonth()+1 != currentMonth) {
 		dayElement.style.color = "lightgrey";
 	}
+	if (date.getYear()+1900 == currentYear && date.getMonth()+1 == currentMonth && date.getDate() == currentDate) {
+		if (!dateSelected) {
+			dateSelected = true;
+			dayElement.classList.add("active");
+		}
+	}
 	return dayElement;
 }
 
 function updateDayFeed(event) {
+	var previouslySelected = $(".calendar-day.active");
+	for (var i = 0; i < previouslySelected.length; i++) {
+		previouslySelected.get(i).classList.remove("active");
+	}
+	event.currentTarget.classList.add("active");
 	var date = new Date(Date.parse(event.currentTarget.id));
 	date.setDate(date.getDate() + 1);
 	getDayEvents(date.getYear()+1900, date.getMonth()+1, date.getDate());
@@ -172,8 +192,23 @@ function renderCalendarEvents(data) {
 		endDate = calendarEvent.endtime;
 		identifier = startDate.slice(0, 10);
 		eventBlock = createEventDiv(calendarEvent);
-		document.getElementById(identifier).appendChild(eventBlock);
+		$("#" + identifier).get(0).appendChild(eventBlock);
 	}
+}
+
+function getDayEvents(year, month, day) {
+	$.ajax({
+  		url: "dayEvents",
+  		data: {
+  			year: year,
+  			month: month,
+  			day: day
+  		},
+  		success: function (response) {
+            renderDayEvents(response);
+        },
+  		dataType: "json"
+	});
 }
 
 function renderDayEvents(data) {
@@ -206,17 +241,24 @@ function createEventDiv(calEvent) {
 	return calendarElement;
 }
 
-function getDayEvents(year, month, day) {
-	$.ajax({
-  		url: "dayEvents",
-  		data: {
-  			year: year,
-  			month: month,
-  			day: day
-  		},
-  		success: function (response) {
-            renderDayEvents(response);
-        },
-  		dataType: "json"
-	});
+function getCalendarMonth() {
+	return selectedMonth.getMonth() + 1;
+}
+
+function getCalendarYear() {
+	return selectedMonth.getYear() + 1900;
+}
+
+function getCalendarDate() {
+	return selectedMonth.getDate();
+}
+
+function nextMonth() {
+	selectedMonth.setMonth(selectedMonth.getMonth() + 1);
+	setCalendar(getCalendarYear(), getCalendarMonth(), getCalendarDate());	
+}
+
+function previousMonth() {
+	selectedMonth.setMonth(selectedMonth.getMonth() - 1);
+	setCalendar(getCalendarYear(), getCalendarMonth(), getCalendarDate());
 }

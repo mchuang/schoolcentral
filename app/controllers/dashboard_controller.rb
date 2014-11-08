@@ -1,7 +1,7 @@
 # voe
 
 class DashboardController < ApplicationController
-
+	before_action :require_login
 	def index
 		if current_user.account_type === "Admin"
 			render 'admin_dashboard'
@@ -73,9 +73,10 @@ class DashboardController < ApplicationController
 	def calendarDates
 		year = params[:year].to_i
 		month = params[:month].to_i
+		date = params[:date].to_i
 		monthString = Date.new(year, month).strftime("%B")
 		dateList = Event.get_dates_for_month(year, month)
-		render json: {year: year, month: month, monthString: monthString, dates: dateList}
+		render json: {year: year, month: month, date: date, monthString: monthString, dates: dateList}
 	end
 
 	def calendarEvents
@@ -92,6 +93,15 @@ class DashboardController < ApplicationController
 		date = DateTime.new(year, month, day)
 		eventList = Event.get_day(current_user.account, date)
 		render json: {date: date, events: eventList}
+	end
+
+	private
+
+	def require_login
+	    unless user_signed_in?
+	      flash[:error] = "please log in"
+	      redirect_to new_user_session_path
+	    end
 	end
 
 end

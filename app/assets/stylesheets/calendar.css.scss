@@ -11,6 +11,12 @@
 	border-left: solid 1px lightgrey;
 }
 
+.calendar-navigation {
+	position: absolute;
+	top: 25%;
+	left: 2%;
+}
+
 .month-label {
 	text-align: center;
 }
@@ -36,10 +42,18 @@
 
 .calendar-day {
 	position: relative;
-	height: 100%;
+	height: inherit;
 	float: left;
 	width: 14.25%;
 	border-left: solid 1px lightgrey;
+}
+
+.calendar-day.active {
+	background-color: lightblue;
+}
+
+.calendar-day:hover {
+	background-color: lightgrey;
 }
 
 .light-text {
@@ -47,9 +61,12 @@
 }
 
 .event {
-	font-size: 12px;
+	font-size: 10px;
+	font-weight: bold;
 	background-color: lightsalmon;
 	border-radius: 4px;
+	margin-top: 1px;
+	margin-bottom: 1px;
 	padding-left: 4px; 
 	padding-right: 4px;
 }
