@@ -44,10 +44,59 @@ RSpec.describe DashboardController, :type => :controller do
 			post :new_form
 			expect(response).to render_template('admin_dashboard_new')
 		end
-		it "new_create" do
+		it "new_create rendering" do
 			sign_in @admin0
 			post :new_create
 			expect(response).to render_template('admin_dashboard')
+		end
+		it "new_create Student account" do
+			params = {
+				infoType: "Students",
+				firstname: "First Name",
+				middlename: "Middle Name",
+				lastname: "Last Name",
+				id: "Student_identifier"
+			}
+			nusers = User.count
+			nstudents = Student.count
+			sign_in @admin0
+			post :new_create, params
+			expect(User.count).to eq(nusers + 1)
+			expect(Student.count).to eq(nstudents + 1)
+		end
+		it "new_create Student account" do
+			params = {
+				infoType: "Teachers",
+				firstname: "First Name",
+				middlename: "Middle Name",
+				lastname: "Last Name",
+				id: "Teacher_identifier"
+			}
+			nusers = User.count
+			nteachers = Teacher.count
+			sign_in @admin0
+			post :new_create, params
+			expect(User.count).to eq(nusers + 1)
+			expect(Teacher.count).to eq(nteachers + 1)
+		end
+		it "new_create Classroom" do
+			@student0 = FactoryGirl.create(:student_user, :email => "", :identifier => "std0")
+			@student1 = FactoryGirl.create(:student_user, :email => "", :identifier => "std1")
+			@teacher0 = FactoryGirl.create(:teacher_user, :email => "", :identifier => "tch0")
+			params = {
+				infoType: "Classrooms",
+				name: "Classroom name",
+				time: Time.zone.now,
+				location: "Room 404 NOT FOUND",
+				description: "",
+				capacity: 50,
+				teacher: @teacher0.identifier,
+				students: @student0.identifier + "," + @student1.identifier
+			}
+			nclassrooms = Classroom.count
+			sign_in @admin0
+			post :new_create, params
+			expect(Classroom.count).to eq(nclassrooms + 1)
 		end
 	end
 
