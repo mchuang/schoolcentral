@@ -1,4 +1,6 @@
-require_relative 'lib-ui-test'
+require_relative 'lib-basic-ui-test'
+require_relative 'lib-dashboard-ui-test'
+require_relative 'lib-profile-ui-test'
 
 open()
 
@@ -12,6 +14,9 @@ logout()
 login("test_teacher", "password!")
 toProfile()
 editPassword("password!", "password")
+editAddress("")
+editPhoneNumber("")
+editEmail("")
 logout()
 
 close()

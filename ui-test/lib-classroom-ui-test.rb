@@ -3,8 +3,6 @@ def toAssignmentsTab
 	assignmentsTab =  @@driver.find_element(:id => "assignments-tab") 
 	assignmentsTab.click
 	@@driver.find_element(:id => "assignments-content") 
-	wait = Selenium::WebDriver::Wait.new(:timeout => 15)
-	wait.until { @@driver.current_url.downcase != url }
 end
 
 def createNewAssignment(name, description, max_points, due_date, due_time)

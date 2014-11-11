@@ -34,6 +34,20 @@ def logout
 	@@driver.find_element :class => "jumbotron"
 end
 
+def navBarLogin
+	navBar =  @@driver.find_element :class => "navbar"
+	loginBtn = navBar.find_element :id => "login-menu"
+	loginBtn.click
+
+	@@driver.find_element(:id => "new_user") 
+end
+
+def navBarHome
+	navBar =  @@driver.find_element :class => "navbar"
+	homeBtn = navBar.find_element :tag_name => "img"
+	homeBtn.click
+end
+
 def displayById(id)
 	item = @@driver.find_element(:id => id)
 	return item.displayed?
@@ -89,16 +103,16 @@ end
 def assertIdElementExists(id)
 	begin 
 		@@driver.find_element(:id => id)
-	rescue NoSuchElementError
+	rescue
 		raiseAssertionError(id + " does not exist")
 	end
 end
 
-def assertIdElementNotExist(id)
+def assertIdElementNotExists(id)
 	begin 
 		@@driver.find_element(:id => id)
 		raiseAssertionError(id + " exists")
-	rescue NoSuchElementError
+	rescue
 		
 	end 
 end

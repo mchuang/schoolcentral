@@ -1,4 +1,5 @@
 require_relative 'lib-basic-ui-test'
+require_relative 'lib-dashboard-ui-test'
 require_relative 'lib-classroom-ui-test'
 
 open()
