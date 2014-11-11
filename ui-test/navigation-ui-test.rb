@@ -1,12 +1,13 @@
-require_relative 'lib-ui-test'
+require_relative 'lib-basic-ui-test'
+require_relative 'lib-admin-ui-test'
+require_relative 'lib-classroom-ui-test'
+require_relative 'lib-dashboard-ui-test'
 
 open()
 
 login("test_admin", "password")
 toStudentsAdminTab()
-p findTableItemByContent("tableData", "test_student")
 toTeachersAdminTab()
-p findTableItemByContent("tableData", "test_teacher") 
 toClassroomsAdminTab()
 toProfile()
 navBarHome()
@@ -22,11 +23,6 @@ toStudentsTab()
 toProfile()
 navBarHome()
 clickProfDisplay()
-editPassword("password", "password!")
-logout()
-login("test_teacher", "password!")
-toProfile()
-editPassword("password!", "password")
 logout()
 
 login("test_student", "password")

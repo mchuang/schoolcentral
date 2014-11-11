@@ -1,9 +1,10 @@
 require 'rubygems'
 require 'selenium-webdriver'
 
-@@driver = Selenium::WebDriver.for :chrome
+@@driver = Selenium::WebDriver.for :firefox
 @@driver.manage.timeouts.implicit_wait = 10
 @@wait = Selenium::WebDriver::Wait.new(:timeout => 10)
+
 def open
 	@@driver.get "http://localhost:3000"
 end
@@ -86,7 +87,20 @@ def assertNotNil(value)
 end
 
 def assertIdElementExists(id)
-	assert(!@@driver.find_element(:id, id).nil?, "----- " + id + " element does not exist")
+	begin 
+		@@driver.find_element(:id => id)
+	rescue NoSuchElementError
+		raiseAssertionError(id + " does not exist")
+	end
+end
+
+def assertIdElementNotExist(id)
+	begin 
+		@@driver.find_element(:id => id)
+		raiseAssertionError(id + " exists")
+	rescue NoSuchElementError
+		
+	end 
 end
 
 def verify(expected, received, message=nil)

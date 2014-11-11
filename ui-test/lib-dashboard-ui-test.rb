@@ -1,4 +1,3 @@
-require_relative 'lib-basic-ui-test'
 
 def selectClassroom(classroom)
 	classroomTab =  @@driver.find_element(:id => classroom) 
@@ -48,4 +47,16 @@ def clickDayInfoFeedEvent(event)
 			link.click
 		end
 	end
+end
+
+def toProfile
+	profileBtn =  @@driver.find_element(:id => "profile-path") 
+	profileBtn.click
+	@@driver.find_element(:class => "user-profile") 
+end
+
+def clickProfDisplay
+	profileBtn =  @@driver.find_element(:class => "user-image") 
+	profileBtn.click
+	@@driver.find_element(:class => "user-profile") 
 end

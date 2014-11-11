@@ -1,4 +1,3 @@
-require_relative 'lib-basic-ui-test'
 
 def toAssignmentsTab
 	assignmentsTab =  @@driver.find_element(:id => "assignments-tab") 
@@ -130,6 +129,7 @@ def getGrade(name, assignment)
 	grades = @@driver.find_element(:id => "grades-table").find_elements(:tag_name => "tr")
 	grades.each do |grade|
 		info = grade
+	end
 end
 
 def toAttendanceTab

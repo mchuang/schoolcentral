@@ -1,6 +1,4 @@
-require_relative 'lib-basic-ui-test'
-
-def hasStudent(id)
+def adminHasStudent(id)
 	students = @@driver.find_element(:id => "tableData").find_element(:tag_name => "tbody").find_elements(:tag_name => "tr")
 	students.each do |student|
 		if student.find_elements(:tag_name => "td")[1].text == id
@@ -10,7 +8,7 @@ def hasStudent(id)
 	return false
 end
 
-def hasTeacher(id)
+def adminHasTeacher(id)
 	teachers = @@driver.find_element(:id => "tableData").find_element(:tag_name => "tbody").find_elements(:tag_name => "tr")
 	teachers.each do |teacher|
 		if teacher.find_elements(:tag_name => "td")[1].text == id
@@ -20,7 +18,7 @@ def hasTeacher(id)
 	return false
 end
 
-def hasClassroom(course)
+def adminHasClassroom(course)
 	classrooms = @@driver.find_element(:id => "tableData").find_element(:tag_name => "tbody").find_elements(:tag_name => "tr")
 	classrooms.each do |classroom|
 		if classroom.find_elements(:tag_name => "td")[0].text == course
@@ -70,9 +68,6 @@ def createClassroom(teacher, students, course, time, description, capacity)
 	@@driver.find_element(:id => "capacity").send_keys capacity
 	@@driver.find_element(:name => "commit").click
 end
-
-def classroomCreated?(teachers, students, course, time, description, capacity)
-end 
 
 def editClassroom(classroom, teachers, students, course, time, description, capacity)
 	navigateToClassroomsAdminTab()

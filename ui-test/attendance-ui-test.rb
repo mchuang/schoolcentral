@@ -1,5 +1,5 @@
-require_relative 'lib-ui-test'
-require_relative 'lib-ui-test-iter2'
+require_relative 'lib-basic-ui-test'
+require_relative 'lib-classroom-ui-test'
 
 open()
 

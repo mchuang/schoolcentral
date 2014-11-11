@@ -1,4 +1,5 @@
-require_relative 'lib-ui-test'
+require_relative 'lib-basic-ui-test'
+require_relative 'lib-classroom-ui-test'
 
 open()
 
@@ -29,13 +30,13 @@ assertIdElementExists("profile-display")
 assertIdElementExists("classlist")
 
 assertIdElementExists("sub-tabs")
-# assertIdElementNotExists("students-tab")
+assertIdElementNotExists("students-tab")
 assertIdElementExists("assignments-tab")
 assertIdElementExists("attendance-tab")
 assertIdElementExists("grades-tab")
 
 assertIdElementExists("tab-content")
-# assertIdElementNotExists("students-content")
+assertIdElementNotExists("students-content")
 assertIdElementExists("assignments-content")
 assertIdElementExists("attendance-content")
 assertIdElementExists("grades-content")
