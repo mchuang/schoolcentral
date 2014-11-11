@@ -149,11 +149,9 @@ def toStudentsTab
 end
 
 def toGradesTab
-	
 	gradesTab =  @@driver.find_element(:id => "grades-tab") 
 	gradesTab.click
 	@@driver.find_element(:id => "grades-content")
-	
 end
 
 def toAttendanceTab
@@ -161,7 +159,6 @@ def toAttendanceTab
 	attendanceTab =  @@driver.find_element(:id => "attendance-tab") 
 	attendanceTab.click
 	@@driver.find_element(:id => "attendance-content") 
-	
 end
 
 def toClassroomsAdminTab
