@@ -147,7 +147,7 @@ asgn5 = Assignment.create(
     :teacher => test_teacher,
     :classroom => cls1,
     :name => "Final Presentation",
-    :max_points => 50000,
+    :max_points => 300,
     :due => DateTime.new(2014, 12, 19, 15, 0, 0)
 )
 
