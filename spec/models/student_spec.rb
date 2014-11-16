@@ -64,6 +64,12 @@ RSpec.describe Student, :type => :model do
     expect(@student1.account.recv_points(@class1.id)).to eq(0)
   end
 
+  it "should ignore submissions with nil grades" do
+    @student0.account.submission(@assignment0.id).update(grade: nil)
+    @student0.account.submission(@assignment1.id).update(grade: 60)
+    expect(@student0.account.recv_points(@class0.id)).to eq(60)
+  end
+
   it "should correctly report grade percentage" do
     @student0.account.submission(@assignment0.id).update(grade: 29)
     @student0.account.submission(@assignment1.id).update(grade: 60)

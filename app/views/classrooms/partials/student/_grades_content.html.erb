@@ -12,14 +12,14 @@
 			<td><%= current_user.first_name %>, <%= current_user.last_name %></td>
 			<td><%= current_user.identifier %></td>
 			<% for assignment in @classroom.assignments %>
-				<% submission = assignment.get_submission(current_user.id) %>
+				<% submission = assignment.get_submission(current_user.account_id) %>
 				<% if submission.nil? %>
 					<td>N/A</td>
 				<% else %>
 					<td><%= submission.grade %>/<%= assignment.max_points %></td>
 				<% end %>
 			<% end %>
-			<td><%= current_user.account.recv_points(@classroom_id)%>/<%= @classroom.max_points %>,
+			<td><%= current_user.account.recv_points(@classroom.id)%>/<%= @classroom.max_points %>,
 				<%=current_user.account.grade(@classroom.id)%>%</td>
 		</tr>
 	</tbody>		

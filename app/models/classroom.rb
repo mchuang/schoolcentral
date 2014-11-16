@@ -18,10 +18,12 @@ class Classroom < ActiveRecord::Base
 
     before_validation :default_values, on: :create
 
+    # Return current maximum possible points for this class
     def max_points
         assignments.sum(:max_points)
     end
 
+    # Return all assignments with future due datetime
     def current_assignments
         currentAssignments = []
         for a in assignments
@@ -32,6 +34,7 @@ class Classroom < ActiveRecord::Base
         return currentAssignments
     end
 
+    # Return all assignments with past due datetime
     def past_assignments
         pastAssignments = []
         for a in assignments
@@ -49,7 +52,6 @@ class Classroom < ActiveRecord::Base
             errors.add(:student_capacity, "student capacity is overloaded")
         end
     end
-
 
     def default_values
         self.student_capacity ||= 30
