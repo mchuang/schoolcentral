@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   get 'classrooms/getClassroom'
   post 'classrooms/editClassroom'
 
+  #form
+  # get 'form.html'
+
   devise_for :users, 
     :path => '',
     :path_names => {
