@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
     # Accumulates all addresses from :to, :cc, and :bcc fields into one array
     recipients = [:to, :cc, :bcc].map {|f| params.fetch(f, [])}.flatten + [email]
     mail_params = {
-      from:    email,
+      from:    params.fetch(:from, email),
       bcc:     recipients.uniq,
       subject: params[:subject], # Required
       message: params[:message], # Required
