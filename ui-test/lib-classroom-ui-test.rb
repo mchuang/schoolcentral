@@ -124,9 +124,41 @@ def toGradesTab
 end
 
 def getGrade(name, assignment)
-	grades = @@driver.find_element(:id => "grades-table").find_elements(:tag_name => "tr")
+	headers = @@driver.find_element(:class => "table").find_elements(:tag_name => "th")
+	grades = @@driver.find_element(:class => "table").find_elements(:tag_name => "tr")
+	count = 2
+	headers.each do |header|
+		if header.text == assignment
+			grades.each do |grade|
+				row = grade.find_elements(:tag_name => "td")
+				if row[0].text == name
+					return row[count].text
+				end
+			end
+		else
+			count += 1
+		end
+	end
+end
+
+def editGrade(name, assignment, score)
+	grades = @@driver.find_element(:tag_name => "thead").find_elements(:tag_name => "th")
+	grades = grades[2, 4]
 	grades.each do |grade|
-		info = grade
+		pair = grade.find_elements(:tag_name => "a")
+		if pair[0].text == assignment
+			pair[1].click
+			enterGrades = @@driver.find_elements(:tag_name => "tr")
+			enterGrades.each do |enterGrade|
+				pairModal = enterGrade.find_elements(:tag_name => "td")
+				if pairModal[1].text == name
+					pairModal[1].send_keys score
+					@@driver.find_element(:name => "commit").click
+					break
+				end
+			end
+			break
+		end
 	end
 end
 
@@ -138,29 +170,44 @@ end
 
 def getAttendance(name, date)
 	dates = @@driver.find_element(:class => "attendance-table").find_elements(:tag_name => "th")
-	dates.each do |date|
-		if date.text == date
-			date.click
+	students = @@driver.find_element(:tag_name => "tbody").find_elements(:tag_name => "tr")
+	count = 1
+	dates.each do |selectDate|
+		if selectDate.text == date
+			students.each do |student|
+				row = student.find_elements(:tag_name => "td")
+				if row[0].text == name
+					return row[count].text
+				end
+			end
 		end
+		count += 1
 	end
 end
 
 def changeAttendance(name, date, attendance)
 	dates = @@driver.find_element(:class => "attendance-table").find_elements(:tag_name => "th")
-	dates.each do |date|
-		if date.text == date
-			date.click
-			form = @@driver.find_element(:id => "attendanceInputModal").find_element(:tag_name => "table")
-			rows = form.find_elements(:tag_name => "tr")
+	dates = dates[1, 7]
+	dates.each do |selectDate|
+		link = selectDate.find_element(:tag_name => "a")
+		if link.text == date
+			link.click
+			form = @@driver.find_element(:id => "attendanceInputModal")
+			students = form.find_element(:tag_name => "tbody")
+			rows = students.find_elements(:tag_name => "tr")
 			rows.each do |row|
 				cells = row.find_elements(:tag_name => "td")
 				if cells[0].find_element(:tag_name => "label").text == name
 					cells[1].click
 					row.find_elements(:tag_name => "option")[attendance].click
+					submit = form.find_element(:name => "commit")
+					submit.location_once_scrolled_into_view
 					form.find_element(:name => "commit").click
+					@@driver.find_element(:class => "student-table")
 					break
 				end
 			end
+			break
 		end
 	end
 end
