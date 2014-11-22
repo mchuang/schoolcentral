@@ -12,6 +12,26 @@ def hasCalendar
 	end
 end
 
+def clickNextMonth
+	buttons = @@driver.find_element(:class => "calendar-navigation").find_elements(:class => "button")
+	buttons[2].click
+end
+
+def clickPrevMonth
+	buttons = @@driver.find_element(:class => "calendar-navigation").find_elements(:class => "button")
+	buttons[0].click
+end
+
+def clickToday
+	buttons = @@driver.find_element(:class => "calendar-navigation").find_elements(:class => "button")
+	buttons[1].click
+end
+
+def getMonth
+	month = @@driver.find_element(:class => "month-label").text
+	return month
+end
+
 def getActiveDate
 	date = @@driver.find_element(:id => "calendar").find_element(:class => "active")
 	return date.attribute(id)
