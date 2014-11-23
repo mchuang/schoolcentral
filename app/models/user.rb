@@ -52,20 +52,15 @@ class User < ActiveRecord::Base
   def self.create_account(account_type, params)
     case account_type.downcase
       when 'admin'
-        account = Admin.create()
+        params[:account] = Admin.create()
       when 'teacher'
-        account = Teacher.create()
+        params[:account] = Teacher.create()
       when 'student'
-        account = Student.create()
+        params[:account] = Student.create()
       else
         raise ArgumentError, "#{account_type} is not a valid user type"
     end
-    user = User.create(params)
-    account.user = user
-    user.account = account
-    account.save
-    user.save
-    account
+    User.create(params).account
   end
 
   # Create User and associated account with a random password. The

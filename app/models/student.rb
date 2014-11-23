@@ -14,20 +14,26 @@ class Student < ActiveRecord::Base
 		classrooms.map {|cls| cls.teachers}.flatten.uniq
 	end
 
+	# Return an ActiveRecord::Relation containing all events related to this student
 	def events 
 		Event.where(classroom_id: classrooms.map(&:id))
 	end
 
+	# Return total points received by this student for given class, over all submissions
 	def recv_points(classroom_id)
-		logger.debug "_________________________%%%%%%%%%%%%%%%%%%%%%%%%%%%%%_____________________________"
-		submissions.where(assignment_id: Assignment.where(classroom_id: classroom_id)).sum(:grade)
+		submissions.\
+			where(assignment_id: Assignment.where(classroom_id: classroom_id)).\
+			where.not(grade: nil).\
+			sum(:grade)
 	end
 
+	# Return current grade percentage (0.00-1.00) for this student for given class
 	def grade(classroom_id)
 		max_points = classrooms.find(classroom_id).max_points
 		max_points > 0 ? recv_points(classroom_id).to_f / max_points : 0.0
 	end
 
+	# Return this student's submission for given assignment
 	def submission(assignment_id)
 		submissions.find_by_assignment_id(assignment_id)
 	end

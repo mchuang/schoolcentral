@@ -27,6 +27,11 @@ RSpec.describe AssignmentsController, :type => :controller do
   end
 
   describe "AssignmentsController" do
+    it "should require login" do
+      get :show, :id => @asgn.id
+      expect(response).to redirect_to(new_user_session_path)
+    end
+
     it "should redirect to assignment page on create success" do
       sign_in @teacher0
       post :create, @asgn_params

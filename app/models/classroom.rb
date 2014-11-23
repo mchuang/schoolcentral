@@ -18,10 +18,12 @@ class Classroom < ActiveRecord::Base
 
     before_validation :default_values, on: :create
 
+    # Return current maximum possible points for this class
     def max_points
         assignments.sum(:max_points)
     end
 
+    # Return all assignments with future due datetime
     def current_assignments
         currentAssignments = []
         for a in assignments
@@ -32,6 +34,7 @@ class Classroom < ActiveRecord::Base
         return currentAssignments
     end
 
+    # Return all assignments with past due datetime
     def past_assignments
         pastAssignments = []
         for a in assignments
@@ -50,27 +53,7 @@ class Classroom < ActiveRecord::Base
         end
     end
 
-
     def default_values
         self.student_capacity ||= 30
-    end
-
-    def self.editClassroom(course, time, location, description, capacity, teachers, students)
-        @time = time
-        @location = location
-        @description = description
-        @capacity = capacity
-        teachers.clear()
-        students.clear()
-        teachers.split(',').each do |teacher|
-            if Teacher.find_by_id(teacher)
-                @teachers << Teacher.find_by_identifier(teacher).account
-            end
-        end
-        students.split(',').each do |student|
-            if Student.find_by_id(student)
-                @students << Student.find_by_identifer(student).account
-            end
-        end
     end
 end

@@ -66,3 +66,8 @@ gem 'pundit'
 group :production do
     gem 'rails_12factor'
 end
+
+# Opens app emails in browser tab instead of sending them
+group :development do
+    gem 'letter_opener'
+end

@@ -1,4 +1,4 @@
-require_relative 'lib-ui-test'
+require_relative 'lib-basic-ui-test'
 
 open()
 

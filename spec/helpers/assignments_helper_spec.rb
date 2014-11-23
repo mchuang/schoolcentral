@@ -11,6 +11,16 @@ require 'rails_helper'
 #   end
 # end
 
-# RSpec.describe AssignmentsHelper, :type => :helper do
-#   pending "add some examples to (or delete) #{__FILE__}"
-# end
+RSpec.describe AssignmentsHelper, :type => :helper do
+  # pending "add some examples to (or delete) #{__FILE__}"
+
+  it "should correctly format date" do
+    date = DateTime.new(2014, 10, 1, 23, 59, 59)
+    formatted = formatDate(date)
+    expect(formatted).to eq("October 01, 2014 at 11:59 pm")
+
+    date = DateTime.new(2014, 5, 5, 5, 5, 5)
+    formatted = formatDate(date)
+    expect(formatted).to eq("May 05, 2014 at  5:05 am")
+  end
+end
