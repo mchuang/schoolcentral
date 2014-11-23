@@ -131,8 +131,8 @@ function getCalendarEvents(year, month) {
 
 function renderCalendarDates(data) {
 	calendarContentNode = $("#calendar-content").get(0);
-	calendarHeaderNode = $("#calendar-header").get(0);
-	calendarHeaderNode.children[0].innerText = data.monthString;
+	calendarHeaderNode = $("#month-label").get(0);
+	calendarHeaderNode.innerText = data.monthString;
 
 	while (calendarContentNode.firstChild) {
     	calendarContentNode.removeChild(calendarContentNode.firstChild);
