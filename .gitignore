@@ -16,6 +16,8 @@
 /tmp
 /.idea
 
+/public/system
+
 # Ignore Coverage output
 /coverage
 

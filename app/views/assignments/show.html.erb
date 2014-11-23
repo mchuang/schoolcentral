@@ -42,7 +42,8 @@
 			<h3>grade: <%= @submission.grade %>/<%= @assignment.max_points %></h3>
 		<% end %>
 
-		<form id="dropzone" action="/file-upload" class="dropzone assignment-dropzone">
+		<form id="dropzone" action="/submission/upload" class="dropzone assignment-dropzone" >
+			<%= hidden_field_tag(:submission_id, @submission.id) %>
   			<div class="fallback">
     			<input name="file" type="file" multiple />
   			</div>
