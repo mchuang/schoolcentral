@@ -17,6 +17,7 @@
 //= require bootstrap.min
 //= require moment
 //= require jquery.autoSuggest
+//= require dropzone
 
 
 //@author: voe

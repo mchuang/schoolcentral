@@ -42,6 +42,12 @@
 			<h3>grade: <%= @submission.grade %>/<%= @assignment.max_points %></h3>
 		<% end %>
 
+		<form id="dropzone" action="/file-upload" class="dropzone assignment-dropzone">
+  			<div class="fallback">
+    			<input name="file" type="file" multiple />
+  			</div>
+		</form>
+
 	<% end %>
 
 </div>
