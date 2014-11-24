@@ -110,4 +110,47 @@ RSpec.describe User, :type => :model do
     }
   end
 
+  describe "send_email" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @user.send_email(
+        to: "to_addr@fake.com",
+        cc: "cc_addr@fake.com",
+        bcc: "bcc_addr@fake.com",
+        subject: "Test Subject",
+        message: "Test Content"
+      )
+    end
+    after(:each) do
+      ActionMailer::Base.deliveries.clear
+    end
+    it { expect(ActionMailer::Base.deliveries.count).to eq(1) }
+    it { expect(ActionMailer::Base.deliveries.last.subject).to eq("Test Subject") }
+    it { expect(ActionMailer::Base.deliveries.last.from).to    match_array([@user.email]) }
+    it { expect(ActionMailer::Base.deliveries.last.to).to      match_array(["to_addr@fake.com"]) }
+    it { expect(ActionMailer::Base.deliveries.last.cc).to      match_array(["cc_addr@fake.com"]) }
+    it { expect(ActionMailer::Base.deliveries.last.bcc).to     match_array(["bcc_addr@fake.com"]) }
+  end
+
+  describe "blast_email" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @user.blast_email(
+        to: ["to_addr@fake.com", "copied@fake.com"],
+        cc: ["cc_addr@fake.com", "copied@fake.com"],
+        bcc: ["bcc_addr@fake.com", "copied@fake.com"],
+        subject: "Test Subject",
+        message: "Test Content"
+      )
+    end
+    after(:each) do
+      ActionMailer::Base.deliveries.clear
+    end
+    it { expect(ActionMailer::Base.deliveries.count).to eq(1) }
+    it { expect(ActionMailer::Base.deliveries.last.subject).to eq("Test Subject") }
+    it { expect(ActionMailer::Base.deliveries.last.from).to    match_array([@user.email]) }
+    it { expect(ActionMailer::Base.deliveries.last.to).to      eq(nil) }
+    it { expect(ActionMailer::Base.deliveries.last.cc).to      eq(nil) }
+    it { expect(ActionMailer::Base.deliveries.last.bcc).to     match_array(["to_addr@fake.com", "cc_addr@fake.com", "bcc_addr@fake.com", "copied@fake.com", @user.email]) }
+  end
 end

@@ -3,5 +3,6 @@
 FactoryGirl.define do
   factory :school do
     name "MyString"
+    identifier "ms"
   end
 end

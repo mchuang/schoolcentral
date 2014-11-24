@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
         :login,
         :identifier,
         :email,
+        :school_id,
         :password,
         :remember_me
       )
