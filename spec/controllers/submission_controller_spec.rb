@@ -1,3 +1,4 @@
+#jeff, daniel
 require 'rails_helper'
 require 'rack/test'
 
@@ -11,7 +12,6 @@ RSpec.describe SubmissionController, :type => :controller do
     	@assignment0 = FactoryGirl.create(:assignment, teacher_id: @teacher0.account.id, classroom_id: @class0.id, name: 'ass1', due: (Time.now + 3.hours).to_s  )
     	@submission0 = FactoryGirl.create(:submission, :assignment => @assignment0, :student => @student0.account)
     	@file = fixture_file_upload('files/hw.pdf', 'application/pdf')
-    	#@file = Rack::Test::UploadedFile.new('spec/testfile/hw.pdf', 'application/pdf')
 	end
 
 		describe "Submission Controller" do
@@ -19,8 +19,10 @@ RSpec.describe SubmissionController, :type => :controller do
 		params = {file: @file, 
 			submission_id: @submission0.id }
 		post :upload, params 
-		assert_response :success
-		expect(@submission0.file).to eq(@file)
+		assert_response :redirect
+	end
+	it "uploads to correct submission" do
+		expect(@submission0.file).not_to eq(nil)
 	end
 end 
 
