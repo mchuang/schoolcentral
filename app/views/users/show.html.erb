@@ -30,7 +30,20 @@
 				<!-- Beginning of accordian  -->
 				<div class="panel-group no-padding-panel" id="accordion">
 
-				  <div class="panel first-panel-row">
+					<div class="panel first-panel-row">
+				    <div class="panel-heading">
+				      <h4 class="panel-title panel-height">
+				      	<div class="col-sm-3 panel-label-color">
+					        Name
+					    </div>
+					    <div class="col-sm-8 panel-value-color">
+					        <%= @user.last_name %>, <%= @user.first_name %>
+					    </div>
+				      </h4>
+				    </div>
+				  </div>
+
+				  <div class="panel">
 				    <div class="panel-heading">
 				      <h4 class="panel-title panel-height">
 				      	<div class="col-sm-3 panel-label-color">
