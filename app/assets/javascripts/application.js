@@ -34,6 +34,12 @@ function toggleModal(id) {
 
 var subTabs = ["students", "assignments", "attendance", "grades"];
 
+function setTab() {
+	if (window.location.hash !== "") {
+		toggleTab(window.location.hash.substring(1));
+	}
+}
+
 function toggleTab(identifier) {
 
 	for (var i = 0; i < subTabs.length; i++) {

@@ -43,7 +43,7 @@ class Attendance < ActiveRecord::Base
     end
 
     def self.get_week_array(date)
-        (Date.current.beginning_of_week..Date.current.end_of_week).to_a
+        (date.beginning_of_week..date.end_of_week).to_a
     end
 
     # Returns all attendance objects for the given class with dates

@@ -25,7 +25,7 @@ class ClassroomsController < ApplicationController
 				end
 			end
 			Attendance.add_class(@classroom, @date, {tardy: tardys, absent: abscences})
-			redirect_to @classroom
+			redirect_to classroom_path(@classroom, anchor: "attendance")
 		else
 			redirect_to @classroom # should add error message
 		end
@@ -42,7 +42,7 @@ class ClassroomsController < ApplicationController
 				studentScore = gradesSheet[student.to_s]
 				sub.update(grade: studentScore.to_i)
 			end
-			redirect_to @classroom
+			redirect_to classroom_path(@classroom, anchor: "attendance")
 		else
 			redirect_to @classroom
 		end	
