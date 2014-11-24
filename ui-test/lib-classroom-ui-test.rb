@@ -86,7 +86,7 @@ def toStudentsTab
 end
 
 def hasStudent(id)
-	students = @@driver.find_element(:id => "students-table").find_elements(:tag_name => "tr")
+	students = @@driver.find_element(:tag_name => "tbody").find_elements(:tag_name => "tr")
 	students.each do |student|
 		if student.find_elements(:tag_name => "td")[2].text == id
 			return true
@@ -96,18 +96,18 @@ def hasStudent(id)
 end
 
 def getStudentName(id)
-	students = @@driver.find_element(:id => "students-table").find_elements(:tag_name => "tr")
+	students = @@driver.find_element(:class => "student-table").find_elements(:tag_name => "tr")
 	students.each do |student|
 		info = student.find_elements(:tag_name => "td")
 		if info[2].text == id
-			return info[0] + info[1]
+			return info[0].text + info[1].text
 		end
 	end
 	return nil
 end
 
 def getStudentEmail(id)
-	students = @@driver.find_element(:id => "students-table").find_elements(:tag_name => "tr")
+	students = @@driver.find_element(:tag_name => "tbody").find_elements(:tag_name => "tr")
 	students.each do |student|
 		info = student.find_elements(:tag_name => "td")
 		if info[2].text == id
@@ -127,6 +127,7 @@ def getGrade(name, assignment)
 	headers = @@driver.find_element(:class => "table").find_elements(:tag_name => "th")
 	grades = @@driver.find_element(:class => "table").find_elements(:tag_name => "tr")
 	count = 2
+	puts headers.length
 	headers.each do |header|
 		if header.text == assignment
 			grades.each do |grade|
@@ -142,7 +143,7 @@ def getGrade(name, assignment)
 end
 
 def editGrade(name, assignment, score)
-	grades = @@driver.find_element(:tag_name => "thead").find_elements(:tag_name => "th")
+	grades = @@driver.find_element(:class => "attendance-table").find_element(:tag_name => "thead").find_elements(:tag_name => "th")
 	grades = grades[2, 4]
 	grades.each do |grade|
 		pair = grade.find_elements(:tag_name => "a")
@@ -168,14 +169,16 @@ def toAttendanceTab
 	@@driver.find_element(:id => "attendance-content") 
 end
 
-def getAttendance(name, date)
-	dates = @@driver.find_element(:class => "attendance-table").find_elements(:tag_name => "th")
-	students = @@driver.find_element(:tag_name => "tbody").find_elements(:tag_name => "tr")
+def getAttendance(name, date, attendance)
+	dates = @@driver.find_element(:class => "attendance-table").find_elements(:tag_name => "th")[1,7]
+	students = @@driver.find_element(:class => "attendance-table").find_element(:tag_name => "tbody").find_elements(:tag_name => "tr")
 	count = 1
 	dates.each do |selectDate|
+		link = selectDate.find_element(:tag_name => "a")
 		if selectDate.text == date
 			students.each do |student|
 				row = student.find_elements(:tag_name => "td")
+				puts row.length
 				if row[0].text == name
 					return row[count].text
 				end
@@ -186,8 +189,7 @@ def getAttendance(name, date)
 end
 
 def changeAttendance(name, date, attendance)
-	dates = @@driver.find_element(:class => "attendance-table").find_elements(:tag_name => "th")
-	dates = dates[1, 7]
+	dates = @@driver.find_element(:class => "attendance-table").find_elements(:tag_name => "th")[1,7]
 	dates.each do |selectDate|
 		link = selectDate.find_element(:tag_name => "a")
 		if link.text == date
