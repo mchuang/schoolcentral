@@ -1,4 +1,5 @@
 require_relative 'lib-basic-ui-test'
+require_relative 'lib-dashboard-ui-test'
 
 open()
 
@@ -8,6 +9,9 @@ assertIdElementExists("profile-display")
 assertIdElementExists("classlist")
 assertIdElementExists("calendar-content")
 assertIdElementExists("day-feed-panel-body")
+
+verify(true, hasDayInfoFeed())
+verify(true, hasCalendar())
 
 logout()
 

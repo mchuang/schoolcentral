@@ -140,8 +140,8 @@ function getCalendarEvents(year, month) {
 
 function renderCalendarDates(data) {
 	calendarContentNode = $("#calendar-content").get(0);
-	calendarHeaderNode = $("#month-label").get(0);
-	calendarHeaderNode.innerText = data.monthString;
+	calendarHeaderNode = $("#month-label");
+	calendarHeaderNode.text(data.monthString);
 
 	while (calendarContentNode.firstChild) {
     	calendarContentNode.removeChild(calendarContentNode.firstChild);
@@ -162,12 +162,12 @@ function renderCalendarDates(data) {
 
 function createDateDiv(dateString, currentYear, currentMonth, currentDate) {
 	var dayElement = document.createElement("div");
-	dayElement.classList.add("calendar-day")
+	dayElement.classList.add("calendar-day");
 	dayElement.setAttribute("id", dateString);
 	dayElement.setAttribute("onclick", "updateDayFeed(event)");
 	var date = new Date(Date.parse(dateString));
 	date.setDate(date.getDate() + 1);
-	dayElement.innerText = date.getDate();
+	$(dayElement).text(date.getDate());
 	if (date.getMonth()+1 != currentMonth) {
 		dayElement.style.color = "lightgrey";
 	}
@@ -230,6 +230,8 @@ function renderDayEvents(data) {
 		if (events[i].owner_type == "Assignment") {
 			var eventID = events[i].owner_id;
 			$('#day-feed-panel-body').append("<div><a href='../assignments/"+eventID+"'>"+events[i].name+"</a></div>");
+		} else {
+			$('#day-feed-panel-body').append("<div>" + events[i].name + "</div>");
 		}
 	}
 }
@@ -246,7 +248,7 @@ function formattedDateString(rawDate) {
 function createEventDiv(calEvent) {
 	var calendarElement = document.createElement("div");
 	calendarElement.classList.add("event");
-	calendarElement.innerText = calEvent.name;
+	$(calendarElement).text(calEvent.name);
 	return calendarElement;
 }
 

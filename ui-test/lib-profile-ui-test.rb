@@ -10,17 +10,17 @@ end
 
 def getEmail
 	emailPanel = @@driver.find_element(:id => "accordion").find_elements(:class => "panel")[3]
-	return emailPanel.find_element(:id => "user-email")
+	return emailPanel.find_element(:tag_name => "div").find_elements(:tag_name => "div")[1].text
 end
 
 def getPhoneNumber
 	pnPanel = @@driver.find_element(:id => "accordion").find_elements(:class => "panel")[4]
-	return pnPanel.find_element(:id => "user-phone-number")
+	return pnPanel.find_element(:tag_name => "div").find_elements(:tag_name => "div")[1].text
 end
 
 def getAddress
 	addrPanel = @@driver.find_element(:id => "accordion").find_elements(:class => "panel")[5]
-	return addrPanel.find_element(:id => "user-address")
+	return addrPanel.find_element(:tag_name => "div").find_elements(:tag_name => "div")[1].text
 end
 
 def editEmail(email)
