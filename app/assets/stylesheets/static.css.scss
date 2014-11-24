@@ -7,6 +7,7 @@
 .background.home {
 	padding: 0px;
 	margin: 0px;
+	overflow-x: hidden;
 }
 
 .horizontal-divider {
@@ -35,7 +36,7 @@
 }
 
 .content-body {
-	padding: 70px;
+	padding: 60px;
 }
 
 .content-body-header {
@@ -62,9 +63,20 @@
 	z-index: -1;
 }
 
+.overlay.students {
+	background-image: url('/images/student-studying.jpg');
+	background-position: 250% 10%;
+	background-size: inherit;
+}
+
 .split-content-display {
 	position: absolute;
-	width: 70%;
+	height: 100%;
+	width: 50%;
+}
+
+.content-body.students {
+	padding: 20px;
 }
 
 .split-content-display .backdrop {
@@ -73,8 +85,32 @@
 	height: 100%;
 	width: 100%;
 	z-index: 0;
+	box-shadow: 0px 0px 70px 70px white;
 }
 
 .split-content-display.right {
 	right: 0px;
+}
+
+.split-content-display.left {
+	left: 0px;
+}
+
+.overlay.teachers {
+	background-image: url('/images/teacher-teaching.jpg');
+	background-position: -500px 0px;
+}
+
+.content-body.teachers {
+	padding: 20px;
+}
+
+.overlay.administrators {
+	background-image: url('/images/administrator.jpg');
+	background-position: -300px 0px;
+	background-size: contain;
+}
+
+.content-body.administrators {
+	padding: 20px;
 }

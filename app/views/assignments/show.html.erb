@@ -44,15 +44,41 @@
 			<h3>grade: <%= @submission.grade %>/<%= @assignment.max_points %></h3>
 		<% end %>
 		
-		<form id="dropzone" action="/submission/upload" class="dropzone assignment-dropzone" >
-			<%= hidden_field_tag(:submission_id, @submission.id) %>
-			<%= hidden_field_tag(:assignment_id, @assignment.id) %>
-  			<div class="fallback">
-    			<input name="file" type="file" multiple />
-  			</div>
-		</form>
+
+
+
+      <%if @submission.filename%>
+          <h1>name: <%= @submission.filename %></h1>
+      <%end%>
+
+      <%= form_for(@submission) do |f| %>
+          <% if @submission.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(current_user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+                <ul>
+                  <% @submission.errors.full_messages.each do |msg| %>
+                      <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+          <% end %>
+
+          <%= f.hidden_field :id %>
+          <div class="field">
+
+            <%= f.file_field :file %>
+          </div>
+          <div>
+            <%= submit_tag("upload") %>
+          </div>
+      <% end %>
 
 	<% end %>
+
+
+
+
 
 </div>
 
