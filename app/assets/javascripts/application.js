@@ -152,8 +152,6 @@ function constructAttendanceSheet(attendanceList, students) {
 				alert("Bad attendance code");
 			}
 
-			
-
 			$('#attendance-table tbody').find('tr').eq(trIndex).find('td').eq(1).append(dropDown);
 
 			trIndex += 1
