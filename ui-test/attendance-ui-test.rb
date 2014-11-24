@@ -9,7 +9,7 @@ selectClassroom("test_class")
 toAttendanceTab()
 changeAttendance("test_student", "2014-11-24", 2)
 toAttendanceTab()
-puts getAttendance("test_student, TEST", "2014-11-24", "tardy")
+verify("tardy", getAttendance("test_student, TEST", "2014-11-24"))
 
 logout()
 
