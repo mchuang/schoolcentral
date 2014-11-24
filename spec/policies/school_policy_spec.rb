@@ -23,7 +23,7 @@ describe SchoolPolicy do
     @class1.teachers << @teacher1.account
     @class1.students << @student0.account
 
-    @school1 = School.create
+    @school1 = FactoryGirl.create(:school)
     @school1.users << @admin0
     @school1.users << @teacher0
     @school1.users << @student0
@@ -80,7 +80,7 @@ describe SchoolPolicy do
       expect(SchoolPolicy::Scope.new(@admin0,School).resolve).to(match_array(School.where(id: @admin0.school_id)))
     end
     it 'should only contain the school that the admin belongs to' do
-      FactoryGirl.create(:school, name: "other_school1")
+      FactoryGirl.create(:school, name: "other_school1", identifier: "osc1")
       expect(SchoolPolicy::Scope.new(@admin0,School).resolve).not_to(match_array(School.all))
     end
   end
@@ -90,7 +90,7 @@ describe SchoolPolicy do
       expect(SchoolPolicy::Scope.new(@teacher0,School).resolve).to(match_array(School.where(id: @teacher0.school_id)))
     end
     it 'should only contain the school that the teacher belongs to' do
-      FactoryGirl.create(:school, name: "other_school1")
+      FactoryGirl.create(:school, name: "other_school1", identifier: "osc1")
       expect(SchoolPolicy::Scope.new(@teacher0,School).resolve).not_to(match_array(School.all))
     end
   end
@@ -100,7 +100,7 @@ describe SchoolPolicy do
       expect(SchoolPolicy::Scope.new(@student0,School).resolve).to( match_array(School.where(id: @student0.school)) )
     end
     it 'should contain the school that the student belongs to' do
-      FactoryGirl.create(:school, name: "other_school1")
+      FactoryGirl.create(:school, name: "other_school1", identifier: "osc1")
       expect(SchoolPolicy::Scope.new(@student0,School).resolve).not_to(match_array(School.all))
     end
   end

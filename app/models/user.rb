@@ -39,13 +39,15 @@ class User < ActiveRecord::Base
   end
 
   # Overwrite to allow find_by identifier OR email in the same field
+  # login is scoped by school, given the school identifier string
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions).where(["identifier = :value OR lower(email) = lower(:value)", { :value => login }]).first
-    else
-      where(conditions).first
-    end
+    school = School.find_by_identifier(conditions.delete(:school_id))
+    login = conditions.delete(:login)
+    scope = where(conditions)\
+      .where("identifier = :value OR lower(email) = lower(:value)", { value: login })\
+      .where("school_id = ?", school.nil? ? nil : school.id)\
+      .first
   end
 
   # Create User and associated account object
