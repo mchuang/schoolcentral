@@ -84,8 +84,23 @@ class ClassroomsController < ApplicationController
 		@classroom.students.each do |student|
 			studentsDictionary[student.id] = [student, student.user]
 		end 
+
 		render json: {list: attendanceList, students: studentsDictionary}
 	end 
+
+	def gradesList
+		@classroom = Classroom.find_by_id(params[:id])
+		assignment = Assignment.find(params[:assignmentID])
+		submissions = []
+		assignment.submissions.each do |sub|
+			submissions.append(sub)
+		end 
+		studentsDictionary = {}
+		@classroom.students.each do |student|
+			studentsDictionary[student.id] = [student, student.user]
+		end 
+		render json: {assignment: assignment, submissions:  submissions, students: studentsDictionary}
+	end
 
 
 	private

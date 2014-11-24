@@ -118,9 +118,9 @@ function constructAttendanceSheet(attendanceList, students) {
 		for (var i = 0; i < attendanceList.length; i++) {
 			attendanceStatus = attendanceList[i].status;
 			studentID = attendanceList[i].student_id;
-			studentName = students[studentID][1].identifier;
+			studentName = students[studentID][1];
 			$('#attendance-table tbody').append('<tr></tr>');
-			$('#attendance-table tbody').find('tr').eq(trIndex).append('<td>'+studentName+'</td>');
+			$('#attendance-table tbody').find('tr').eq(trIndex).append('<td>'+studentName.last_name+ ','+ studentName.first_name+'</td>');
 			$('#attendance-table tbody').find('tr').eq(trIndex).append('<td></td>');
 
 			var dropDown = document.createElement("select");
@@ -162,11 +162,11 @@ function constructAttendanceSheet(attendanceList, students) {
 		
 			var studentPair = students[key];
 			var studentID = studentPair[0].id;
-			var studentName = studentPair[1].identifier;
+			var studentName = studentPair[1];
 			
 
 			$('#attendance-table tbody').append('<tr></tr>');
-			$('#attendance-table tbody').find('tr').eq(trIndex).append('<td>'+studentName+'</td>');
+			$('#attendance-table tbody').find('tr').eq(trIndex).append('<td>'+studentName.last_name+ ','+ studentName.first_name+'</td>');
 			$('#attendance-table tbody').find('tr').eq(trIndex).append('<td></td>');
 
 			var dropDown = document.createElement("select");
@@ -199,15 +199,71 @@ function constructAttendanceSheet(attendanceList, students) {
 }
 
 
-function toggleGradesModal(assignmentId, assignmentName) {
+function toggleGradesModal(assignmentId, assignmentName, classId) {
 	if ($("#gradesInputModal").get(0).style.display != 'block') {
 		$("#gradesInputModal").get(0).style.display = 'block';
 		$("#gradesTitle").get(0).innerHTML = "Grades for: " + assignmentName;
 		$("#assignment-specifier").get(0).setAttribute("value", assignmentId);
+		getGradesList(assignmentName, assignmentId, classId)
 	} else {
 		$("#gradesInputModal").get(0).style.display = 'none';
 	}
 }
+
+
+function getGradesList(assignmentName, assignmentID, classID) {
+	$.ajax({
+  		url: "gradesList",
+  		data: {
+  			assignmentName: assignmentName,
+  			assignmentID: assignmentID,
+  			id: classID
+
+  		},
+  		success: function (response) {
+  			assignments = response['assignment'];
+  			students = response['students'];
+  			submissions = response['submissions'];
+            constructgrades(assignments, submissions, students);
+        },
+  		dataType: "json"
+	});
+}
+
+function constructgrades(assignments, submissions, students) {
+	trIndex = 0
+	$('#grades-table tbody').remove();
+	$('#grades-table').append('<tbody></tbody>');
+	if (submissions.length > 0) {
+		for (var i = 0; i < submissions.length; i++) {
+			submission = submissions[i];
+			submissionGrade = submission.grade;
+			studentID = submission.student_id;
+			studentUser = students[studentID][1];
+
+
+			$('#grades-table tbody').append('<tr></tr>');
+			$('#grades-table tbody').find('tr').eq(trIndex).append('<td>'+studentUser.last_name+','+studentUser.first_name+'</td>');
+			$('#grades-table tbody').find('tr').eq(trIndex).append('<td></td>');
+
+			var input = document.createElement("input");
+			input.name = 'grades['+studentID+']';
+			input.class = 'grades-selector';
+			input.value = submissionGrade;
+
+			$('#grades-table tbody').find('tr').eq(trIndex).find('td').eq(1).append(input);
+			trIndex += 1
+
+		}
+	}else {
+		//Grades differ from attendence in that the submissions will always be be populated but with nil objects
+	}
+
+}
+
+
+
+
 
 function setCalendarToToday() {
 	selectedMonth = new Date();
