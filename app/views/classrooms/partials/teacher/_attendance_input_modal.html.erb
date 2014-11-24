@@ -14,25 +14,13 @@
           <%= hidden_field(:classroom, :id) %>
           <input id="date-specifier" type="hidden" name="date">
 
-          <table class="table table-striped table-condensed">
+          <table id="attendance-table" class="table table-striped table-condensed">
             <thead>
               <th>name</th>
               <th>status</th>
             </thead>
             <tbody>
-              <% for student in @classroom.students %>
-                <tr>
-                  <td><%= label_tag 'name', student.user.identifier %></td>
-                  <td>
-                    <select name=<%="attendance[" + student.id.to_s + "]" %> class="attendance-selector">
-                      <option value="">Please select</option>
-                      <option value="0" selected="selected">present</option>
-                      <option value="1">tardy</option>
-                      <option value="2">absent</option>
-                    </select>
-                  </td>
-                </tr>
-              <% end %>
+              <!--  Generated in the Javascript-->
             </tbody>
           </table>
 
@@ -46,6 +34,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" onclick="toggleAttendanceModal('#{day.to_s}')">Close</button>
       </div>
+
     </div>
   </div>
 </div>

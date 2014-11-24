@@ -72,15 +72,125 @@ function toggleTab(identifier) {
 
 }
 
-function toggleAttendanceModal(dateString) {
+function toggleAttendanceModal(dateString, classId) {
 	if ($("#attendanceInputModal").get(0).style.display != 'block') {
 		$("#attendanceInputModal").get(0).style.display = 'block';
 		$("#attendanceTitle").get(0).innerHTML = "attendance for: " + dateString;
 		$("#date-specifier").get(0).setAttribute("value", dateString);
+		getAttendanceList(dateString, classId);
+
 	} else {
 		$("#attendanceInputModal").get(0).style.display = 'none';
 	}
 }
+
+function getAttendanceList(dateString, classId) {
+	$.ajax({
+  		url: "attendanceList",
+  		data: {
+  			dateString: dateString,
+  			id: classId
+
+  		},
+  		success: function (response) {
+  			attendanceList = response['list'];
+  			students = response['students'];
+            constructAttendanceSheet(attendanceList, students);
+        },
+  		dataType: "json"
+	});
+}
+
+function constructAttendanceSheet(attendanceList, students) {
+	trIndex = 0
+	$('#attendance-table tbody').remove();
+	$('#attendance-table').append('<tbody></tbody>');
+	if (attendanceList.length > 0) {
+		for (var i = 0; i < attendanceList.length; i++) {
+			attendanceStatus = attendanceList[i].status;
+			studentID = attendanceList[i].student_id;
+			studentName = students[studentID][1].identifier;
+			$('#attendance-table tbody').append('<tr></tr>');
+			$('#attendance-table tbody').find('tr').eq(trIndex).append('<td>'+studentName+'</td>');
+			$('#attendance-table tbody').find('tr').eq(trIndex).append('<td></td>');
+
+			var dropDown = document.createElement("select");
+			dropDown.name = 'attendance['+studentID+']';
+			dropDown.class = 'attendance-selector';
+
+
+			var present = document.createElement("option");
+			present.text = 'present';
+			present.value = 0;
+			var tardy = document.createElement("option");
+			tardy.text = 'tardy';
+			tardy.value = 1;
+			var absent = document.createElement("option");
+			absent.text = 'absent';
+			absent.value = 2;
+
+			dropDown.add(present);
+			dropDown.add(tardy);
+			dropDown.add(absent);
+
+			if (attendanceStatus == 0) {
+				present.selected="selected";
+			}else if (attendanceStatus == 1) {
+				tardy.selected="selected";
+			}else if (attendanceStatus == 2) {
+				absent.selected="selected";
+			}else {
+				alert("Bad attendance code");
+			}
+
+			
+
+			$('#attendance-table tbody').find('tr').eq(trIndex).find('td').eq(1).append(dropDown);
+
+			trIndex += 1
+		}
+
+	}else {
+		for (var key in students) {
+		
+			var studentPair = students[key];
+			var studentID = studentPair[0].id;
+			var studentName = studentPair[1].identifier;
+			
+
+			$('#attendance-table tbody').append('<tr></tr>');
+			$('#attendance-table tbody').find('tr').eq(trIndex).append('<td>'+studentName+'</td>');
+			$('#attendance-table tbody').find('tr').eq(trIndex).append('<td></td>');
+
+			var dropDown = document.createElement("select");
+			dropDown.name = 'attendance['+studentID+']';
+			dropDown.class = 'attendance-selector';
+
+			var empty = document.createElement("option");
+			empty.text = 'select';
+			empty.value = "";
+			var present = document.createElement("option");
+			present.text = 'present';
+			present.value = 0;
+			present.selected = "selected";
+			var tardy = document.createElement("option");
+			tardy.text = 'tardy';
+			tardy.value = 1;
+			var absent = document.createElement("option");
+			absent.text = 'absent';
+			absent.value = 2;
+
+			dropDown.add(present);
+			dropDown.add(tardy);
+			dropDown.add(absent);
+
+			$('#attendance-table tbody').find('tr').eq(trIndex).find('td').eq(1).append(dropDown);
+			trIndex += 1
+		}
+
+	}
+}
+
 
 function toggleGradesModal(assignmentId, assignmentName) {
 	if ($("#gradesInputModal").get(0).style.display != 'block') {
@@ -128,6 +238,11 @@ function getCalendarEvents(year, month) {
   		dataType: "json"
 	});
 }
+
+
+
+
+
 
 function renderCalendarDates(data) {
 	calendarContentNode = $("#calendar-content").get(0);

@@ -9,6 +9,7 @@ class ClassroomsController < ApplicationController
 	end
 
 	def setAttendance
+		logger.debug "---------------- Params: #{params}"
 		@classroom = Classroom.find(params[:classroom][:id])
 		@date = Date.parse(params[:date])
 		logger.debug "-------------- Date: #{@date}"
@@ -17,11 +18,13 @@ class ClassroomsController < ApplicationController
 			abscences = []
 			attendanceList = params['attendance']
 			for student in attendanceList
-				logger.debug "-------------- Student: #{student[1]}"
+				logger.debug "-------------- Student: #{student}"
 				if student[1] == '1'
 					tardys.append(student[0].to_i)
 				elsif student[1] == '2'
 					abscences.append(student[0].to_i)
+				else
+					
 				end
 			end
 			Attendance.add_class(@classroom, @date, {tardy: tardys, absent: abscences})
@@ -67,6 +70,23 @@ class ClassroomsController < ApplicationController
 		end
 		render 'classroominfo'
 	end
+
+
+
+	def attendanceList
+		@classroom = Classroom.find_by_id(params[:id])
+		dateString = params[:dateString]
+		currentDateTime = DateTime.strptime(dateString, "%Y-%m-%d")
+		timeMax = currentDateTime.end_of_day
+		attendanceList = Attendance.get_date_range(@classroom, currentDateTime, timeMax)
+		#logger.debug "-------------" + attendanceList.to_a.to_s
+		studentsDictionary = {}
+		@classroom.students.each do |student|
+			studentsDictionary[student.id] = [student, student.user]
+		end 
+		render json: {list: attendanceList, students: studentsDictionary}
+	end 
+
 
 	private
 
