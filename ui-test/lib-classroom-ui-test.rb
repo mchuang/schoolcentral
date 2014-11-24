@@ -16,23 +16,23 @@ def createNewAssignment(name, description, max_points, due_date, due_time)
 	@@driver.find_element(:name => "commit").click
 end
 
-def selectCurrentAssignment(assignmentName)
+def hasCurrentAssignment(assignmentName)
 	assignments = @@driver.find_elements(:class => "assignments-table")[0].find_elements(:tag_name => "tr")
 	assignments.each do |assignment|
-		info = assignment.find_elements(:tag_name => "a")
-		if info[0].text == assignmentName
+		info = assignment.find_element(:tag_name => "a")
+		if info.text == assignmentName
 			return true
 		end
 	end
 	return false
 end
 
-def hasCurrentAssignment(assignmentName)
+def selectCurrentAssignment(assignmentName)
 	assignments = @@driver.find_elements(:class => "assignments-table")[0].find_elements(:tag_name => "tr")
 	assignments.each do |assignment|
-		info = assignment.find_elements(:tag_name => "a")
-		if info[0].text == assignmentName
-			into[0].click
+		info = assignment.find_element(:tag_name => "a")
+		if info.text == assignmentName
+			info.click
 		end
 	end
 end
@@ -40,8 +40,8 @@ end
 def getCurrentAssignmentDueDate(assignmentName)
 	assignments = @@driver.find_elements(:class => "assignments-table")[0].find_elements(:tag_name => "tr")
 	assignments.each do |assignment|
-		info = assignment.find_elements(:tag_name => "a")
-		if info[0].text == assignmentName
+		info = assignment.find_elements(:tag_name => "td")
+		if info[0].find_element(:tag_name => "a").text == assignmentName
 			return info[2].text
 		end
 	end
@@ -51,17 +51,18 @@ end
 def selectPastAssignment(assignmentName)
 	assignments = @@driver.find_elements(:class => "assignments-table")[1].find_elements(:tag_name => "tr")
 	assignments.each do |assignment|
-		info = assignment.find_elements(:tag_name => "a")
-		if info[0].text == assignmentName
-			info[0].click
+		info = assignment.find_element(:tag_name => "a")
+		if info.text == assignmentName
+			info.click
 		end
 	end
 end
 
 def hasPastAssignment(name)
-	rows = @@driver.find_elements(:class => "assignments-table")[1].find_elements(:tag_name => "tbody")
+	rows = @@driver.find_elements(:class => "assignments-table")[1].find_elements(:tag_name => "tr")
 	rows.each do |row|
-		if row.find_elements(:tag_name => "a")[0].text == name
+		info = row.find_element(:tag_name => "a")
+		if info.text == name
 			return true
 		end
 	end
@@ -71,8 +72,8 @@ end
 def getPastAssignmentDueDate(assignmentName)
 	assignments = @@driver.find_elements(:class => "assignments-table")[1].find_elements(:tag_name => "tr")
 	assignments.each do |assignment|
-		info = assignment.find_elements(:tag_name => "a")
-		if info[0].text == assignmentName
+		info = assignment.find_elements(:tag_name => "td")
+		if info[0].find_element(:tag_name => "a").text == assignmentName
 			return info[2].text
 		end
 	end
@@ -136,7 +137,8 @@ def getGrade(name, assignment)
 			grades.each do |grade|
 				row = grade.find_elements(:tag_name => "td")
 				if row[1].text == name
-					return row[count].text
+					grade = row[count].text
+					return grade.split('/')[0]
 					break
 				end
 			end
