@@ -22,6 +22,8 @@
 
 //@author: voe
 
+// Dropzone.autoDiscover = false;
+
 function toggleModal(id) {
 
 	if ($('#'+id).get(0).style.display != 'block') {
