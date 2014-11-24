@@ -9,6 +9,9 @@ assertIdElementExists("classlist")
 assertIdElementExists("calendar-content")
 assertIdElementExists("day-feed-panel-body")
 
+hasDayInfoFeed()
+hasCalendar()
+
 logout()
 
 close()
