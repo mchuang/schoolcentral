@@ -98,25 +98,6 @@ RSpec.describe Attendance, :type => :model do
     expect(Attendance.get_week_array(start + 1.week)).not_to match_array(week)
   end
 
-  it "attendance add_class adds all students" do
-    date = "2014-10-15"
-    cls  = FactoryGirl.create(:classroom)
-    std1 = FactoryGirl.create(:student, :id => 1)
-    std2 = FactoryGirl.create(:student, :id => 2)
-    std3 = FactoryGirl.create(:student, :id => 3)
-    cls.students = [std1, std2, std3]
-    cls.save
-
-    Attendance.add_class(cls, date, absent: [2], tardy: [3])
-    expect(cls.attendance.count).to eq(3)
-    expect(cls.attendance.find_by(:student_id => 1).status).to eq(0)
-    expect(cls.attendance.find_by(:student_id => 2).status).to eq(2)
-    expect(cls.attendance.find_by(:student_id => 3).status).to eq(1)
-    cls.attendance.each {|atd|
-        expect(atd.date.strftime("%F")).to eq(date)
-    }
-  end
-
   it "attendance invalid status" do
     expect {
       FactoryGirl.create(:attendance, :status => -1)
@@ -124,5 +105,42 @@ RSpec.describe Attendance, :type => :model do
     expect {
       FactoryGirl.create(:attendance, :status => 3)
     }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
+  describe "attendance add_class" do
+    before(:each) do
+      @date = DateTime.strptime("2014-10-15", "%Y-%m-%d")
+      @cls  = FactoryGirl.create(:classroom)
+      std1 = FactoryGirl.create(:student, :id => 1)
+      std2 = FactoryGirl.create(:student, :id => 2)
+      std3 = FactoryGirl.create(:student, :id => 3)
+      @cls.students = [std1, std2, std3]
+      @cls.save
+    end
+
+    it "attendance add_class adds all students" do
+      Attendance.add_class(@cls, @date, absent: [2], tardy: [3])
+      expect(@cls.attendance.count).to eq(3)
+      expect(@cls.attendance.find_by(:student_id => 1).status).to eq(0)
+      expect(@cls.attendance.find_by(:student_id => 2).status).to eq(2)
+      expect(@cls.attendance.find_by(:student_id => 3).status).to eq(1)
+      @cls.attendance.each {|atd|
+          expect(atd.date).to eq(@date)
+      }
+    end
+
+    it "attendance add_class updates existing records" do
+      Attendance.add_class(@cls, @date, absent: [2], tardy: [3])
+      expect(@cls.attendance.count).to eq(3)
+      expect(@cls.attendance.find_by(student_id: 1).status).to eq(0)
+      expect(@cls.attendance.find_by(student_id: 2).status).to eq(2)
+      expect(@cls.attendance.find_by(student_id: 3).status).to eq(1)
+
+      Attendance.add_class(@cls, @date, absent: [1], tardy: [2])
+      expect(@cls.attendance.count).to eq(3) # no new records
+      expect(@cls.attendance.find_by(student_id: 1).status).to eq(2)
+      expect(@cls.attendance.find_by(student_id: 2).status).to eq(1)
+      expect(@cls.attendance.find_by(student_id: 3).status).to eq(0)
+    end
   end
 end
