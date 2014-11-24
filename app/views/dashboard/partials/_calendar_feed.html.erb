@@ -1,11 +1,18 @@
 <div class="col-sm-7">
 	<div id="calendar" class="container-fluid calendar">
 		<div id="calendar-header" class="row calendar-header">
-			<h2 class="month-label">Month</h2>
-			<div class="btn-group calendar-navigation">
-				<button type="button" class="btn btn-default" onclick="previousMonth()">prev</button>
-				<button type="button" class="btn btn-default" onclick="setCalendarToToday()">today</button>
-				<button type="button" class="btn btn-default" onclick="nextMonth()">next</button>
+			<div class="calendar-header-left">
+				<div class="btn-group">
+					<button type="button" class="btn btn-default" onclick="previousMonth()">prev</button>
+					<button type="button" class="btn btn-default" onclick="setCalendarToToday()">today</button>
+					<button type="button" class="btn btn-default" onclick="nextMonth()">next</button>
+				</div>
+			</div>
+			<div class="calendar-header-middle">
+				<h2 id="month-label" class="month-label">Month</h2>
+			</div>
+			<div class="calendar-header-right">
+  				<button class="btn btn-sm new-event-button" onclick="toggleModal('newEventModal')">+</button>
 			</div>
 		</div>
 		<div class="row calendar-week-header">

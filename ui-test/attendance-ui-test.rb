@@ -7,8 +7,9 @@ open()
 login("test_teacher", "password")
 selectClassroom("test_class")
 toAttendanceTab()
-changeAttendance("test_student", "2014-11-17", 2)
+changeAttendance("test_student", "2014-11-24", 2)
 toAttendanceTab()
+#verify("tardy", getAttendance("test_student, TEST", "2014-11-24"))
 
 logout()
 

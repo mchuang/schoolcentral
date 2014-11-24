@@ -37,6 +37,7 @@ class AssignmentsController < ApplicationController
 
 	def show
 		@assignment = Assignment.find(params[:id])
+		@classroom = Classroom.find(@assignment.classroom_id)
 		if current_user.account_type == "Student"
 			@submission = current_user.account.submission(@assignment.id)
 		end

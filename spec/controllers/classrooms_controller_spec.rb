@@ -42,12 +42,12 @@ RSpec.describe ClassroomsController, :type => :controller do
       @c = {:id=> @class0.id}
       @a = {@student0.account.id => 1}
       post :setAttendance, :id => @class0.id, :classroom => @c,:attendance => @a, :date => '2000-01-01'
-      expect(response).to redirect_to(classroom_path(@class0))
+      expect(response).to redirect_to(classroom_path(@class0, anchor: "attendance"))
       expect(assigns(@classroom)['classroom']).to eq(@class0)
 
       @a = {@student0.account.id => 2}
       post :setAttendance, :id => @class0.id, :classroom => @c, :attendance => @a, :date => '2000-01-02'
-      expect(response).to redirect_to(classroom_path(@class0))
+      expect(response).to redirect_to(classroom_path(@class0,anchor: "attendance"))
       expect(assigns(@classroom)['classroom']).to eq(@class0)
     end
 
@@ -64,7 +64,7 @@ RSpec.describe ClassroomsController, :type => :controller do
         grades: grades,
       }
       post :setGrades, params
-      expect(response).to redirect_to(classroom_path(@class0))
+      expect(response).to redirect_to(classroom_path(@class0,anchor: "grades"))
       grades.each {|id,grade|
         expect(asgn.get_submission(id).grade).to eq(grade.to_i)
       }

@@ -1,0 +1,37 @@
+<!-- @author: voe -->
+
+<div class="modal" id="newEventModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title center">New Event</h2>
+      </div>
+      <div class="modal-body">
+        <h4 class="center">create a newEvent</h4>
+        <%= form_tag events_path do %>
+          <div>
+            <%= label_tag(:name, "name:") %>
+            <%= text_field_tag(:name, nil, required: true) %>
+          </div>
+          <div>
+            <%= label_tag(:description, "description:") %>
+            <%= text_area_tag(:description, "add a description") %>
+          </div>
+          <div>
+            <%= label_tag(:date, "date:") %>
+            <%= date_field(:due, "date", required: true) %>
+          </div>
+          <div>
+            <%= label_tag(:due_time, "due time:") %>
+            <%= time_field(:due, "time", value: "23:59", required: true) %>
+          </div>
+          <br>
+          <%= submit_tag("create event") %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="toggleModal('newEventModal')">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
