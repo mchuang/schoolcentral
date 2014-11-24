@@ -26,7 +26,7 @@ class Classroom < ActiveRecord::Base
     # Return all assignments with future due datetime
     def current_assignments
         currentAssignments = []
-        for a in assignments
+        for a in assignments.order('due ASC')
             if a.due > DateTime.now
                 currentAssignments.append(a)
             end
@@ -37,7 +37,7 @@ class Classroom < ActiveRecord::Base
     # Return all assignments with past due datetime
     def past_assignments
         pastAssignments = []
-        for a in assignments
+        for a in assignments.order('due DESC')
             if a.due < DateTime.now
                 pastAssignments.append(a)
             end
