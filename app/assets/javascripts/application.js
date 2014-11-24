@@ -17,6 +17,7 @@
 //= require bootstrap.min
 //= require moment
 //= require jquery.autoSuggest
+//= require dropzone
 
 
 //@author: voe
@@ -32,6 +33,12 @@ function toggleModal(id) {
 }
 
 var subTabs = ["students", "assignments", "attendance", "grades"];
+
+function setTab() {
+	if (window.location.hash !== "") {
+		toggleTab(window.location.hash.substring(1));
+	}
+}
 
 function toggleTab(identifier) {
 
@@ -131,8 +138,8 @@ function getCalendarEvents(year, month) {
 
 function renderCalendarDates(data) {
 	calendarContentNode = $("#calendar-content").get(0);
-	calendarHeaderNode = $("#calendar-header").get(0);
-	calendarHeaderNode.children[0].innerText = data.monthString;
+	calendarHeaderNode = $("#month-label").get(0);
+	calendarHeaderNode.innerText = data.monthString;
 
 	while (calendarContentNode.firstChild) {
     	calendarContentNode.removeChild(calendarContentNode.firstChild);

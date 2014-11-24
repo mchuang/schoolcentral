@@ -25,20 +25,6 @@ class Event < ActiveRecord::Base
 		lastDate = calendar_last_date(year, month)
 
 		dateArr = (firstDate..lastDate).to_a
-
-		# dateHashArr = []
-		# i = 0
-		# while i < dateArr.length
-		# 	weekArr = []
-		# 	for j in (0..6)
-		# 		date = dateArr[i+j]
-		# 		weekArr.push({date: date.day, month: date.month})
-		# 	end
-		# 	dateHashArr.push(weekArr)
-		# 	i += 7
-		# end
-		# return dateHashArr
-
 		i = 0
 		weekArr = []
 		while i < dateArr.length
