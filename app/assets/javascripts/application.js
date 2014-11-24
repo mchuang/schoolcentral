@@ -230,6 +230,8 @@ function renderDayEvents(data) {
 		if (events[i].owner_type == "Assignment") {
 			var eventID = events[i].owner_id;
 			$('#day-feed-panel-body').append("<div><a href='../assignments/"+eventID+"'>"+events[i].name+"</a></div>");
+		} else {
+			$('#day-feed-panel-body').append("<div>" + events[i].name + "</div>");
 		}
 	}
 }
