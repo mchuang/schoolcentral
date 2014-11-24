@@ -4,7 +4,7 @@ require_relative 'lib-profile-ui-test'
 
 open()
 
-login("test_teacher", "password")
+login("test_teacher", "password", "ths")
 toProfile()
 editPassword("password", "password!")
 editAddress("Soda Hall")
@@ -14,7 +14,7 @@ verify("cs169@cory.eecs.berkeley.edu", getEmail())
 verify("Soda Hall", getAddress())
 verify("123-456-7890", getPhoneNumber())
 logout()
-login("test_teacher", "password!")
+login("test_teacher", "password!", "ths")
 toProfile()
 verify("cs169@cory.eecs.berkeley.edu", getEmail())
 verify("Soda Hall", getAddress())

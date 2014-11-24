@@ -4,7 +4,7 @@ require_relative 'lib-classroom-ui-test'
 
 open()
 
-login("test_teacher", "password")
+login("test_teacher", "password", "ths")
 selectClassroom("test_class")
 
 assertIdElementExists("profile-display")
@@ -24,7 +24,7 @@ assertIdElementExists("grades-content")
 
 logout()
 
-login("test_student", "password")
+login("test_student", "password", "ths")
 selectClassroom("test_class")
 
 assertIdElementExists("profile-display")

@@ -6,3 +6,4 @@ ruby -W0 assignments-ui-test.rb
 ruby -W0 attendance-ui-test.rb
 ruby -W0 grades-ui-test.rb
 ruby -W0 students-ui-test.rb
+ruby -W0 file-submission-ui-test.rb

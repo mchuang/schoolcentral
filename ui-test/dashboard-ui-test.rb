@@ -3,7 +3,7 @@ require_relative 'lib-dashboard-ui-test'
 
 open()
 
-login("test_teacher", "password")
+login("test_teacher", "password", "ths")
 
 assertIdElementExists("profile-display")
 assertIdElementExists("classlist")

@@ -4,7 +4,7 @@ require_relative 'lib-classroom-ui-test'
 
 open()
 
-login("test_teacher", "password")
+login("test_teacher", "password", "ths")
 selectClassroom("test_class")
 toAttendanceTab()
 changeAttendance("test_student", "2014-11-24", 2)

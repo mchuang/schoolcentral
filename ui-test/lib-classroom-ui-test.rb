@@ -48,6 +48,17 @@ def getCurrentAssignmentDueDate(assignmentName)
 	return nil
 end
 
+def submitCurrentAssignment(assignmentName)
+	@@driver.find_element(id: 'submission_file').send_keys File.join(Dir.pwd, assignmentName)
+	@@driver.find_element(name: 'commit').click
+end
+
+def getSubmittedAssignment
+	@@driver.find_element(:id => "gradesInputModal")
+	@@driver.find_element(:class => "background").find_element(:tag_name => "a").click
+	return @@driver.find_element(:tag_name => "pre").text
+end
+
 def selectPastAssignment(assignmentName)
 	assignments = @@driver.find_elements(:class => "assignments-table")[1].find_elements(:tag_name => "tr")
 	assignments.each do |assignment|
@@ -197,7 +208,7 @@ def changeAttendance(name, date, attendance)
 		link = selectDate.find_element(:tag_name => "a")
 		if link.text == date
 			link.click
-			form = @@driver.find_element(:id => "attendanceInputModal")
+			form = @@driver.find_element(:id => "attendance-table")
 			students = form.find_element(:tag_name => "tbody")
 			rows = students.find_elements(:tag_name => "tr")
 			rows.each do |row|
@@ -205,9 +216,9 @@ def changeAttendance(name, date, attendance)
 				if cells[0].find_element(:tag_name => "label").text == name
 					cells[1].click
 					row.find_elements(:tag_name => "option")[attendance].click
-					submit = form.find_element(:name => "commit")
+					submit = @@driver.find_element(:class => "modal-body").find_element(:name => "commit")
 					submit.location_once_scrolled_into_view
-					form.find_element(:name => "commit").click
+					@@driver.find_element(:class => "modal-body").find_element(:name => "commit").click
 					break
 				end
 			end
