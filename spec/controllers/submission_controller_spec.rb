@@ -15,7 +15,7 @@ RSpec.describe SubmissionController, :type => :controller do
 	end
 
 		describe "Submission Controller" do
-	it "uploads" do 
+	xit "uploads" do 
 		params = {file: @file, 
 			submission_id: @submission0.id }
 		post :upload, params 

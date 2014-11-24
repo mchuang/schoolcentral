@@ -6,5 +6,8 @@ FactoryGirl.define do
     time ""
     location "MyString"
     description "MyString"
+    school {
+      School.find_by_identifier("ths") || FactoryGirl.create(:school, identifier: "ths")
+    }
   end
 end
