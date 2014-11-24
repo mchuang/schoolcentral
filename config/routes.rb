@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   post 'classrooms/setGrades'
   get 'classrooms/getClassroom'
   post 'classrooms/editClassroom'
+  post 'classrooms/sendEmail'
   get 'classrooms/attendanceList'
   get 'classrooms/gradesList'
 

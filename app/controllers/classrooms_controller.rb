@@ -71,7 +71,22 @@ class ClassroomsController < ApplicationController
 		render 'classroominfo'
 	end
 
+	def sendEmail
+		@classroom = Classroom.find(params[:id])
+		@destinations = params[:destinations].split(',')
+		@students = current_user.account.students.map{|s| s.user.email}
 
+		email_params = {
+			bcc: @destinations.keep_if {|addr| @students.include? addr},
+			subject: params[:subject],
+			message: params[:content]
+		}
+		if current_user.blast_email(email_params)
+			redirect_to classroom_path(@classroom, anchor: "students"), notice: "email sent successfully"
+		else
+			redirect_to classroom_path(@classroom, anchor: "students"), error: "error: email not sent"
+		end
+	end
 
 	def attendanceList
 		@classroom = Classroom.find_by_id(params[:id])

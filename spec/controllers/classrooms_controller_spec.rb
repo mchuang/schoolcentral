@@ -7,9 +7,9 @@ RSpec.describe ClassroomsController, :type => :controller do
   before(:each) do
     @class0 = FactoryGirl.create(:classroom)
     # @admin0   = FactoryGirl.create(:admin_user,   email: "", identifier: "admin0")
-    @teacher0 = FactoryGirl.create(:teacher_user, email: "", identifier: "teacher0")
-    @student0 = FactoryGirl.create(:student_user, email: "", identifier: "student0")
-    @student1 = FactoryGirl.create(:student_user, email: "", identifier: "student1")
+    @teacher0 = FactoryGirl.create(:teacher_user, email: "a", identifier: "teacher0")
+    @student0 = FactoryGirl.create(:student_user, email: "b", identifier: "student0")
+    @student1 = FactoryGirl.create(:student_user, email: "c", identifier: "student1")
     @attendance0 = FactoryGirl.create(:attendance, student: @student0.account)
     @class0.attendance << @attendance0
     @class0.teachers << @teacher0.account
@@ -96,6 +96,30 @@ RSpec.describe ClassroomsController, :type => :controller do
       expect(@class0.name).to eq(params[:course])
     end
 
+  end
+
+  describe "emails" do
+    before(:each) do
+      sign_in @teacher0
+      post :sendEmail, {
+        subject: "test_email",
+        content: "test_message_content",
+        id: @class0.id,
+        destinations: [@student0.email, @student1.email].join(',')
+      }
+    end
+
+    after(:each) do
+      ActionMailer::Base.deliveries.clear
+    end
+
+    it { expect(ActionMailer::Base.deliveries.count).to eq(1) }
+    it { expect(ActionMailer::Base.deliveries.last.subject).to eq("test_email") }
+    it { expect(ActionMailer::Base.deliveries.last.from).to    match_array([@teacher0.email]) }
+    it { expect(ActionMailer::Base.deliveries.last.to).to      eq(nil) }
+    it { expect(ActionMailer::Base.deliveries.last.cc).to      eq(nil) }
+    it { expect(ActionMailer::Base.deliveries.last.bcc).to     match_array([@teacher0.email, @student0.email]) }
+    it { expect(ActionMailer::Base.deliveries.last.bcc).not_to match_array([@teacher0.email, @student0.email, @student1.email]) }
   end
 
 end
