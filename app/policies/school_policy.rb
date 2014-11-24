@@ -7,16 +7,13 @@ class SchoolPolicy < ApplicationPolicy
       case type
         # Admins can see their own school
         when 'Admin'
-          scope.where({id:user.school(&:id)})
-          # scope.all
+          scope.where(id: user.school_id)
         # Teachers can see their own school
         when 'Teacher'
-          scope.where({id:user.school(&:id)})
-          # scope.all
+          scope.where(id: user.school_id)
         # Students can see their own school
         when 'Student'
-          scope.where({id:user.school(&:id)})
-          # scope.all
+          scope.where(id: user.school_id)
       end
     end
   end

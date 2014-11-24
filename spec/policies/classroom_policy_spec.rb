@@ -8,13 +8,14 @@ before(:each) do
     # Factory_girl definitions found in spec/factories
     # *name*_user factories create a User AND associated account, and
     # return the newly created User instance
-    @admin0   = FactoryGirl.create(:admin_user,   email: "", identifier: "admin0")
-    @teacher0 = FactoryGirl.create(:teacher_user, email: "", identifier: "teacher0")
-    @teacher1 = FactoryGirl.create(:teacher_user, email: "", identifier: "teacher1")
-    @student0 = FactoryGirl.create(:student_user, email: "", identifier: "student0")
-    @student1 = FactoryGirl.create(:student_user, email: "", identifier: "student1")
-    @class0   = FactoryGirl.create(:classroom,    name: "class0")
-    @class1   = FactoryGirl.create(:classroom,    name: "class1")
+    @school1  = FactoryGirl.create(:school)
+    @admin0   = FactoryGirl.create(:admin_user,   school: @school1, email: "", identifier: "admin0")
+    @teacher0 = FactoryGirl.create(:teacher_user, school: @school1, email: "", identifier: "teacher0")
+    @teacher1 = FactoryGirl.create(:teacher_user, school: @school1, email: "", identifier: "teacher1")
+    @student0 = FactoryGirl.create(:student_user, school: @school1, email: "", identifier: "student0")
+    @student1 = FactoryGirl.create(:student_user, school: @school1, email: "", identifier: "student1")
+    @class0   = FactoryGirl.create(:classroom,    school: @school1, name: "class0")
+    @class1   = FactoryGirl.create(:classroom,    school: @school1, name: "class1")
 
     @class0.teachers << @teacher0.account
     @class0.students << @student0.account
@@ -24,15 +25,15 @@ before(:each) do
   
 #First test
   describe "Admin Scope on Classroom" do
-    it {expect(ClassroomPolicy::Scope.new(@admin0,Classroom).resolve).to eq(Classroom.all)}
+    it {expect(ClassroomPolicy::Scope.new(@admin0,Classroom).resolve).to match_array(@school1.classrooms)}
   end
 #Second test
   describe "Teacher Scope on Classroom" do
-    it {expect(ClassroomPolicy::Scope.new(@teacher0,Classroom).resolve).to eq(Classroom.where({id: @teacher0.account.classrooms.map(&:id)}))}
+    it {expect(ClassroomPolicy::Scope.new(@teacher0,Classroom).resolve).to match_array(Classroom.where({id: @teacher0.account.classrooms.map(&:id)}))}
   end
 #Third test
   describe "Student Scope on Classroom" do 
-    it {expect(ClassroomPolicy::Scope.new(@student0,Classroom).resolve).to eq(Classroom.where({id: @student0.account.classrooms.map(&:id)}))}
+    it {expect(ClassroomPolicy::Scope.new(@student0,Classroom).resolve).to match_array(Classroom.where({id: @student0.account.classrooms.map(&:id)}))}
   end
 
   permissions :index? do

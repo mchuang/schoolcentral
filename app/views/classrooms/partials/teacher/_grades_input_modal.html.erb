@@ -10,12 +10,14 @@
           <%= hidden_field(:classroom, :id) %>
           <input id="assignment-specifier" type="hidden" name="assignment">
 
-          <table class="table table-striped table-condensed">
+          <table id="grades-table" class="table table-striped table-condensed">
             <thead>
               <th>Name</th>
               <th>Grade</th>
             </thead>
             <tbody>
+
+              <!-- This is generated in the Javascript -->
               <% for student in @classroom.students %>
                 <tr>
                   <td><%=student.user.last_name%>, <%=student.user.first_name%></td>
@@ -25,6 +27,9 @@
                   </td>
                 </tr>
               <% end %>
+
+
+
             </tbody>
           </table>
 
@@ -37,7 +42,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default"
-        onclick="toggleGradesModal('#{assignment.id}, #{assignment.name}')">Close</button>
+        onclick="toggleGradesModal('#{assignment.id}', '#{assignment.name}', '#{@classroom.id}')">Close</button>
       </div>
     </div>
   </div>

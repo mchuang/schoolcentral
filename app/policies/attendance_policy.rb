@@ -34,9 +34,9 @@ class AttendancePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       case user.account_type
-        # Admins can see everything
+        # Admins can see everything for their school
         when 'Admin'
-          scope.all
+          scope.where(classroom_id: user.school.classrooms.map(&:id))
         # Teachers can see only their own students
         when 'Teacher'
           scope.where(classroom_id: user.account.classrooms.map(&:id))

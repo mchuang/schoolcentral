@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'dashboard/calendarEvents'
   get 'dashboard/dayEvents'
 
+
   post 'users/update_address'
   post 'users/update_email'
   post 'users/update_password'
@@ -20,6 +21,8 @@ Rails.application.routes.draw do
   post 'classrooms/setGrades'
   get 'classrooms/getClassroom'
   post 'classrooms/editClassroom'
+  get 'classrooms/attendanceList'
+  get 'classrooms/gradesList'
 
   # post 'submission/upload'
   # get 'forms/form'

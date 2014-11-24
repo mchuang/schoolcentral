@@ -4,8 +4,8 @@
 <table class="table table-striped table-condensed attendance-table">
 	<thead>
 		<th>name</th>
-		<% for day in Attendance.get_week_array(Date.today()) %>
-			<th><%= link_to day.to_s, '#', onclick: "toggleAttendanceModal('#{day.to_s}')" %></th>
+		<% for day in Attendance.get_week_array(Date.current) %>
+			<th><%= link_to day.to_s, '#', onclick: "toggleAttendanceModal('#{day.to_s}', '#{@classroom.id}')" %></th>
 		<% end %>
 	</thead>
 	<tbody>
@@ -16,6 +16,7 @@
 				<% for day in Attendance.get_week_array(Date.today()) %>
 					<% has_value = false %>
 					<% for attendance in row %>
+						
 						<% if attendance.date == day %>
 							<% has_value = true %>
 							<td><%= attendance.get_status() %></td>

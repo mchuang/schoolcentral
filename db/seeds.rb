@@ -20,7 +20,8 @@ puts "Creating test Admin..."
 test_admin = User.create_account("Admin", {
     :identifier => "test_admin",
     :email => "test_admin@fake.com",
-    :first_name => "TEST",
+    :first_name => "Alex",
+    :last_name => "Administrator",
     :password => "password",
     :password_confirmation => "password",
     :school => school,
@@ -30,7 +31,8 @@ puts "Creating test Teacher..."
 test_teacher = User.create_account("Teacher", {
     :identifier => "test_teacher",
     :email => "test_teacher@fake.com",
-    :first_name => "TEST",
+    :first_name => "Tammy",
+    :last_name => "Teacher",
     :password => "password",
     :password_confirmation => "password",
     :school => school,
@@ -38,7 +40,8 @@ test_teacher = User.create_account("Teacher", {
 test_teacher2 = User.create_account("Teacher", {
     :identifier => "test_teacher2",
     :email => "test_teacher2@fake.com",
-    :first_name => "TEST",
+    :first_name => "Taylor",
+    :last_name => "Teacher",
     :password => "password",
     :password_confirmation => "password",
     :school => school,
@@ -48,7 +51,8 @@ puts "Creating test Student..."
 test_student = User.create_account("Student", {
     :identifier => "test_student",
     :email => "test_student@fake.com",
-    :first_name => "TEST",
+    :first_name => "Samantha",
+    :last_name => "Student",
     :password => "password",
     :password_confirmation => "password",
     :school => school,
@@ -94,12 +98,51 @@ cls4.teachers << test_teacher
 cls1.students << test_student
 cls2.students << test_student
 
+names = [
+    "Glenn Pingree",
+    "Angel Janysek",
+    "Nichol Haney",
+    "Charles Storment",
+    "Maragaret Ostler",
+    "Almeta Lanka",
+    "Marcus Armistead",
+    "Aubrey Ohta",
+    "Kris Haroldsen",
+    "Nana Muccia",
+    "Cherilyn Dangelo",
+    "Dorothy Khalid",
+    "Max Whitledge",
+    "Mika Loreman",
+    "Matthew Metoxen",
+    "Audria Tilus",
+    "Rafaela Ren",
+    "Devin Applewhaite",
+    "Emerald Sloat",
+    "Ray Shirk",
+    "Elena Roloff",
+    "Craig Mith",
+    "Garry Romanini",
+    "Dollie Eisenberg",
+    "Sheena Keefauver",
+    "Darleen Gron",
+    "Jackqueline Wormwood",
+    "Delois Neubauer",
+    "Jamie Beat",
+    "Ema Sundt",
+    "Dona Gritten",
+    "Monique Callow",
+    "Whitney Desiderio",
+    "Pa Aulder",
+]
+
 # Enroll additional students
 (0...nstudents).each do |sid|
+    fname, lname = names[sid].split
     std = User.create_account("Student", {
         :identifier => "cls_student_#{sid}",
         :email => "cls_student_#{sid}@fake.com",
-        :first_name => "TEST",
+        :first_name => fname,
+        :last_name => lname,
         :password => "password",
         :password_confirmation => "password",
         :school => school,
