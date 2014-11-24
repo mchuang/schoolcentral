@@ -46,6 +46,7 @@
 		
 		<form id="dropzone" action="/submission/upload" class="dropzone assignment-dropzone" >
 			<%= hidden_field_tag(:submission_id, @submission.id) %>
+			<%= hidden_field_tag(:assignment_id, @assignment.id) %>
   			<div class="fallback">
     			<input name="file" type="file" multiple />
   			</div>

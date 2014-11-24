@@ -16,21 +16,27 @@ class Attendance < ActiveRecord::Base
     # of the given classroom on the given date. options[:absent]
     # and options[:tardy] should be arrays of student ids in the
     # class. Attendance status defaults to present for all others
+    #
+    # Existing attendance records are updated in place
     def self.add_class(classroom, date, options={})
+        absent = options.fetch(:absent, [])
+        tardy  = options.fetch(:tardy,  [])
+        date   = date.beginning_of_day
         classroom.students.each {|std|
-            if options.fetch(:absent, []).include? std.id
+            if absent.include? std.id
                 status = @@ABSENT
-            elsif options.fetch(:tardy, []).include? std.id
+            elsif tardy.include? std.id
                 status = @@TARDY
             else
                 status = @@PRESENT
             end
-            Attendance.create(
-                :classroom_id => classroom.id,
-                :student_id => std.id,
-                :date => date,
-                :status => status
-            )
+            att = Attendance.where(
+                classroom_id: classroom.id,
+                student_id: std.id,
+                date: date
+            ).first_or_initialize
+            att.status = status
+            att.save!
         }
     end
 

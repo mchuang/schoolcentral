@@ -4,22 +4,77 @@
 
 // @author: voe
 
-.jumbotron {
-	color: black;
+.background.home {
+	padding: 0px;
+	margin: 0px;
 }
 
-.jumbotron.background {
+.horizontal-divider {
+	position: relative;
+	height: 60%;
+}
+
+.overlay {
+	position: relative;
 	background-size: cover;
-	background-position-y: 72%;
-	height: 750px;
+	background-position-y: 80%;
+	height: 100%;
 }
 
-.spaced {
-	margin-bottom: 20%;
+.overlay.padded {
+	padding-top: 100px;
+	padding-left: 40px;
+	padding-right: 40px;
 }
 
+.home-content-display {
+	position: relative;
+	text-align: center;
+	padding: 0px;
+	z-index: 1;
+}
 
+.content-body {
+	padding: 70px;
+}
 
-.navbar-right {
-	margin-right: 0px;
+.content-body-header {
+	position: relative;
+	text-align: center;
+	font-size: 50pt;
+	font-weight: 200;
+}
+
+.content-body-text {
+	position: relative;
+	font-size: 14pt;
+	font-weight: 200;
+}
+
+.home-content-display .backdrop {
+	position: absolute;
+	text-align: center;
+	background-color: beige;
+	opacity: .5;
+	height: 100%;
+	width: 100%;
+	border-radius: 10px;
+	z-index: -1;
+}
+
+.split-content-display {
+	position: absolute;
+	width: 70%;
+}
+
+.split-content-display .backdrop {
+	position: absolute;
+	background-color: white;
+	height: 100%;
+	width: 100%;
+	z-index: 0;
+}
+
+.split-content-display.right {
+	right: 0px;
 }
