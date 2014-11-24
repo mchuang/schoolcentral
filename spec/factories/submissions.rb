@@ -10,6 +10,6 @@ FactoryGirl.define do
   end
 
   factory :file_submission, parent: :submission do
-    file Rack::Test::UploadedFile.new(Rails.root.join("spec/testfile/hw.pdf"))
+    file Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/files/hw.pdf"))
   end
 end
