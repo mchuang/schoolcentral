@@ -26,14 +26,12 @@
 							<td><%= student.submission(@assignment.id).grade %>/<%= @assignment.max_points %></td>
 						<% end %>
 					</tr>
+
 				<% end %>
 			</tbody>		
 		</table>
 
-      <%if @submission.filename%>
-          <h1>name: <%= @submission.filename %></h1>
-          <%= link_to "Download", model.file.url(:original, false) %>
-      <%end%>
+
 
 	<% else %>
         <!--test-->
@@ -52,7 +50,7 @@
 
 
 
-      <%if @submission.filename%>
+      <%if @submission.filename %>
           <h1>File: <%= link_to "#{@submission.filename}", @submission.file.url(:original, false) %> </h1>
       <%end%>
 
