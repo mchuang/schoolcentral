@@ -34,9 +34,9 @@ class TeacherPolicy < ApplicationPolicy
     def resolve
       type = user.account_type
       case type
-        # Admins can see everything
+        # Admins can see everything for their school
         when 'Admin'
-          scope.all
+          user.school.teachers
         # Teachers can see only themselves
         when 'Teacher'
           scope.where(id: user.account_id)

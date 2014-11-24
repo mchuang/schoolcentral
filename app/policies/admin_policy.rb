@@ -35,11 +35,11 @@ class AdminPolicy < ApplicationPolicy
       type = user.account_type
       case type
         when 'Admin'
-          scope.all
+          user.school.admins
         when 'Teacher'
-          scope.all
+          user.school.admins
         when 'Student'
-          scope.all
+          user.school.admins
       end
     end
   end

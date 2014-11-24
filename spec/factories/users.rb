@@ -10,6 +10,9 @@ FactoryGirl.define do
     last_name              "Smith"
     password               "password"
     password_confirmation  "password"
+    school {
+      School.find_by_identifier("ths") || FactoryGirl.create(:school, identifier: "ths")
+    }
   end
 
   factory :admin_user, parent: :user do
