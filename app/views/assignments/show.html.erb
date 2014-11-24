@@ -30,6 +30,11 @@
 			</tbody>		
 		</table>
 
+      <%if @submission.filename%>
+          <h1>name: <%= @submission.filename %></h1>
+          <%= link_to "Download", model.file.url(:original, false) %>
+      <%end%>
+
 	<% else %>
         <!--test-->
         <h1> student's name: <%= current_user.first_name %></h1>
@@ -43,12 +48,12 @@
 		<% else %>	
 			<h3>grade: <%= @submission.grade %>/<%= @assignment.max_points %></h3>
 		<% end %>
-		
+
 
 
 
       <%if @submission.filename%>
-          <h1>name: <%= @submission.filename %></h1>
+          <h1>File: <%= link_to "#{@submission.filename}", @submission.file.url(:original, false) %> </h1>
       <%end%>
 
       <%= form_for(@submission) do |f| %>
