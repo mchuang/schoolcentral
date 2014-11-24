@@ -26,11 +26,11 @@
 			</div>
 			<div class="field">
 				<%= label_tag :teachers %><br>
-			    <%= text_field_tag :teachers, @classroom.teachers %>
+			    <%= text_field_tag :teachers, @classroom.teachers.map {|t| t.user.identifier}.join(',') %>
 			</div>
 			<div class="field">
 				<%= label_tag :students %><br>
-			    <%= text_field_tag :students, @classroom.students %>
+			    <%= text_field_tag :students, @classroom.students.map {|s| s.user.identifier}.join(',') %>
 			</div>
 			<div class="actions">
 			    <%= submit_tag 'Save Changes' %>
