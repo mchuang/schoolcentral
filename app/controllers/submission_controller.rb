@@ -8,6 +8,6 @@ skip_before_action :verify_authenticity_token
 			@submission = Submission.find(params[:submission_id])
 			@submission.update(file: params[:file])
 		end
-		render json: {success: "yay"}
+		render json: {success: "is it even getting here?"}
 	end
 end
