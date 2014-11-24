@@ -42,7 +42,7 @@ class ClassroomsController < ApplicationController
 				studentScore = gradesSheet[student.to_s]
 				sub.update(grade: studentScore.to_i)
 			end
-			redirect_to classroom_path(@classroom, anchor: "attendance")
+			redirect_to classroom_path(@classroom, anchor: "grades")
 		else
 			redirect_to @classroom
 		end	

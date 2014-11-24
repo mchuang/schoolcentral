@@ -6,6 +6,8 @@ class Teacher < ActiveRecord::Base
 	#teacher is a member of many classrooms 
 	has_and_belongs_to_many :classrooms
 
+	has_many :events, :as => :owner, :dependent => :destroy
+
     has_many :assignments
 
 	#return list of all students for a teacher in all classrooms
@@ -13,7 +15,11 @@ class Teacher < ActiveRecord::Base
 		classrooms.map {|cls| cls.students}.flatten.uniq
 	end
 
-	def events 
-		Event.where(classroom_id: classrooms.map(&:id))
+	alias_method :reminders, :events
+	# Return an ActiveRecord::Relation containing all events related to this teacher
+	def events
+		# Rewrote SQL in order to allow OR statement, other solutions?
+		Event.where('(owner_id = :uid AND owner_type = :typ) OR classroom_id IN (:classes)',
+			{ uid: id, typ: "Teacher", classes: classrooms.map(&:id) })
 	end
 end
