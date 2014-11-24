@@ -124,8 +124,8 @@ def toGradesTab
 end
 
 def getGrade(name, assignment)
-	headers = @@driver.find_element(:class => "table").find_elements(:tag_name => "th")
-	grades = @@driver.find_element(:class => "table").find_elements(:tag_name => "tr")
+	headers = @@driver.find_element(:id => "grades-content").find_element(:class => "table").find_elements(:tag_name => "th")
+	grades = @@driver.find_element(:id => "grades-content").find_element(:class => "table").find_elements(:tag_name => "tr")
 	count = 2
 	puts headers.length
 	headers.each do |header|
@@ -178,7 +178,6 @@ def getAttendance(name, date, attendance)
 		if selectDate.text == date
 			students.each do |student|
 				row = student.find_elements(:tag_name => "td")
-				puts row.length
 				if row[0].text == name
 					return row[count].text
 				end
