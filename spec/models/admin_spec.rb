@@ -4,8 +4,8 @@ RSpec.describe Admin, :type => :model do
   # pending "add some examples to (or delete) #{__FILE__}"
 
   before(:each) do
-    @school0 = FactoryGirl.create(:school, name: "school0")
-    @school1 = FactoryGirl.create(:school, name: "school1")
+    @school0 = FactoryGirl.create(:school, name: "school0", identifier: "sc0")
+    @school1 = FactoryGirl.create(:school, name: "school1", identifier: "sc1")
     @admin0 = FactoryGirl.create(:admin_user, email: "", school: @school0, identifier: "admin0")
     @admin1 = FactoryGirl.create(:admin_user, email: "", school: @school1, identifier: "admin1")
     

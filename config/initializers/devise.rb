@@ -258,5 +258,5 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
   # Use virtual attribute to allow login by email or identifier
-  config.authentication_keys = [ :login ]
+  config.authentication_keys = [ :login, :school_id ]
 end

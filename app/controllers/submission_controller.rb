@@ -2,12 +2,12 @@
 class SubmissionController < ApplicationController
 skip_before_action :verify_authenticity_token
 	def upload
+		logger.debug params
 		if params[:file]!=nil
-			@id = params[:submission_id]
-			@file = params[:file]
-			@submission = Submission.find(@id)
-			@submission.update(file: @file)
+			@assignment = Assignment.find(params[:assignment_id])
+			@submission = Submission.find(params[:submission_id])
+			@submission.update(file: params[:file])
 		end
-		redirect_to('assignment/show')
+		render json: {success: "yay"}
 	end
 end

@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'selenium-webdriver'
 
-@@driver = Selenium::WebDriver.for :firefox
+@@driver = Selenium::WebDriver.for :chrome
 @@driver.manage.timeouts.implicit_wait = 10
 @@wait = Selenium::WebDriver::Wait.new(:timeout => 10)
 

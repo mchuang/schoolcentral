@@ -39,13 +39,15 @@ class User < ActiveRecord::Base
   end
 
   # Overwrite to allow find_by identifier OR email in the same field
+  # login is scoped by school, given the school identifier string
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions).where(["identifier = :value OR lower(email) = lower(:value)", { :value => login }]).first
-    else
-      where(conditions).first
-    end
+    school = School.find_by_identifier(conditions.delete(:school_id))
+    login = conditions.delete(:login)
+    scope = where(conditions)\
+      .where("identifier = :value OR lower(email) = lower(:value)", { value: login })\
+      .where("school_id = ?", school.nil? ? nil : school.id)\
+      .first
   end
 
   # Create User and associated account object
@@ -71,6 +73,25 @@ class User < ActiveRecord::Base
     pass = random_password(10)
     params[:password] = params[:password_confirmation] = pass
     return create_account(account_type, params), pass
+  end
+
+  # Send an email message to given recipients
+  def send_email(params)
+    params[:from] ||= email
+    UserMailer.custom_email(params).deliver
+  end
+
+  # Send an email message to multiple, separate recipients (using bcc)
+  def blast_email(params)
+    # Accumulates all addresses from :to, :cc, and :bcc fields into one array
+    recipients = [:to, :cc, :bcc].map {|f| params.fetch(f, [])}.flatten + [email]
+    mail_params = {
+      from:    params.fetch(:from, email),
+      bcc:     recipients.uniq,
+      subject: params[:subject], # Required
+      message: params[:message], # Required
+    }
+    UserMailer.custom_email(mail_params).deliver
   end
 
   private

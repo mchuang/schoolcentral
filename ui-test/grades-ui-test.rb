@@ -11,7 +11,7 @@ toGradesTab()
 
 editGrade("1", "Iteration 2 doc", 100)
 toGradesTab()
-puts getGrade("test_student", "Iteration 2 doc")
+verify("100", getGrade("test_student", "Iteration 2 doc"))
 
 logout()
 
