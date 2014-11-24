@@ -73,7 +73,7 @@ class ClassroomsController < ApplicationController
 
 	def sendEmail
 		@classroom = Classroom.find(params[:id])
-		@destinations = params[:destinations].split(',')
+		@destinations = params[:destinations].split(',').map(&:strip)
 		@students = current_user.account.students.map{|s| s.user.email}
 
 		email_params = {
