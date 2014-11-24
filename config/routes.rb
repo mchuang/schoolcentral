@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   post 'classrooms/editClassroom'
 
   #form
-  # get 'form.html'
+  get 'forms/form'
 
   devise_for :users, 
     :path => '',
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   root 'static#home'
 
-  resources :users, :classrooms, :assignments
+  resources :users, :classrooms, :assignments, :submissions
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

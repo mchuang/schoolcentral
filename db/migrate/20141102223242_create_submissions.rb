@@ -5,7 +5,7 @@ class CreateSubmissions < ActiveRecord::Migration
       t.integer :grade
       t.integer :assignment_id
       t.integer :student_id
-
+      t.attachment :file
       t.timestamps
     end
   end
