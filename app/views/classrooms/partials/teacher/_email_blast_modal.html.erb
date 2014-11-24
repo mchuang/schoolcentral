@@ -1,0 +1,48 @@
+<div class="modal" id="emailBlastModal">
+  	<div class="modal-dialog email-modal-dialog">
+    	<div class="modal-content email">
+      		<div class="modal-header">
+        		<h2 id="gradesTitle" class="modal-title center">Email Blast Wizard</h2>
+      		</div>
+      		<div class="row modal-body">
+      			<div class="col-sm-5 email-contact-selector">
+      				<table class="table table-condensed email-contact-table">
+						<tbody>
+							<% for student in @classroom.students %>
+								<tr id=<%="row#{student.id}"%> class="contact-row" onclick=<%="addToMailList(#{student.id})"%> >
+									<td><%= student.user.last_name %>, <%= student.user.first_name %></td>
+									<td class="user-email"><%= student.user.email %></td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+      			</div>
+      			<div class="col-sm-7 email-content">
+      				<%= form_tag "/classrooms/sendEmail" do %>
+      				<%= hidden_field_tag(:id, @classroom.id) %>
+      					<div>
+				        	<%= label_tag(:to, "to:") %>
+				        	<%= text_field_tag(:destinations, nil, required: true) %>
+				      	</div>
+				      	<hr>
+				      	<div>
+				      		<%= label_tag(:subject, "subject:") %>
+				        	<%= text_field_tag(:subject, nil, required: false) %>
+				      	</div>
+				      	<hr>
+				      	<div>
+				      		<%= label_tag(:content, "") %>
+				      		<%= text_area_tag(:content, nil, required: true) %>
+				      	</div>
+
+	      	          	<%= submit_tag("create assignment", class: 'btn email-submit-button') %>
+      				<% end %>
+      			</div>
+        
+      		</div>
+      		<div class="modal-footer">
+        		<button type="button" class="btn btn-default" onclick="toggleModal('emailBlastModal')">Close</button>
+      		</div>
+    	</div>
+  	</div>
+</div>
