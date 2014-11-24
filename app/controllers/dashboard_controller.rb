@@ -38,7 +38,8 @@ class DashboardController < ApplicationController
 					:first_name => params[:firstname],
 					:middle_name => params[:middlename],
 					:last_name => params[:lastname],
-					:identifier => params[:id]
+					:identifier => params[:id],
+					:school => current_user.school
 					})
 			when "Teachers"
 				@info = Teacher.all
@@ -46,7 +47,8 @@ class DashboardController < ApplicationController
 					:first_name => params[:firstname],
 					:middle_name => params[:middlename],
 					:last_name => params[:lastname],
-					:identifier => params[:id]
+					:identifier => params[:id],
+					:school => current_user.school
 					})
 			when "Classrooms"
 				@info = Classroom.all
@@ -55,7 +57,8 @@ class DashboardController < ApplicationController
 					:time => params[:time],
 					:location => params[:location],
 					:description => params[:description],
-					:student_capacity => params[:capacity]
+					:student_capacity => params[:capacity],
+					:school => current_user.school
 					)
 				if User.find_by_identifier(params[:teacher])
 					classroom.teachers << User.find_by_identifier(params[:teacher]).account
@@ -65,7 +68,7 @@ class DashboardController < ApplicationController
 						classroom.students << User.find_by_identifier(student).account
 					end
 				end
-				classroom.save
+				classroom.save!
 		end
 		render 'admin_dashboard'
 	end
