@@ -9,7 +9,9 @@ login("test_teacher", "password")
 selectClassroom("test_class")
 toGradesTab()
 
-editGrade("test_student", "Iteration 2 doc", 100)
+editGrade("1", "Iteration 2 doc", 100)
+toGradesTab()
+puts getGrade("test_student", "Iteration 2 doc")
 
 logout()
 
