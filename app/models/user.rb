@@ -73,6 +73,25 @@ class User < ActiveRecord::Base
     return create_account(account_type, params), pass
   end
 
+  # Send an email message to given recipients
+  def send_email(params)
+    params[:from] ||= email
+    UserMailer.custom_email(params).deliver
+  end
+
+  # Send an email message to multiple, separate recipients (using bcc)
+  def blast_email(params)
+    # Accumulates all addresses from :to, :cc, and :bcc fields into one array
+    recipients = [:to, :cc, :bcc].map {|f| params.fetch(f, [])}.flatten + [email]
+    mail_params = {
+      from:    params.fetch(:from, email),
+      bcc:     recipients.uniq,
+      subject: params[:subject], # Required
+      message: params[:message], # Required
+    }
+    UserMailer.custom_email(mail_params).deliver
+  end
+
   private
 
   # Generates a random string of printable characters with given length
