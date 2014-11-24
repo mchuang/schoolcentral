@@ -5,7 +5,7 @@ require_relative 'lib-classroom-ui-test'
 
 open()
 
-login("test_teacher", "password")
+login("test_teacher", "password", "ths")
 selectClassroom("test_class")
 toGradesTab()
 

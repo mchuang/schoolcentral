@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'selenium-webdriver'
 
-@@driver = Selenium::WebDriver.for :chrome
+@@driver = Selenium::WebDriver.for :firefox
 @@driver.manage.timeouts.implicit_wait = 10
 @@wait = Selenium::WebDriver::Wait.new(:timeout => 10)
 
@@ -13,14 +13,16 @@ def close
 	@@driver.quit
 end
 
-def login(username_input, password_input)
+def login(username_input, password_input, school_input)
 	navBarLogin()
 	@@driver.find_element(:id => "new_user") 
 	username = @@driver.find_element :id => "username-field"
 	password = @@driver.find_element :id => "password-field"
+	school = @@driver.find_element :id => "school-field"
 
 	username.send_keys username_input
 	password.send_keys password_input
+	school.send_keys school_input
 
 	loginBtn = @@driver.find_element :id => "login-button"
 	loginBtn.click
@@ -31,7 +33,7 @@ def logout
 	logoutBtn =  @@driver.find_element :id => "logout-btn" 
 	logoutBtn.click
 
-	@@driver.find_element :class => "jumbotron"
+	@@driver.find_element :class => "backdrop"
 end
 
 def navBarLogin

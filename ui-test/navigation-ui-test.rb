@@ -5,7 +5,7 @@ require_relative 'lib-dashboard-ui-test'
 
 open()
 
-login("test_admin", "password")
+login("test_admin", "password", "ths")
 toStudentsAdminTab()
 toTeachersAdminTab()
 toClassroomsAdminTab()
@@ -14,7 +14,7 @@ navBarHome()
 clickProfDisplay()
 logout()
 
-login("test_teacher", "password")
+login("test_teacher", "password", "ths")
 selectClassroom("test_class")
 toAssignmentsTab()
 toGradesTab()
@@ -25,7 +25,7 @@ navBarHome()
 clickProfDisplay()
 logout()
 
-login("test_student", "password")
+login("test_student", "password", "ths")
 selectClassroom("test_class")
 toAssignmentsTab()
 toGradesTab()
