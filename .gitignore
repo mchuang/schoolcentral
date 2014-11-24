@@ -16,6 +16,7 @@
 /tmp
 /.idea
 
+# Ignore Submission Files
 /public/system
 
 # Ignore Coverage output
