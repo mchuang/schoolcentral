@@ -35,7 +35,7 @@
     				<h3><%= t.name %></h3>
     			</div>
     		<% else %>
-				<%= link_to classroom_path(t), id: t.id do %>
+				<%= link_to classroom_path(t), id: t.name do %>
 					<div class="row classlist-item">
 						<h3><%= t.name %></h3>
 					</div>
