@@ -101,6 +101,23 @@ function toggleGradesModal(assignmentId, assignmentName) {
 	}
 }
 
+function addToMailList(id) {
+	var idString = "#row" + id.toString();
+	var emailString = $(idString + " .user-email").text();
+	if (event.currentTarget.classList.contains("selected")) {
+		event.currentTarget.classList.remove("selected");
+		var destinationArray = $("#destinations").val().split(",  ");
+		stringIndex = destinationArray.indexOf(emailString);
+		if (stringIndex >= 0) {
+			var newArray = destinationArray.slice(0, stringIndex).concat(destinationArray.slice(stringIndex+1, destinationArray.length));
+			$("#destinations").val(newArray.join(",  "));
+		}
+	} else {
+		event.currentTarget.classList.add("selected");
+		$("#destinations").val($("#destinations").val() + emailString + ",  ") 
+	}
+}
+
 function setCalendarToToday() {
 	selectedMonth = new Date();
 	dateSelected = false;
