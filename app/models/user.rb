@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   belongs_to :school
 
   # Belongs to Teachers/Students/Admins (as account)
-  belongs_to :account, :polymorphic => true
+  belongs_to :account, :polymorphic => true, :autosave => true
 
   validates :identifier, presence: { unless: :email_present? }
   validates :email,      presence: { unless: :identifier_present? }
@@ -54,15 +54,19 @@ class User < ActiveRecord::Base
   def self.create_account(account_type, params)
     case account_type.downcase
       when 'admin'
-        params[:account] = Admin.create()
+        params[:account] = Admin.new()
       when 'teacher'
-        params[:account] = Teacher.create()
+        params[:account] = Teacher.new()
       when 'student'
-        params[:account] = Student.create()
+        params[:account] = Student.new()
       else
         raise ArgumentError, "#{account_type} is not a valid user type"
     end
-    User.create(params).account
+    if (user = User.new(params)).save
+      user.account
+    else
+      nil
+    end
   end
 
   # Create User and associated account with a random password. The

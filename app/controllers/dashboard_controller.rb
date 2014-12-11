@@ -33,8 +33,9 @@ class DashboardController < ApplicationController
 		@infoType = params[:infoType]
 		case params[:infoType]
 			when "Students"
-				@info = Student.all
-				User.create_account_random_pass("Student", {
+				resource, pass = User.create_account_random_pass(
+					"Student",
+					{
 					:first_name => params[:firstname],
 					:middle_name => params[:middlename],
 					:last_name => params[:lastname],
@@ -42,8 +43,9 @@ class DashboardController < ApplicationController
 					:school => current_user.school
 					})
 			when "Teachers"
-				@info = Teacher.all
-				User.create_account_random_pass("Teacher", {
+				resource, pass = User.create_account_random_pass(
+					"Teacher",
+					{
 					:first_name => params[:firstname],
 					:middle_name => params[:middlename],
 					:last_name => params[:lastname],
@@ -51,8 +53,7 @@ class DashboardController < ApplicationController
 					:school => current_user.school
 					})
 			when "Classrooms"
-				@info = Classroom.all
-				classroom = Classroom.create(
+				resource = classroom = Classroom.create(
 					:name => params[:name],
 					:time => params[:time],
 					:location => params[:location],
@@ -60,17 +61,22 @@ class DashboardController < ApplicationController
 					:student_capacity => params[:capacity],
 					:school => current_user.school
 					)
-				if User.find_by_identifier(params[:teacher])
-					classroom.teachers << User.find_by_identifier(params[:teacher]).account
+				if user = User.find_by_identifier(params[:teacher])
+					classroom.teachers << user.account
 				end
-				params[:students].split(',').each do |student|
-					if User.find_by_identifier(student)
-						classroom.students << User.find_by_identifier(student).account
+				params[:students].split(',').map(&:strip).each do |student|
+					if user = User.find_by_identifier(student)
+						classroom.students << user.account
 					end
 				end
-				classroom.save!
 		end
-		render 'admin_dashboard'
+		if resource && resource.save
+			redirect_to dashboard_admin_dashboard_path(infoType: @infoType),
+				:notice => "Resource successfully created"
+		else
+			redirect_to dashboard_new_form_path(infoType: @infoType),
+				:notice => "An error occurred, try again"
+		end
 	end
 
 	def calendarDates

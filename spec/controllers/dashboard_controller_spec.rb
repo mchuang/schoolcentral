@@ -54,7 +54,7 @@ RSpec.describe DashboardController, :type => :controller do
 		it "new_create rendering" do
 			sign_in @admin0
 			post :new_create
-			expect(response).to render_template('admin_dashboard')
+			expect(response).to redirect_to(dashboard_new_form_path)
 		end
 		it "new_create Student account" do
 			params = {
